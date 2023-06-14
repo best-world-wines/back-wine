@@ -3,7 +3,7 @@
 ### Requests
 
 - PUT: /wines/id - update wine
-- Post: /wines/create - create wine
+- Post: /wines/create - create wine - only admin
 - GET: /wines - get all wines
 - GET: /wines/id - get wine by id
 
