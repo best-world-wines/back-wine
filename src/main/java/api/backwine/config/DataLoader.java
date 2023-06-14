@@ -1,25 +1,27 @@
 package api.backwine.config;
 
-import api.backwine.model.Wine;
+import api.backwine.dto.api.ApiResponseDto;
 import api.backwine.repository.WineRepository;
-import api.backwine.service.WineService;
+import api.backwine.service.HttpClient;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+
+import java.rmi.server.UnicastRemoteObject;
 
 @Component
 @RequiredArgsConstructor
 public class DataLoader {
     private final WineRepository wineRepository;
-
-    private static final String API_URL = "https://api.example.com/wines";
-
+    private final HttpClient httpClient;
+    @Value("${api.url.wines}")
+    private String url;
 
     @PostConstruct
     @Transactional
     public void init() {
+        ApiResponseDto apiResponseDto = httpClient.get(url, ApiResponseDto.class);
     }
 }
