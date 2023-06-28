@@ -1,19 +1,19 @@
 package api.backwine.dto.response;
 
+import java.util.List;
 import lombok.Data;
 
 @Data
 public class WineResponseDto {
     private Long id;
-    private String color;
-    private String type;
-    private String country;
+    private String image;
+    private String name;
+    private String seoName;
+    private String description;
+    private int year;
     private String region;
-    private String subregion;
-    private String classification;
-    private int harvestYear;
-    private String variety;
-    private String strength;
-    private double volume;
-    private String producer;
+    private String winery;
+    private List<String> taste;
+    private List<String> grapes;
+    private List<String> interestingFacts;
 }

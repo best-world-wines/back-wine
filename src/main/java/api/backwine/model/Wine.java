@@ -6,7 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.ElementCollection;
 import lombok.Data;
 
 @Entity
@@ -16,18 +18,21 @@ public class Wine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String color;
-    private String type;
-    private String country;
+    private String image;
+    private String name;
+    @Column(name = "seo_name")
+    private String seoName;
+    private String description;
+    private int year;
     private String region;
-    private String subregion;
-    private String classification;
-    @Column(name = "harvestyear")
-    private int harvestYear;
-    private String variety;
-    private String strength;
-    private double volume;
-    private String producer;
+    private String winery;
+    @ElementCollection
+    private List<String> taste;
+    @ElementCollection
+    private List<String> grapes;
+    @ElementCollection
+    @Column(name = "interesting_facts")
+    private List<String> interestingFacts;
 
     public Wine() {
     }
@@ -40,28 +45,44 @@ public class Wine {
         this.id = id;
     }
 
-    public String getColor() {
-        return color;
+    public String getImage() {
+        return image;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCountry() {
-        return country;
+    public String getSeoName() {
+        return seoName;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setSeoName(String seoName) {
+        this.seoName = seoName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getRegion() {
@@ -72,78 +93,36 @@ public class Wine {
         this.region = region;
     }
 
-    public String getSubregion() {
-        return subregion;
+    public String getWinery() {
+        return winery;
     }
 
-    public void setSubregion(String subregion) {
-        this.subregion = subregion;
+    public void setWinery(String winery) {
+        this.winery = winery;
     }
 
-    public String getClassification() {
-        return classification;
+    public List<String> getTaste() {
+        return taste;
     }
 
-    public void setClassification(String classification) {
-        this.classification = classification;
+    public void setTaste(List<String> taste) {
+        this.taste = taste;
     }
 
-    public int getHarvestYear() {
-        return harvestYear;
+    public List<String> getGrapes() {
+        return grapes;
     }
 
-    public void setHarvestYear(int harvestYear) {
-        this.harvestYear = harvestYear;
+    public void setGrapes(List<String> grapes) {
+        this.grapes = grapes;
     }
 
-    public String getVariety() {
-        return variety;
+    public List<String> getInterestingFacts() {
+        return interestingFacts;
     }
 
-    public void setVariety(String variety) {
-        this.variety = variety;
-    }
-
-    public String getStrength() {
-        return strength;
-    }
-
-    public void setStrength(String strength) {
-        this.strength = strength;
-    }
-
-    public double getVolume() {
-        return volume;
-    }
-
-    public void setVolume(double volume) {
-        this.volume = volume;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-
-    public void setProducer(String producer) {
-        this.producer = producer;
-    }
-
-    @Override
-    public String toString() {
-        return "Wine{"
-                + "id=" + id
-                + ", color='" + color + '\''
-                + ", type='" + type + '\''
-                + ", country='" + country + '\''
-                + ", region='" + region + '\''
-                + ", subregion='" + subregion + '\''
-                + ", classification='" + classification + '\''
-                + ", harvestYear=" + harvestYear
-                + ", variety='" + variety + '\''
-                + ", strength='" + strength + '\''
-                + ", volume=" + volume
-                + ", producer='" + producer + '\''
-                + '}';
+    public void setInterestingFacts(List<String> interestingFacts) {
+        this.interestingFacts = interestingFacts;
     }
 
     @Override
@@ -155,26 +134,39 @@ public class Wine {
             return false;
         }
         Wine wine = (Wine) o;
-        return harvestYear == wine.harvestYear
-                && Double.compare(wine.volume, volume) == 0
+        return year == wine.year
                 && Objects.equals(id, wine.id)
-                && Objects.equals(color, wine.color)
-                && Objects.equals(type, wine.type)
-                && Objects.equals(country, wine.country)
+                && Objects.equals(image, wine.image)
+                && Objects.equals(name, wine.name)
+                && Objects.equals(seoName, wine.seoName)
+                && Objects.equals(description, wine.description)
                 && Objects.equals(region, wine.region)
-                && Objects.equals(subregion, wine.subregion)
-                && Objects.equals(classification, wine.classification)
-                && Objects.equals(variety, wine.variety)
-                && Objects.equals(strength, wine.strength)
-                && Objects.equals(producer, wine.producer);
+                && Objects.equals(winery, wine.winery)
+                && Objects.equals(taste, wine.taste)
+                && Objects.equals(grapes, wine.grapes)
+                && Objects.equals(interestingFacts, wine.interestingFacts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, color, type, country,
-                region, subregion,
-                classification, harvestYear,
-                variety, strength,
-                volume, producer);
+        return Objects.hash(id, image, name, seoName, description,
+                year, region, winery, taste, grapes, interestingFacts);
+    }
+
+    @Override
+    public String toString() {
+        return "Wine{"
+                + "id=" + id
+                + ", image='" + image + '\''
+                + ", name='" + name + '\''
+                + ", seoName='" + seoName + '\''
+                + ", description='" + description + '\''
+                + ", year=" + year
+                + ", region='" + region + '\''
+                + ", winery='" + winery + '\''
+                + ", taste=" + taste
+                + ", grapes=" + grapes
+                + ", interestingFacts=" + interestingFacts
+                + '}';
     }
 }

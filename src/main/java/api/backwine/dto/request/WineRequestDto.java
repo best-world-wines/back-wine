@@ -1,30 +1,29 @@
 package api.backwine.dto.request;
 
+import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class WineRequestDto {
     @NotNull
-    private String color;
+    private String image;
     @NotNull
-    private String type;
+    private String name;
     @NotNull
-    private String country;
+    private String seoName;
+    @NotNull
+    private String description;
+    @NotNull
+    private int year;
     @NotNull
     private String region;
     @NotNull
-    private String subregion;
+    private String winery;
     @NotNull
-    private String classification;
+    private List<String> taste;
     @NotNull
-    private int harvestYear;
+    private List<String> grapes;
     @NotNull
-    private String variety;
-    @NotNull
-    private String strength;
-    @NotNull
-    private double volume;
-    @NotNull
-    private String producer;
+    private List<String> interestingFacts;
 }
