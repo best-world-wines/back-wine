@@ -3,40 +3,45 @@ package api.backwine.dto.mapper;
 import api.backwine.dto.request.WineRequestDto;
 import api.backwine.dto.response.WineResponseDto;
 import api.backwine.model.Wine;
+import api.backwine.repository.WineRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class WineMapper {
+    private final WineRepository wineRepository;
+
+    public WineMapper(WineRepository wineRepository) {
+        this.wineRepository = wineRepository;
+    }
+
     public Wine mapToModel(WineRequestDto wineRequestDto) {
         Wine wine = new Wine();
-        wine.setColor(wineRequestDto.getColor());
-        wine.setType(wineRequestDto.getType());
-        wine.setCountry(wineRequestDto.getCountry());
+        wine.setImage(wineRequestDto.getImage());
+        wine.setName(wineRequestDto.getName());
+        wine.setSeoName(wineRequestDto.getSeoName());
+        wine.setDescription(wineRequestDto.getDescription());
+        wine.setYear(wineRequestDto.getYear());
         wine.setRegion(wineRequestDto.getRegion());
-        wine.setSubregion(wineRequestDto.getSubregion());
-        wine.setClassification(wineRequestDto.getClassification());
-        wine.setHarvestYear(wineRequestDto.getHarvestYear());
-        wine.setVariety(wineRequestDto.getVariety());
-        wine.setStrength(wineRequestDto.getStrength());
-        wine.setVolume(wineRequestDto.getVolume());
-        wine.setProducer(wineRequestDto.getProducer());
+        wine.setWinery(wineRequestDto.getWinery());
+        wine.setTaste(wineRequestDto.getTaste());
+        wine.setGrapes(wineRequestDto.getGrapes());
+        wine.setInterestingFacts(wineRequestDto.getInterestingFacts());
         return wine;
     }
 
     public WineResponseDto mapToDto(Wine wine) {
         WineResponseDto wineResponseDto = new WineResponseDto();
         wineResponseDto.setId(wine.getId());
-        wineResponseDto.setColor(wine.getColor());
-        wineResponseDto.setType(wine.getType());
-        wineResponseDto.setCountry(wine.getCountry());
+        wineResponseDto.setImage(wine.getImage());
+        wineResponseDto.setName(wine.getName());
+        wineResponseDto.setSeoName(wine.getSeoName());
+        wineResponseDto.setDescription(wine.getDescription());
+        wineResponseDto.setYear(wine.getYear());
         wineResponseDto.setRegion(wine.getRegion());
-        wineResponseDto.setSubregion(wine.getSubregion());
-        wineResponseDto.setClassification(wine.getClassification());
-        wineResponseDto.setHarvestYear(wine.getHarvestYear());
-        wineResponseDto.setVariety(wine.getVariety());
-        wineResponseDto.setStrength(wine.getStrength());
-        wineResponseDto.setVolume(wine.getVolume());
-        wineResponseDto.setProducer(wine.getProducer());
+        wineResponseDto.setWinery(wine.getWinery());
+        wineResponseDto.setTaste(wine.getTaste());
+        wineResponseDto.setGrapes(wine.getGrapes());
+        wineResponseDto.setInterestingFacts(wine.getInterestingFacts());
         return wineResponseDto;
     }
 }
