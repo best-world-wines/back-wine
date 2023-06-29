@@ -7,8 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.persistence.ElementCollection;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import lombok.Data;
 
 @Entity
@@ -18,16 +21,21 @@ public class Wine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String image;
+    @ElementCollection
+    private List<String> images;
     private String name;
-    @Column(name = "seo_name")
-    private String seoName;
-    private String description;
+    private String varietal;
+    private double price;
+    @Column(name = "bottle_volume")
+    private double bottleVolume;
     private int year;
+    private String country;
     private String region;
     private String winery;
+    private String description;
     @ElementCollection
-    private List<String> taste;
+    @Enumerated(EnumType.STRING)
+    private Map<TasteType, Double> tastes;
     @ElementCollection
     private List<String> grapes;
     @ElementCollection
@@ -35,6 +43,14 @@ public class Wine {
     private List<String> interestingFacts;
 
     public Wine() {
+    }
+
+    public enum TasteType {
+        ACIDITY,
+        FIZZINESS,
+        INTENSITY,
+        SWEETNESS,
+        TANNIN
     }
 
     public Long getId() {
@@ -45,12 +61,12 @@ public class Wine {
         this.id = id;
     }
 
-    public String getImage() {
-        return image;
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public String getName() {
@@ -61,20 +77,28 @@ public class Wine {
         this.name = name;
     }
 
-    public String getSeoName() {
-        return seoName;
+    public String getVarietal() {
+        return varietal;
     }
 
-    public void setSeoName(String seoName) {
-        this.seoName = seoName;
+    public void setVarietal(String varietal) {
+        this.varietal = varietal;
     }
 
-    public String getDescription() {
-        return description;
+    public double getPrice() {
+        return price;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getBottleVolume() {
+        return bottleVolume;
+    }
+
+    public void setBottleVolume(double bottleVolume) {
+        this.bottleVolume = bottleVolume;
     }
 
     public int getYear() {
@@ -83,6 +107,14 @@ public class Wine {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getRegion() {
@@ -101,12 +133,20 @@ public class Wine {
         this.winery = winery;
     }
 
-    public List<String> getTaste() {
-        return taste;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTaste(List<String> taste) {
-        this.taste = taste;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Map<TasteType, Double> getTastes() {
+        return tastes;
+    }
+
+    public void setTastes(Map<TasteType, Double> tastes) {
+        this.tastes = tastes;
     }
 
     public List<String> getGrapes() {
@@ -134,37 +174,42 @@ public class Wine {
             return false;
         }
         Wine wine = (Wine) o;
-        return year == wine.year
-                && Objects.equals(id, wine.id)
-                && Objects.equals(image, wine.image)
+        return Double.compare(wine.price, price) == 0
+                && Double.compare(wine.bottleVolume, bottleVolume) == 0
+                && year == wine.year && Objects.equals(id, wine.id)
+                && Objects.equals(images, wine.images)
                 && Objects.equals(name, wine.name)
-                && Objects.equals(seoName, wine.seoName)
-                && Objects.equals(description, wine.description)
+                && Objects.equals(varietal, wine.varietal)
+                && Objects.equals(country, wine.country)
                 && Objects.equals(region, wine.region)
                 && Objects.equals(winery, wine.winery)
-                && Objects.equals(taste, wine.taste)
+                && Objects.equals(description, wine.description)
+                && Objects.equals(tastes, wine.tastes)
                 && Objects.equals(grapes, wine.grapes)
                 && Objects.equals(interestingFacts, wine.interestingFacts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, image, name, seoName, description,
-                year, region, winery, taste, grapes, interestingFacts);
+        return Objects.hash(id, images, name, varietal, price, bottleVolume, year,
+                country, region, winery, description, tastes, grapes, interestingFacts);
     }
 
     @Override
     public String toString() {
-        return "Wine{"
-                + "id=" + id
-                + ", image='" + image + '\''
+        return "Wine{" +
+                "id=" + id
+                + ", images=" + images
                 + ", name='" + name + '\''
-                + ", seoName='" + seoName + '\''
-                + ", description='" + description + '\''
+                + ", varietal='" + varietal + '\''
+                + ", price=" + price
+                + ", bottleVolume=" + bottleVolume
                 + ", year=" + year
+                + ", country='" + country + '\''
                 + ", region='" + region + '\''
                 + ", winery='" + winery + '\''
-                + ", taste=" + taste
+                + ", description='" + description + '\''
+                + ", tastes=" + tastes
                 + ", grapes=" + grapes
                 + ", interestingFacts=" + interestingFacts
                 + '}';
