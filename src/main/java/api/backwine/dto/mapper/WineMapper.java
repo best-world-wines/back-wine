@@ -16,14 +16,17 @@ public class WineMapper {
 
     public Wine mapToModel(WineRequestDto wineRequestDto) {
         Wine wine = new Wine();
-        wine.setImage(wineRequestDto.getImage());
+        wine.setImages(wineRequestDto.getImages());
         wine.setName(wineRequestDto.getName());
-        wine.setSeoName(wineRequestDto.getSeoName());
-        wine.setDescription(wineRequestDto.getDescription());
+        wine.setVarietal(wineRequestDto.getVarietal());
+        wine.setPrice(wineRequestDto.getPrice());
+        wine.setBottleVolume(wineRequestDto.getBottleVolume());
         wine.setYear(wineRequestDto.getYear());
+        wine.setCountry(wineRequestDto.getCountry());
         wine.setRegion(wineRequestDto.getRegion());
         wine.setWinery(wineRequestDto.getWinery());
-        wine.setTaste(wineRequestDto.getTaste());
+        wine.setDescription(wineRequestDto.getDescription());
+        wine.setTastes(wineRequestDto.getTastes());
         wine.setGrapes(wineRequestDto.getGrapes());
         wine.setInterestingFacts(wineRequestDto.getInterestingFacts());
         return wine;
@@ -32,14 +35,17 @@ public class WineMapper {
     public WineResponseDto mapToDto(Wine wine) {
         WineResponseDto wineResponseDto = new WineResponseDto();
         wineResponseDto.setId(wine.getId());
-        wineResponseDto.setImage(wine.getImage());
+        wineResponseDto.setImages(wine.getImages());
         wineResponseDto.setName(wine.getName());
-        wineResponseDto.setSeoName(wine.getSeoName());
-        wineResponseDto.setDescription(wine.getDescription());
+        wineResponseDto.setVarietal(wine.getVarietal());
+        wineResponseDto.setPrice(wine.getPrice());
+        wineResponseDto.setBottleVolume(wine.getBottleVolume());
         wineResponseDto.setYear(wine.getYear());
+        wineResponseDto.setCountry(wine.getCountry());
         wineResponseDto.setRegion(wine.getRegion());
         wineResponseDto.setWinery(wine.getWinery());
-        wineResponseDto.setTaste(wine.getTaste());
+        wineResponseDto.setDescription(wine.getDescription());
+        wineResponseDto.setTastes(wine.getTastes());
         wineResponseDto.setGrapes(wine.getGrapes());
         wineResponseDto.setInterestingFacts(wine.getInterestingFacts());
         return wineResponseDto;
