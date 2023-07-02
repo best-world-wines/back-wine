@@ -34,9 +34,9 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.GET, "/shop")
-                            .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
+                            .hasAnyRole("USER", "ADMIN");
                     auth.requestMatchers(HttpMethod.POST, "/wine/create")
-                            .hasAnyAuthority("ROLE_ADMIN");
+                            .hasAnyRole("ADMIN");
                     auth.requestMatchers("/**").permitAll();
                 })
                 .httpBasic()

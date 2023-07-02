@@ -1,38 +1,39 @@
 package api.backwine.service.impl;
 
-import api.backwine.dao.WineDao;
 import api.backwine.model.Wine;
+import api.backwine.repository.WineRepository;
 import api.backwine.service.WineService;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class WineServiceImpl implements WineService {
-    private final WineDao wineDao;
+    private final WineRepository wineRepository;
 
-    public WineServiceImpl(WineDao wineDao) {
-        this.wineDao = wineDao;
+    public WineServiceImpl(WineRepository wineRepository) {
+        this.wineRepository = wineRepository;
     }
 
     @Override
     public List<Wine> getAllWines() {
-        return wineDao.findAll();
+        return wineRepository.findAll();
     }
 
     @Override
     public Wine getWineById(Long id) {
-        return wineDao.findById(id).orElseThrow(() ->
-                new RuntimeException("Can't get wine by id " + id));
+        return wineRepository.findById(id).orElseThrow(() ->
+                new NoSuchElementException("Can't get wine by id " + id));
     }
 
     @Override
     public Wine createWine(Wine wine) {
-        return wineDao.save(wine);
+        return wineRepository.save(wine);
     }
 
     @Override
     public void deleteWine(Long id) {
-        wineDao.deleteById(id);
+        wineRepository.deleteById(id);
     }
 }
 
