@@ -16,38 +16,38 @@ public class WineMapper {
 
     public Wine mapToModel(WineRequestDto wineRequestDto) {
         Wine wine = new Wine();
-        wine.setImages(wineRequestDto.getImages());
+//        wine.setImages(wineRequestDto.getImages());
         wine.setName(wineRequestDto.getName());
-        wine.setVarietal(wineRequestDto.getVarietal());
+//        wine.setVarietal(wineRequestDto.getVarietal());
         wine.setPrice(wineRequestDto.getPrice());
         wine.setBottleVolume(wineRequestDto.getBottleVolume());
         wine.setYear(wineRequestDto.getYear());
-        wine.setCountry(wineRequestDto.getCountry());
-        wine.setRegion(wineRequestDto.getRegion());
-        wine.setWinery(wineRequestDto.getWinery());
+//        wine.setCountry(wineRequestDto.getCountry());
+//        wine.setRegion(wineRequestDto.getRegion());
+//        wine.setWinery(wineRequestDto.getWinery());
         wine.setDescription(wineRequestDto.getDescription());
-        wine.setTastes(wineRequestDto.getTastes());
-        wine.setGrapes(wineRequestDto.getGrapes());
-        wine.setInterestingFacts(wineRequestDto.getInterestingFacts());
+//        wine.setTastes(wineRequestDto.getTastes());
+//        wine.setGrapes(wineRequestDto.getGrapes());
+//        wine.setInterestingFacts(wineRequestDto.getInterestingFacts());
         return wine;
     }
 
     public WineResponseDto mapToDto(Wine wine) {
         WineResponseDto wineResponseDto = new WineResponseDto();
         wineResponseDto.setId(wine.getId());
-        wineResponseDto.setImages(wine.getImages());
+//        wineResponseDto.setImages(wine.getImages());
         wineResponseDto.setName(wine.getName());
-        wineResponseDto.setVarietal(wine.getVarietal());
+//        wineResponseDto.setVarietal(wine.getVarietal());
         wineResponseDto.setPrice(wine.getPrice());
         wineResponseDto.setBottleVolume(wine.getBottleVolume());
         wineResponseDto.setYear(wine.getYear());
-        wineResponseDto.setCountry(wine.getCountry());
-        wineResponseDto.setRegion(wine.getRegion());
-        wineResponseDto.setWinery(wine.getWinery());
+//        wineResponseDto.setCountry(wine.getCountry());
+//        wineResponseDto.setRegion(wine.getRegion());
+//        wineResponseDto.setWinery(wine.getWinery());
         wineResponseDto.setDescription(wine.getDescription());
-        wineResponseDto.setTastes(wine.getTastes());
-        wineResponseDto.setGrapes(wine.getGrapes());
-        wineResponseDto.setInterestingFacts(wine.getInterestingFacts());
+//        wineResponseDto.setTastes(wine.getTastes());
+//        wineResponseDto.setGrapes(wine.getGrapes());
+//        wineResponseDto.setInterestingFacts(wine.getInterestingFacts());
         return wineResponseDto;
     }
 }

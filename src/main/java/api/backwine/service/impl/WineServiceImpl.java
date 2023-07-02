@@ -16,24 +16,34 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<Wine> getAllWines() {
+    public List<Wine> getAll() {
         return wineRepository.findAll();
     }
 
     @Override
-    public Wine getWineById(Long id) {
+    public Wine getById(Long id) {
         return wineRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("Can't get wine by id " + id));
     }
 
     @Override
-    public Wine createWine(Wine wine) {
+    public Wine create(Wine wine) {
         return wineRepository.save(wine);
     }
 
     @Override
-    public void deleteWine(Long id) {
-        wineRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        Wine wine = wineRepository.findById(id).orElseThrow(() ->
+                new NoSuchElementException("Can't delete wine by id" + id));
+        wine.setDeleted(true);
+        wineRepository.save(wine);
+        return true;
+    }
+
+    @Override
+    public Wine update(Long id, Wine wine) {
+        wine.setId(id);
+        return wineRepository.save(wine);
     }
 }
 

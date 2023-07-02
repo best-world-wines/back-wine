@@ -18,7 +18,7 @@ public class WineResponseDto {
     private String region;
     private String winery;
     private String description;
-    private Map<Wine.TasteType, Double> tastes;
+//    private Map<Wine.TasteType, Double> tastes;
     private List<String> grapes;
     private List<String> interestingFacts;
 }

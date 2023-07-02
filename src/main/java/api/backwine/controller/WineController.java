@@ -33,12 +33,12 @@ public class WineController {
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public WineResponseDto createWine(@Valid @RequestBody WineRequestDto wineRequestDto) {
-        return wineMapper.mapToDto(wineService.createWine(wineMapper.mapToModel(wineRequestDto)));
+        return wineMapper.mapToDto(wineService.create(wineMapper.mapToModel(wineRequestDto)));
     }
 
     @GetMapping
     public List<WineResponseDto> getAll() {
-        return wineService.getAllWines()
+        return wineService.getAll()
                 .stream()
                 .map(wineMapper::mapToDto)
                 .collect(Collectors.toList());
@@ -49,11 +49,11 @@ public class WineController {
                                       @Valid @RequestBody WineRequestDto wineRequestDto) {
         Wine wine = wineMapper.mapToModel(wineRequestDto);
         wine.setId(id);
-        return wineMapper.mapToDto(wineService.createWine(wine));
+        return wineMapper.mapToDto(wineService.create(wine));
     }
 
     @GetMapping("/{id}")
     public WineResponseDto getWine(@PathVariable Long id) {
-        return wineMapper.mapToDto(wineService.getWineById(id));
+        return wineMapper.mapToDto(wineService.getById(id));
     }
 }

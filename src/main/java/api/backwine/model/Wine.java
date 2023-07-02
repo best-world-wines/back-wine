@@ -1,5 +1,6 @@
 package api.backwine.model;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -16,8 +17,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "wines")
@@ -36,11 +35,17 @@ public class Wine {
     private String description;
     private Integer year;
     @ManyToOne
+    @JoinColumn(name = "winery_id")
+    private Winery winery;
+    @ManyToOne
     @JoinColumn(name = "region_id")
     private Region region;
-    @Column(name = "interesting_facts")
     @ElementCollection
-    @Cascade(CascadeType.ALL)
+    @CollectionTable(
+            name = "wine_interesting_fact",
+            joinColumns = @JoinColumn(name = "wine_id")
+    )
+    @Column(name = "interesting_fact")
     private List<String> interestingFacts;
     @ManyToMany
     @JoinTable(
@@ -58,9 +63,11 @@ public class Wine {
     private List<Meal> meals;
     @ManyToMany
     @JoinTable(
-            name = "wine_grapes",
+            name = "wine_grape",
             joinColumns = @JoinColumn(name = "wine_id"),
             inverseJoinColumns = @JoinColumn(name = "grape_id")
     )
     private List<Grape> grapes;
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 }

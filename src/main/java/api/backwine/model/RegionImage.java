@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class RegionImage {
     private Long id;
     @MapsId
     @OneToOne
-    @Column(name = "id")
+    @PrimaryKeyJoinColumn(name = "id")
     private Region region;
     private String type;
     @Column(name = "url_path")

@@ -29,7 +29,7 @@ public class WineRequestDto {
     @NotNull
     private String description;
     @NotNull
-    private Map<Wine.TasteType, Double> tastes;
+//    private Map<Wine.TasteType, Double> tastes;
     @NotNull
     private List<String> grapes;
     @NotNull
