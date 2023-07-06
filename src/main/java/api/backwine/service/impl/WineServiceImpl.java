@@ -2,13 +2,13 @@ package api.backwine.service.impl;
 
 import api.backwine.model.Wine;
 import api.backwine.repository.WineRepository;
-import api.backwine.service.WineService;
+import api.backwine.service.AbstractService;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WineServiceImpl implements WineService {
+public class WineServiceImpl implements AbstractService<Wine> {
     private final WineRepository wineRepository;
 
     public WineServiceImpl(WineRepository wineRepository) {
