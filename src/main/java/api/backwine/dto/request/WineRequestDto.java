@@ -1,9 +1,7 @@
 package api.backwine.dto.request;
 
-import api.backwine.model.Wine;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Map;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
