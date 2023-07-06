@@ -13,61 +13,68 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "wines")
+@Where(clause = "is_deleted = false")
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Wine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String varietal;
+    private String mainImage;
+    @ElementCollection
+    @Column(name = "image")
+    private List<String> images;
     private Double price;
     @Column(name = "bottle_volume")
     private Double bottleVolume;
     private String description;
     private Integer year;
+    @Column(name = "winery_name")
+    private String wineryName;
     @ManyToOne
-    @JoinColumn(name = "winery_id")
-    private Winery winery;
-    @ManyToOne
-    @JoinColumn(name = "region_id")
+    @JoinTable(
+            name = "region_wines",
+            joinColumns = @JoinColumn(name = "wine_id"),
+            inverseJoinColumns = @JoinColumn(name = "region_id")
+    )
     private Region region;
     @ElementCollection
     @CollectionTable(
             name = "wine_interesting_fact",
             joinColumns = @JoinColumn(name = "wine_id")
     )
-    @Column(name = "interesting_fact")
+    @Column(name = "interesting_facts")
     private List<String> interestingFacts;
+    private double acidityValue;
+    private double fizzinessValue;
+    private double intensityValue;
+    private double sweetnessValue;
+    private double tanninValue;
     @ManyToMany
     @JoinTable(
-            name = "wine_taste",
-            joinColumns = @JoinColumn(name = "wine_id"),
-            inverseJoinColumns = @JoinColumn(name = "taste_id")
-    )
-    private List<Taste> tastes;
-    @ManyToMany
-    @JoinTable(
-            name = "wine_meal",
+            name = "wine_meals",
             joinColumns = @JoinColumn(name = "wine_id"),
             inverseJoinColumns = @JoinColumn(name = "meal_id")
     )
     private List<Meal> meals;
     @ManyToMany
     @JoinTable(
-            name = "wine_grape",
+            name = "wine_grapes",
             joinColumns = @JoinColumn(name = "wine_id"),
             inverseJoinColumns = @JoinColumn(name = "grape_id")
     )
     private List<Grape> grapes;
     @Column(name = "is_deleted")
     private boolean isDeleted;
+
 }
