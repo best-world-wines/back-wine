@@ -1,7 +1,6 @@
 package api.backwine.service.impl;
 
 import api.backwine.model.Meal;
-import api.backwine.model.Wine;
 import api.backwine.repository.MealRepository;
 import api.backwine.service.AbstractService;
 import java.util.List;

@@ -1,7 +1,6 @@
 package api.backwine.service.impl;
 
 import api.backwine.model.Region;
-import api.backwine.model.Wine;
 import api.backwine.repository.RegionRepository;
 import api.backwine.service.AbstractService;
 import java.util.List;
