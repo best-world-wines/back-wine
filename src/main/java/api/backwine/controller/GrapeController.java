@@ -5,9 +5,9 @@ import api.backwine.dto.request.GrapeRequestDto;
 import api.backwine.dto.response.GrapeResponseDto;
 import api.backwine.model.Grape;
 import api.backwine.service.AbstractService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,7 +33,8 @@ public class GrapeController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<GrapeResponseDto> create(@Valid @RequestBody GrapeRequestDto grapeRequestDto) {
+    public ResponseEntity<GrapeResponseDto> create(@Valid @RequestBody
+                                                       GrapeRequestDto grapeRequestDto) {
         return new ResponseEntity<>(grapeMapper.toDto(
                 service.create(grapeMapper.toModel(grapeRequestDto))), HttpStatus.CREATED);
     }
@@ -49,7 +50,8 @@ public class GrapeController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<GrapeResponseDto> update(@PathVariable("id") Long id,
-                                                   @Valid @RequestBody GrapeRequestDto grapeRequestDto) {
+                                                   @Valid @RequestBody
+                                                   GrapeRequestDto grapeRequestDto) {
         return ResponseEntity.ok(grapeMapper.toDto(
                 service.update(id, grapeMapper.toModel(grapeRequestDto))));
     }

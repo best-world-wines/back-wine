@@ -5,9 +5,9 @@ import api.backwine.dto.request.MealRequestDto;
 import api.backwine.dto.response.MealResponseDto;
 import api.backwine.model.Meal;
 import api.backwine.service.AbstractService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,7 +33,8 @@ public class MealController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<MealResponseDto> create(@Valid @RequestBody MealRequestDto mealRequestDto) {
+    public ResponseEntity<MealResponseDto> create(@Valid @RequestBody
+                                                  MealRequestDto mealRequestDto) {
         return new ResponseEntity<>(mealMapper.toDto(
                 service.create(mealMapper.toModel(mealRequestDto))), HttpStatus.CREATED);
     }
@@ -49,7 +50,8 @@ public class MealController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<MealResponseDto> update(@PathVariable("id") Long id,
-                                                  @Valid @RequestBody MealRequestDto mealRequestDto) {
+                                                  @Valid @RequestBody
+                                                  MealRequestDto mealRequestDto) {
         return ResponseEntity.ok(mealMapper.toDto(
                 service.update(id, mealMapper.toModel(mealRequestDto))));
     }

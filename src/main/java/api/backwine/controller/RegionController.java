@@ -5,9 +5,9 @@ import api.backwine.dto.request.RegionRequestDto;
 import api.backwine.dto.response.RegionResponseDto;
 import api.backwine.model.Region;
 import api.backwine.service.AbstractService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,7 +33,8 @@ public class RegionController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<RegionResponseDto> create(@Valid @RequestBody RegionRequestDto regionRequestDto) {
+    public ResponseEntity<RegionResponseDto> create(@Valid @RequestBody
+                                                    RegionRequestDto regionRequestDto) {
         return new ResponseEntity<>(regionMapper.toDto(
                 service.create(regionMapper.toModel(regionRequestDto))), HttpStatus.CREATED);
     }
@@ -49,7 +50,8 @@ public class RegionController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<RegionResponseDto> update(@PathVariable("id") Long id,
-                                                    @Valid @RequestBody RegionRequestDto regionRequestDto) {
+                                                    @Valid @RequestBody
+                                                    RegionRequestDto regionRequestDto) {
         return ResponseEntity.ok(regionMapper.toDto(
                 service.update(id, regionMapper.toModel(regionRequestDto))));
     }

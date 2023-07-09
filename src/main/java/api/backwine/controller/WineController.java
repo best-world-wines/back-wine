@@ -5,9 +5,9 @@ import api.backwine.dto.request.WineRequestDto;
 import api.backwine.dto.response.WineResponseDto;
 import api.backwine.model.Wine;
 import api.backwine.service.AbstractService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,14 +26,15 @@ public class WineController {
     private final AbstractService<Wine> service;
     private final WineMapper wineMapper;
 
-    public WineController(AbstractService<Wine> service, WineMapper wineryMapper) {
+    public WineController(AbstractService<Wine> service, WineMapper wineMapper) {
         this.service = service;
-        this.wineMapper = wineryMapper;
+        this.wineMapper = wineMapper;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<WineResponseDto> create(@Valid @RequestBody WineRequestDto wineRequestDto) {
+    public ResponseEntity<WineResponseDto> create(@Valid @RequestBody
+                                                  WineRequestDto wineRequestDto) {
         return new ResponseEntity<>(wineMapper.toDto(
                 service.create(wineMapper.toModel(wineRequestDto))), HttpStatus.CREATED);
     }
@@ -49,7 +50,8 @@ public class WineController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<WineResponseDto> update(@PathVariable("id") Long id,
-                                                  @Valid @RequestBody WineRequestDto wineRequestDto) {
+                                                  @Valid @RequestBody
+                                                  WineRequestDto wineRequestDto) {
         return ResponseEntity.ok(wineMapper.toDto(
                 service.update(id, wineMapper.toModel(wineRequestDto))));
     }
