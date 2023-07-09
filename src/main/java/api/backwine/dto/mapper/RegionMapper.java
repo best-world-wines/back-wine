@@ -18,7 +18,6 @@ public class RegionMapper {
         Region region = new Region();
         region.setName(regionRequestDto.getName());
         region.setDescription(regionRequestDto.getDescription());
-        region.setCountry(regionRequestDto.getCountry());
         region.setBackgroundImage(regionRequestDto.getBackgroundImage());
         return region;
     }
@@ -28,7 +27,6 @@ public class RegionMapper {
         regionResponseDto.setId(region.getId());
         regionResponseDto.setName(region.getName());
         regionResponseDto.setDescription(region.getDescription());
-        regionResponseDto.setCountry(region.getCountry());
         regionResponseDto.setBackgroundImage(region.getBackgroundImage());
         return regionResponseDto;
     }

@@ -7,7 +7,7 @@ import api.backwine.model.Meal;
 import api.backwine.model.Region;
 import api.backwine.model.Wine;
 import api.backwine.repository.WineRepository;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
@@ -39,21 +39,21 @@ public class WineMapper {
         wine.setIntensityValue(wineRequestDto.getIntensityValue());
         wine.setSweetnessValue(wineRequestDto.getSweetnessValue());
         wine.setTanninValue(wineRequestDto.getTanninValue());
-        List<Meal> meals = wineRequestDto.getMealsIds().stream()
+        Set<Meal> meals = wineRequestDto.getMealsIds().stream()
                 .map(i -> {
                     Meal meal = new Meal();
                     meal.setId(i);
                     return meal;
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         wine.setMeals(meals);
-        List<Grape> grapes = wineRequestDto.getGrapesIds().stream()
+        Set<Grape> grapes = wineRequestDto.getGrapesIds().stream()
                 .map(i -> {
                     Grape grape = new Grape();
                     grape.setId(i);
                     return grape;
                 })
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         wine.setGrapes(grapes);
         return wine;
     }

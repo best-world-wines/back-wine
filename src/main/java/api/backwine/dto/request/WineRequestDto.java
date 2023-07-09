@@ -2,8 +2,9 @@ package api.backwine.dto.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
-import javax.validation.constraints.NotNull;
+import java.util.Set;
 import lombok.Data;
 
 @Data
@@ -15,7 +16,7 @@ public class WineRequestDto {
     @NotNull
     private String mainImage;
     @NotNull
-    private List<String> images;
+    private Set<String> images;
     @NotNull
     private Double price;
     @NotNull
@@ -29,7 +30,7 @@ public class WineRequestDto {
     @NotNull
     private Long regionId;
     @NotNull
-    private List<String> interestingFacts;
+    private Set<String> interestingFacts;
     @NotNull
     @NotNull
     @Min(0)
