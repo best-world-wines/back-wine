@@ -12,7 +12,9 @@ public class WineRequestDto {
     @NotNull
     private String name;
     @NotNull
-    private String varietal;
+    private Long wineStyleId;
+    @NotNull
+    private Long wineTypeId;
     @NotNull
     private String mainImage;
     @NotNull
@@ -29,8 +31,6 @@ public class WineRequestDto {
     private String wineryName;
     @NotNull
     private Long regionId;
-    @NotNull
-    private Set<String> interestingFacts;
     @NotNull
     @NotNull
     @Min(0)
@@ -56,5 +56,8 @@ public class WineRequestDto {
     private List<Long> mealsIds;
     @NotNull
     private List<Long> grapesIds;
-
+    @NotNull
+    @Min(0)
+    @Max(Integer.MAX_VALUE)
+    private int quantityInStock;
 }

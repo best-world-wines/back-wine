@@ -1,6 +1,5 @@
 package api.backwine.model;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -30,6 +29,12 @@ public class Wine {
     private Long id;
     private String name;
     private String varietal;
+    @ManyToOne
+    @JoinColumn(name = "style_id")
+    private WineStyle wineStyle;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private WineType wineType;
     private String mainImage;
     @ElementCollection
     @Column(name = "image")
@@ -48,13 +53,6 @@ public class Wine {
             inverseJoinColumns = @JoinColumn(name = "region_id")
     )
     private Region region;
-    @ElementCollection
-    @CollectionTable(
-            name = "wine_interesting_fact",
-            joinColumns = @JoinColumn(name = "wine_id")
-    )
-    @Column(name = "interesting_facts")
-    private Set<String> interestingFacts;
     private double acidityValue;
     private double fizzinessValue;
     private double intensityValue;
@@ -74,7 +72,7 @@ public class Wine {
             inverseJoinColumns = @JoinColumn(name = "grape_id")
     )
     private Set<Grape> grapes;
+    private int quantityInStock;
     @Column(name = "is_deleted")
     private boolean isDeleted;
-
 }
