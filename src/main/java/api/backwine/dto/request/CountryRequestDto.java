@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class CountryRequestDto {
     @NotNull
+    private String code;
+    @NotNull
     private String name;
     @NotNull
     private List<Long> regionsIds;
