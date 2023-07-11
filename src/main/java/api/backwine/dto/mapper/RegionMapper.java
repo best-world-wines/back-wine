@@ -17,7 +17,6 @@ public class RegionMapper {
     public Region toModel(RegionRequestDto regionRequestDto) {
         Region region = new Region();
         region.setName(regionRequestDto.getName());
-        region.setDescription(regionRequestDto.getDescription());
         region.setBackgroundImage(regionRequestDto.getBackgroundImage());
         return region;
     }
@@ -26,7 +25,6 @@ public class RegionMapper {
         RegionResponseDto regionResponseDto = new RegionResponseDto();
         regionResponseDto.setId(region.getId());
         regionResponseDto.setName(region.getName());
-        regionResponseDto.setDescription(region.getDescription());
         regionResponseDto.setBackgroundImage(region.getBackgroundImage());
         return regionResponseDto;
     }
