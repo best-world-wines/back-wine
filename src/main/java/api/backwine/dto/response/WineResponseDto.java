@@ -5,7 +5,7 @@ import api.backwine.model.Meal;
 import api.backwine.model.Region;
 import api.backwine.model.WineStyle;
 import api.backwine.model.WineType;
-import java.util.Set;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -15,7 +15,7 @@ public class WineResponseDto {
     private WineStyle wineStyle;
     private WineType wineType;
     private String mainImage;
-    private Set<String> images;
+    private List<String> images;
     private Double price;
     private Double bottleVolume;
     private String description;
@@ -27,7 +27,7 @@ public class WineResponseDto {
     private double intensityValue;
     private double sweetnessValue;
     private double tanninValue;
-    private Set<Meal> meals;
-    private Set<Grape> grapes;
+    private List<Meal> meals;
+    private List<Grape> grapes;
     private int quantityInStock;
 }
