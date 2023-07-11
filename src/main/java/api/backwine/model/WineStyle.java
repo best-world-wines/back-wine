@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Set;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,7 +36,7 @@ public class WineStyle {
             joinColumns = @JoinColumn(name = "wine_style_id")
     )
     @Column(name = "interesting_facts")
-    private Set<String> interestingFacts;
+    private List<String> interestingFacts;
     @ManyToOne
     @JoinColumn(name = "type_id")
     private WineType wineType;
