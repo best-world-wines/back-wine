@@ -8,5 +8,6 @@ public class RegionRequestDto {
     @NotNull
     private String name;
     @NotNull
+    private String countryName;
     private String backgroundImage;
 }

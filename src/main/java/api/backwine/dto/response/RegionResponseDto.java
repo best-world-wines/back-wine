@@ -6,5 +6,6 @@ import lombok.Data;
 public class RegionResponseDto {
     private Long id;
     private String name;
+    private String countryName;
     private String backgroundImage;
 }
