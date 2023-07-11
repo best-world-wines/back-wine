@@ -21,11 +21,9 @@ public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
     private String name;
-    private String description;
     @Column(name = "country_name")
-    private String country;
+    private String countryName;
     private String backgroundImage;
     @Column(name = "is_deleted")
     private boolean isDeleted;
