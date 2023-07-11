@@ -18,7 +18,7 @@ public class WineRequestDto {
     @NotNull
     private String mainImage;
     @NotNull
-    private Set<String> images;
+    private List<String> images;
     @NotNull
     private Double price;
     @NotNull
