@@ -2,7 +2,6 @@ package api.backwine.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,11 +38,9 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(HttpMethod.GET, "/shop")
-                            .hasAnyRole("USER", "ADMIN");
-                    auth.requestMatchers(HttpMethod.POST, "/wine/create")
-                            .hasAnyRole("ADMIN");
-                    auth.requestMatchers("/**").permitAll();
+                    auth.requestMatchers("/swagger-ui/**", "/swagger-resources/**",
+                    "/v2/api-docs").permitAll();
+                    auth.anyRequest().permitAll();
                 })
                 .httpBasic()
                 .and()

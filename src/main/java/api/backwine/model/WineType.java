@@ -6,25 +6,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 @Entity
-@Table(name = "meals")
+@Table(name = "wine_types")
 @Where(clause = "is_deleted = false")
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-public class Meal {
+public class WineType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String image;
+    @Column(name = "default_bottle_image")
+    private String defaultBottleImage;
     @Column(name = "is_deleted")
     private boolean isDeleted;
 }
