@@ -30,6 +30,7 @@ public class WineStyle {
     private String regionalName;
     @Column(name = "varietal_name")
     private String varietalName;
+    private String description;
     @ElementCollection
     @CollectionTable(
             name = "style_interesting_fact",
