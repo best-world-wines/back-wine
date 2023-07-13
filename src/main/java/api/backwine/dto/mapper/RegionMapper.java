@@ -4,16 +4,10 @@ import api.backwine.dto.request.RegionRequestDto;
 import api.backwine.dto.response.RegionResponseDto;
 import api.backwine.model.Country;
 import api.backwine.model.Region;
-import api.backwine.repository.RegionRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RegionMapper {
-    private final RegionRepository regionRepository;
-
-    public RegionMapper(RegionRepository regionRepository) {
-        this.regionRepository = regionRepository;
-    }
 
     public Region toModel(RegionRequestDto regionRequestDto) {
         Region region = new Region();
