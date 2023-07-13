@@ -11,7 +11,5 @@ public class CountryRequestDto {
     @NotNull
     private String name;
     @NotNull
-    private List<Long> regionsIds;
-    @NotNull
-    private List<Long> grapesIds;
+    private List<Long> mostUsedGrapesIds;
 }
