@@ -4,7 +4,7 @@ import api.backwine.model.Grape;
 import api.backwine.repository.GrapeRepository;
 import api.backwine.service.GrapeService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class GrapeServiceImpl implements GrapeService {
     @Override
     public Grape getById(Long id) {
         return grapeRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get grape by id " + id));
+                new EntityNotFoundException("Can't get grape by id " + id));
     }
 
     @Override

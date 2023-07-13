@@ -17,13 +17,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Table(name = "wines")
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+@DynamicInsert
 public class Wine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

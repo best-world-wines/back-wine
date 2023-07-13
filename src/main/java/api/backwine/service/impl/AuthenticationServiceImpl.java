@@ -10,8 +10,10 @@ import api.backwine.service.RoleService;
 import api.backwine.service.UserService;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -32,10 +34,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public User register(User user) {
-        //TODO: Implement user field transfer from dto to model
-        user.setRole(Collections.singleton(roleService.getRoleByName(Role.RoleName.USER)));
+        user.setRoles(Collections.singleton(roleService.getRoleByName(Role.RoleName.USER)));
         user.setRegistrationDate(LocalDateTime.now());
-        userService.create(user);
         Cart cart = new Cart();
         cart.setUser(user);
         cartService.create(cart);
@@ -43,7 +43,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public User login(User user) throws AuthenticationException {
-        return null;
+    public User login(String email, String password) throws AuthenticationException {
+        Optional<User> user = userService.getByEmail(email);
+        if (user.isEmpty() || !passwordEncoder.matches(password, user.get().getPassword())) {
+            throw new AuthenticationException("Email or password is incorrect.");
+        }
+        return user.get();
     }
 }

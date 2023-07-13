@@ -1,11 +1,11 @@
 package api.backwine.dto.response;
 
-import api.backwine.model.Wine;
 import java.util.List;
-import java.util.Map;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class WineResponseDto {
     private Long id;
     private List<String> images;
@@ -18,7 +18,7 @@ public class WineResponseDto {
     private String region;
     private String winery;
     private String description;
-//    private Map<Wine.TasteType, Double> tastes;
+    //    private Map<Wine.TasteType, Double> tastes;
     private List<String> grapes;
     private List<String> interestingFacts;
 }

@@ -4,7 +4,7 @@ import api.backwine.model.WineImage;
 import api.backwine.repository.WineImageRepository;
 import api.backwine.service.WineImageService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class WineImageServiceImpl implements WineImageService {
     @Override
     public WineImage getById(Long id) {
         return wineImageRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get wine image by id " + id));
+                new EntityNotFoundException("Can't get wine image by id " + id));
     }
 
     @Override

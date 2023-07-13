@@ -4,7 +4,7 @@ import api.backwine.model.Role;
 import api.backwine.repository.RoleRepository;
 import api.backwine.service.RoleService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role getById(Long id) {
         return roleRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get role by id " + id));
+                new EntityNotFoundException("Can't get role by id " + id));
     }
 
     @Override

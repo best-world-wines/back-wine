@@ -4,7 +4,7 @@ import api.backwine.model.Meal;
 import api.backwine.repository.MealRepository;
 import api.backwine.service.MealService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class MealServiceImpl implements MealService {
     @Override
     public Meal getById(Long id) {
         return mealRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get meal by id " + id));
+                new EntityNotFoundException("Can't get meal by id " + id));
     }
 
     @Override

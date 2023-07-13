@@ -4,7 +4,7 @@ import api.backwine.model.Taste;
 import api.backwine.repository.TasteRepository;
 import api.backwine.service.TasteService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class TasteServiceImpl implements TasteService {
     @Override
     public Taste getById(Long id) {
         return tasteRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get taste by id " + id));
+                new EntityNotFoundException("Can't get taste by id " + id));
     }
 
     @Override

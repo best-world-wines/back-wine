@@ -24,7 +24,9 @@ public class Role {
     @Column(name = "role_name")
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
-
+    {
+        RoleName user = RoleName.valueOf("USER");
+    }
     public Role(RoleName roleName) {
         this.roleName = roleName;
     }

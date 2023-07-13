@@ -4,7 +4,7 @@ import api.backwine.model.Winery;
 import api.backwine.repository.WineryRepository;
 import api.backwine.service.WineryService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class WineryServiceImpl implements WineryService {
     @Override
     public Winery getById(Long id) {
         return wineryRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get winery by id " + id));
+                new EntityNotFoundException("Can't get winery by id " + id));
     }
 
     @Override

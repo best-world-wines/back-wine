@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ public class WineController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public WineResponseDto createWine(@Valid @RequestBody WineRequestDto wineRequestDto) {
         return wineMapper.mapToDto(wineService.create(wineMapper.mapToModel(wineRequestDto)));
     }
@@ -44,16 +46,17 @@ public class WineController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/{id}")
+    public WineResponseDto getWine(@PathVariable Long id) {
+        return wineMapper.mapToDto(wineService.getById(id));
+    }
+
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public WineResponseDto updateWine(@PathVariable Long id,
                                       @Valid @RequestBody WineRequestDto wineRequestDto) {
         Wine wine = wineMapper.mapToModel(wineRequestDto);
         wine.setId(id);
         return wineMapper.mapToDto(wineService.create(wine));
-    }
-
-    @GetMapping("/{id}")
-    public WineResponseDto getWine(@PathVariable Long id) {
-        return wineMapper.mapToDto(wineService.getById(id));
     }
 }

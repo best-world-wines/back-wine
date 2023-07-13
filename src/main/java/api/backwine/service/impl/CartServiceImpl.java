@@ -4,7 +4,7 @@ import api.backwine.model.Cart;
 import api.backwine.repository.CartRepository;
 import api.backwine.service.CartService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public Cart getById(Long id) {
         return cartRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get cart by id " + id));
+                new EntityNotFoundException("Can't get cart by id " + id));
     }
 
     @Override

@@ -6,5 +6,5 @@ import api.backwine.model.User;
 public interface AuthenticationService {
     User register(User user);
 
-    User login(User user) throws AuthenticationException;
+    User login(String email, String password) throws AuthenticationException;
 }

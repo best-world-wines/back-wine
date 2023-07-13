@@ -4,7 +4,7 @@ import api.backwine.model.RegionImage;
 import api.backwine.repository.RegionImageRepository;
 import api.backwine.service.RegionImageService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class RegionImageServiceImpl implements RegionImageService {
     @Override
     public RegionImage getById(Long id) {
         return regionImageRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get region image by id " + id));
+                new EntityNotFoundException("Can't get region image by id " + id));
     }
 
     @Override
