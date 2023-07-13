@@ -28,7 +28,6 @@ public class Wine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String varietal;
     @ManyToOne
     @JoinColumn(name = "style_id")
     private WineStyle wineStyle;
@@ -42,17 +41,19 @@ public class Wine {
     private Double price;
     @Column(name = "bottle_volume")
     private Double bottleVolume;
+    private Double alcohol;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private Integer year;
     @Column(name = "winery_name")
     private String wineryName;
-    @ManyToOne
+    @ManyToMany
     @JoinTable(
             name = "region_wines",
             joinColumns = @JoinColumn(name = "wine_id"),
             inverseJoinColumns = @JoinColumn(name = "region_id")
     )
-    private Region region;
+    private List<Region> regions;
     private double acidityValue;
     private double fizzinessValue;
     private double intensityValue;
