@@ -30,13 +30,14 @@ public class WineStyle {
     private String regionalName;
     @Column(name = "varietal_name")
     private String varietalName;
+    @Column(columnDefinition = "TEXT")
     private String description;
     @ElementCollection
     @CollectionTable(
             name = "style_interesting_fact",
             joinColumns = @JoinColumn(name = "wine_style_id")
     )
-    @Column(name = "interesting_facts")
+    @Column(name = "interesting_facts", columnDefinition = "TEXT")
     private List<String> interestingFacts;
     @ManyToOne
     @JoinColumn(name = "type_id")
