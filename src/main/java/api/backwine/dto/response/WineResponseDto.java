@@ -18,10 +18,11 @@ public class WineResponseDto {
     private List<String> images;
     private Double price;
     private Double bottleVolume;
+    private Double alcohol;
     private String description;
     private Integer year;
     private String wineryName;
-    private Region region;
+    private List<Region> regions;
     private double acidityValue;
     private double fizzinessValue;
     private double intensityValue;
