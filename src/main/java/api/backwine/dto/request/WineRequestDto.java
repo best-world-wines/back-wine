@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Set;
 import lombok.Data;
 
 @Data
@@ -18,19 +17,20 @@ public class WineRequestDto {
     @NotNull
     private String mainImage;
     @NotNull
-    private Set<String> images;
+    private List<String> images;
     @NotNull
     private Double price;
     @NotNull
     private Double bottleVolume;
     @NotNull
+    private Double alcohol;
     private String description;
     @NotNull
     private Integer year;
     @NotNull
     private String wineryName;
     @NotNull
-    private Long regionId;
+    private List<Long> regionsIds;
     @NotNull
     @NotNull
     @Min(0)

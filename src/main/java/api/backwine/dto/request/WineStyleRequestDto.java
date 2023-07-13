@@ -1,7 +1,7 @@
 package api.backwine.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import java.util.Set;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -10,7 +10,8 @@ public class WineStyleRequestDto {
     private String regionalName;
     @NotNull
     private String varietalName;
-    private Set<String> interestingFacts;
+    private String description;
+    private List<String> interestingFacts;
     @NotNull
     private Long wineTypeId;
 }

@@ -11,7 +11,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Set;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +28,6 @@ public class Wine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String varietal;
     @ManyToOne
     @JoinColumn(name = "style_id")
     private WineStyle wineStyle;
@@ -38,21 +37,23 @@ public class Wine {
     private String mainImage;
     @ElementCollection
     @Column(name = "image")
-    private Set<String> images;
+    private List<String> images;
     private Double price;
     @Column(name = "bottle_volume")
     private Double bottleVolume;
+    private Double alcohol;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private Integer year;
     @Column(name = "winery_name")
     private String wineryName;
-    @ManyToOne
+    @ManyToMany
     @JoinTable(
             name = "region_wines",
             joinColumns = @JoinColumn(name = "wine_id"),
             inverseJoinColumns = @JoinColumn(name = "region_id")
     )
-    private Region region;
+    private List<Region> regions;
     private double acidityValue;
     private double fizzinessValue;
     private double intensityValue;
@@ -64,14 +65,14 @@ public class Wine {
             joinColumns = @JoinColumn(name = "wine_id"),
             inverseJoinColumns = @JoinColumn(name = "meal_id")
     )
-    private Set<Meal> meals;
+    private List<Meal> meals;
     @ManyToMany
     @JoinTable(
             name = "wine_grapes",
             joinColumns = @JoinColumn(name = "wine_id"),
             inverseJoinColumns = @JoinColumn(name = "grape_id")
     )
-    private Set<Grape> grapes;
+    private List<Grape> grapes;
     private int quantityInStock;
     @Column(name = "is_deleted")
     private boolean isDeleted;

@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Set;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,13 +30,15 @@ public class WineStyle {
     private String regionalName;
     @Column(name = "varietal_name")
     private String varietalName;
+    @Column(columnDefinition = "TEXT")
+    private String description;
     @ElementCollection
     @CollectionTable(
             name = "style_interesting_fact",
             joinColumns = @JoinColumn(name = "wine_style_id")
     )
-    @Column(name = "interesting_facts")
-    private Set<String> interestingFacts;
+    @Column(name = "interesting_facts", columnDefinition = "TEXT")
+    private List<String> interestingFacts;
     @ManyToOne
     @JoinColumn(name = "type_id")
     private WineType wineType;
