@@ -19,6 +19,7 @@ public class WineStyleMapper {
         WineStyle wineStyle = new WineStyle();
         wineStyle.setRegionalName(wineStyleRequestDto.getRegionalName());
         wineStyle.setVarietalName(wineStyleRequestDto.getVarietalName());
+        wineStyle.setDescription(wineStyleRequestDto.getDescription());
         wineStyle.setInterestingFacts(wineStyleRequestDto.getInterestingFacts());
         WineType wineType = new WineType();
         wineType.setId(wineStyleRequestDto.getWineTypeId());
@@ -31,6 +32,7 @@ public class WineStyleMapper {
         wineStyleResponseDto.setId(wineStyle.getId());
         wineStyleResponseDto.setRegionalName(wineStyle.getRegionalName());
         wineStyleResponseDto.setVarietalName(wineStyle.getVarietalName());
+        wineStyleResponseDto.setDescription(wineStyle.getDescription());
         wineStyleResponseDto.setWineType(wineStyle.getWineType());
         return wineStyleResponseDto;
     }
