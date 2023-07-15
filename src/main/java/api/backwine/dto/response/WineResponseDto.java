@@ -5,6 +5,7 @@ import api.backwine.model.Meal;
 import api.backwine.model.Region;
 import api.backwine.model.WineStyle;
 import api.backwine.model.WineType;
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ public class WineResponseDto {
     private WineType wineType;
     private String mainImage;
     private List<String> images;
-    private Double price;
+    private BigDecimal price;
     private Double bottleVolume;
     private Double alcohol;
     private String description;
