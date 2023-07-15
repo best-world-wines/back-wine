@@ -28,7 +28,7 @@ public class WineRequestDto {
     private String winery;
     @NotNull
     private String description;
-    @NotNull
+//    @NotNull
 //    private Map<Wine.TasteType, Double> tastes;
     @NotNull
     private List<String> grapes;

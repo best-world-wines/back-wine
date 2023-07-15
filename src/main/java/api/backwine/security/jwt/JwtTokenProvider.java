@@ -23,7 +23,7 @@ public class JwtTokenProvider {
     private final UserDetailsService userDetailsService;
     @Value("${security.jwt.token.secret-key:secret}")
     private String secret;
-    @Value("${security.jwt.token.expire-length:3600000}")
+    @Value("${security.jwt.token.expire-length:360000000}")
     private long validityInMilliseconds;
 
     public JwtTokenProvider(UserDetailsService userDetailsService) {
@@ -53,7 +53,8 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) throws InvalidJwtAuthenticationException {
         try {
-            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
+            Jws<Claims> claimsJws =
+                    Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
             return claimsJws.getBody().getExpiration().after(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidJwtAuthenticationException("Invalid JWT token", e);

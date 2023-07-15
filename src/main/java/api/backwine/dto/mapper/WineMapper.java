@@ -19,7 +19,7 @@ public class WineMapper {
 //        wine.setImages(wineRequestDto.getImages());
         wine.setName(wineRequestDto.getName());
 //        wine.setVarietal(wineRequestDto.getVarietal());
-        wine.setPrice(wineRequestDto.getPrice());
+//        wine.setPrice(wineRequestDto.getPrice());
         wine.setBottleVolume(wineRequestDto.getBottleVolume());
         wine.setYear(wineRequestDto.getYear());
 //        wine.setCountry(wineRequestDto.getCountry());
@@ -38,7 +38,7 @@ public class WineMapper {
 //        wineResponseDto.setImages(wine.getImages());
         wineResponseDto.setName(wine.getName());
 //        wineResponseDto.setVarietal(wine.getVarietal());
-        wineResponseDto.setPrice(wine.getPrice());
+//        wineResponseDto.setPrice(wine.getPrice());
         wineResponseDto.setBottleVolume(wine.getBottleVolume());
         wineResponseDto.setYear(wine.getYear());
 //        wineResponseDto.setCountry(wine.getCountry());

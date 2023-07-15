@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,9 +54,10 @@ public class CartController {
         Cart cart = cartService.getByUser(user);
         return ResponseEntity.ok(orderMapper.mapToDto(orderService.completeOrder(cart)));
     }
-    @PostMapping
+
+    @PutMapping
     public ResponseEntity<CartResponseDto> updateCart(@RequestBody CartRequestDto cartDto,
-                                                         Authentication auth) {
+                                                      Authentication auth) {
         String email = auth.getName();
         User user = userService.getByEmail(email).orElseThrow(() ->
                 new EntityNotFoundException("Can't get user by email " + email));
