@@ -2,12 +2,12 @@ package api.backwine.service.impl;
 
 import api.backwine.model.Cart;
 import api.backwine.model.Order;
+import api.backwine.model.User;
 import api.backwine.repository.OrderRepository;
 import api.backwine.service.CartService;
 import api.backwine.service.OrderService;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,8 +58,13 @@ public class OrderServiceImpl implements OrderService {
         order.setItems(cart.getItems());
         order.setCheckoutTime(LocalDateTime.now());
         orderRepository.save(order);
-        cart.setItems(Collections.emptyList());
+        cart.getItems().clear();
         cartService.update(cart.getId(), cart);
         return order;
+    }
+
+    @Override
+    public List<Order> getOrderHistory(User user) {
+        return orderRepository.findByUser(user);
     }
 }

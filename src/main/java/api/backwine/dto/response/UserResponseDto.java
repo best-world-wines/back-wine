@@ -1,6 +1,7 @@
 package api.backwine.dto.response;
 
-import api.backwine.model.Role;
+import api.backwine.util.DateTimePatternUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -16,8 +17,13 @@ public class UserResponseDto {
     private String firstName;
     private String secondName;
     private String phone;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimePatternUtil.DATE_PATTERN,
+            timezone = "UTC")
     private LocalDate birthDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimePatternUtil.DATE_TIME_PATTERN,
+            timezone = "UTC")
     private LocalDateTime registrationDate;
-    private Set<Role> roles;
+    private Set<RoleResponseDto> roles;
+    private CartResponseDto cart;
     private Boolean isDeleted;
 }

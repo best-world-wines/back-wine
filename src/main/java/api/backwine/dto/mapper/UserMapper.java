@@ -12,24 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
     private final RoleService roleService;
+    private final RoleMapper roleMapper;
 
-    public UserMapper(RoleService roleService) {
+    public UserMapper(RoleService roleService, RoleMapper roleMapper) {
         this.roleService = roleService;
-    }
-
-    public UserResponseDto mapToDto(User user) {
-        UserResponseDto userDto = new UserResponseDto();
-        userDto.setId(user.getId());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        userDto.setFirstName(user.getFirstName());
-        userDto.setSecondName(user.getSecondName());
-        userDto.setPhone(user.getPhone());
-        userDto.setBirthDate(user.getBirthDate());
-        userDto.setRegistrationDate(user.getRegistrationDate());
-        userDto.setRoles(user.getRoles());
-        userDto.setIsDeleted(user.getIsDeleted());
-        return userDto;
+        this.roleMapper = roleMapper;
     }
 
     public User mapToModel(UserSignUpDto userDto) {
@@ -58,5 +45,23 @@ public class UserMapper {
                 .collect(Collectors.toUnmodifiableSet()));
         user.setIsDeleted(userDto.getIsDeleted());
         return user;
+    }
+
+    public UserResponseDto mapToDto(User user) {
+        UserResponseDto userDto = new UserResponseDto();
+        userDto.setId(user.getId());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setSecondName(user.getSecondName());
+        userDto.setPhone(user.getPhone());
+        userDto.setBirthDate(user.getBirthDate());
+        userDto.setRegistrationDate(user.getRegistrationDate());
+        userDto.setRoles(user.getRoles()
+                .stream()
+                .map(roleMapper::mapToDto)
+                .collect(Collectors.toSet()));
+        userDto.setIsDeleted(user.getIsDeleted());
+        return userDto;
     }
 }

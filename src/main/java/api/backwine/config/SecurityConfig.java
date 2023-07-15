@@ -1,5 +1,6 @@
 package api.backwine.config;
 
+import api.backwine.model.Role;
 import api.backwine.security.jwt.JwtTokenFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,14 +28,6 @@ public class SecurityConfig {
     public JwtTokenFilter getJwtFilter() {
         return new JwtTokenFilter();
     }
-//
-//    @Bean
-//    public DaoAuthenticationProvider authProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userDetailsService);
-//        authProvider.setPasswordEncoder(getEncoder());
-//        return authProvider;
-//    }
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -44,14 +37,12 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests(auth -> {
-                    auth
-                            .requestMatchers("/register", "/login", "/logout").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/wines/create").hasAnyRole("ADMIN")
-                            .requestMatchers("/**").permitAll()
-                            .anyRequest()
-                            .authenticated();
-                })
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/carts/**", "/api/v1/orders/**").authenticated()
+                        .requestMatchers("/**").permitAll()
+                        .anyRequest()
+                        .authenticated())
                 .addFilterBefore(getJwtFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

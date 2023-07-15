@@ -1,10 +1,14 @@
 package api.backwine.service.impl;
 
 import api.backwine.model.Cart;
+import api.backwine.model.Item;
+import api.backwine.model.User;
 import api.backwine.repository.CartRepository;
 import api.backwine.service.CartService;
-import java.util.List;
 import jakarta.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,5 +45,38 @@ public class CartServiceImpl implements CartService {
     public Cart update(Long id, Cart cart) {
         cart.setId(id);
         return cartRepository.save(cart);
+    }
+
+    @Override
+    public Cart getByUser(User user) {
+        return cartRepository.findByUser(user);
+    }
+
+    @Override
+    public Cart addItemToCart(User user, Item item) {
+        Cart cart = getByUser(user);
+        Optional<Item> optionalItem = cart.getItems()
+                .stream()
+                .filter(i -> i.getWine().getId().equals(item.getWine().getId()))
+                .findAny();
+        if (optionalItem.isEmpty()) {
+
+            cart.getItems().add(item);
+        } else {
+            cart.getItems().set(cart.getItems().indexOf(optionalItem.get()), item);
+        }
+        cartRepository.save(cart);
+        return cart;
+    }
+
+    @Override
+    public BigDecimal getTotalPrice(Cart cart) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (Item i : cart.getItems()) {
+            totalPrice =
+                    totalPrice.add(
+                            i.getWine().getPrice().multiply(BigDecimal.valueOf(i.getQuantity())));
+        }
+        return totalPrice;
     }
 }

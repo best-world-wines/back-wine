@@ -3,6 +3,7 @@ package api.backwine.dto.request;
 import api.backwine.lib.validation.Email;
 import api.backwine.lib.validation.Password;
 import api.backwine.lib.validation.Phone;
+import api.backwine.util.DateTimePatternUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,6 +31,7 @@ public class UserSignUpDto {
     @Phone
     private String phone;
     @NotNull(message = "The birth date is mandatory.")
-    @JsonFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimePatternUtil.DATE_PATTERN,
+            timezone = "UTC")
     private LocalDate birthDate;
 }
