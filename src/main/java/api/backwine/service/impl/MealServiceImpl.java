@@ -2,13 +2,13 @@ package api.backwine.service.impl;
 
 import api.backwine.model.Meal;
 import api.backwine.repository.MealRepository;
-import api.backwine.service.MealService;
-import jakarta.persistence.EntityNotFoundException;
+import api.backwine.service.AbstractService;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MealServiceImpl implements MealService {
+public class MealServiceImpl implements AbstractService<Meal> {
     private final MealRepository mealRepository;
 
     public MealServiceImpl(MealRepository mealRepository) {
@@ -23,7 +23,7 @@ public class MealServiceImpl implements MealService {
     @Override
     public Meal getById(Long id) {
         return mealRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Can't get meal by id " + id));
+                new NoSuchElementException("Can't get meal by id " + id));
     }
 
     @Override
@@ -33,7 +33,10 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public boolean deleteById(Long id) {
-        mealRepository.deleteById(id);
+        Meal meal = mealRepository.findById(id).orElseThrow(() ->
+                new NoSuchElementException("Can't delete meal by id" + id));
+        meal.setDeleted(true);
+        mealRepository.save(meal);
         return true;
     }
 

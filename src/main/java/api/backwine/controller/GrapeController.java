@@ -1,9 +1,9 @@
 package api.backwine.controller;
 
-import api.backwine.dto.mapper.WineMapper;
-import api.backwine.dto.request.WineRequestDto;
-import api.backwine.dto.response.WineResponseDto;
-import api.backwine.model.Wine;
+import api.backwine.dto.mapper.GrapeMapper;
+import api.backwine.dto.request.GrapeRequestDto;
+import api.backwine.dto.response.GrapeResponseDto;
+import api.backwine.model.Grape;
 import api.backwine.service.AbstractService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -21,44 +21,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/wines")
-public class WineController {
-    private final AbstractService<Wine> service;
-    private final WineMapper wineMapper;
+@RequestMapping("/grapes")
+public class GrapeController {
+    private final AbstractService<Grape> service;
+    private final GrapeMapper grapeMapper;
 
-    public WineController(AbstractService<Wine> service, WineMapper wineMapper) {
+    public GrapeController(AbstractService<Grape> service, GrapeMapper grapeMapper) {
         this.service = service;
-        this.wineMapper = wineMapper;
+        this.grapeMapper = grapeMapper;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<WineResponseDto> create(@Valid @RequestBody
-                                                  WineRequestDto wineRequestDto) {
-        return new ResponseEntity<>(wineMapper.toDto(
-                service.create(wineMapper.toModel(wineRequestDto))), HttpStatus.CREATED);
+    public ResponseEntity<GrapeResponseDto> create(@Valid @RequestBody
+                                                       GrapeRequestDto grapeRequestDto) {
+        return new ResponseEntity<>(grapeMapper.toDto(
+                service.create(grapeMapper.toModel(grapeRequestDto))), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<WineResponseDto>> getAll() {
+    public ResponseEntity<List<GrapeResponseDto>> getAll() {
         return ResponseEntity.ok(service.getAll()
                 .stream()
-                .map(wineMapper::toDto)
+                .map(grapeMapper::toDto)
                 .collect(Collectors.toList()));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<WineResponseDto> update(@PathVariable("id") Long id,
-                                                  @Valid @RequestBody
-                                                  WineRequestDto wineRequestDto) {
-        return ResponseEntity.ok(wineMapper.toDto(
-                service.update(id, wineMapper.toModel(wineRequestDto))));
+    public ResponseEntity<GrapeResponseDto> update(@PathVariable("id") Long id,
+                                                   @Valid @RequestBody
+                                                   GrapeRequestDto grapeRequestDto) {
+        return ResponseEntity.ok(grapeMapper.toDto(
+                service.update(id, grapeMapper.toModel(grapeRequestDto))));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<WineResponseDto> get(@PathVariable Long id) {
-        return ResponseEntity.ok(wineMapper.toDto(service.getById(id)));
+    public ResponseEntity<GrapeResponseDto> get(@PathVariable Long id) {
+        return ResponseEntity.ok(grapeMapper.toDto(service.getById(id)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")

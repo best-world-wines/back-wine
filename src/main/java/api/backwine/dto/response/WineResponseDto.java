@@ -1,24 +1,35 @@
 package api.backwine.dto.response;
 
+import api.backwine.model.Grape;
+import api.backwine.model.Meal;
+import api.backwine.model.Region;
+import api.backwine.model.WineStyle;
+import api.backwine.model.WineType;
+import java.math.BigDecimal;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class WineResponseDto {
     private Long id;
-    private List<String> images;
     private String name;
-    private String varietal;
-    private double price;
-    private double bottleVolume;
-    private int year;
-    private String country;
-    private String region;
-    private String winery;
+    private WineStyle wineStyle;
+    private WineType wineType;
+    private String mainImage;
+    private List<String> images;
+    private BigDecimal price;
+    private Double bottleVolume;
+    private Double alcohol;
     private String description;
-    //    private Map<Wine.TasteType, Double> tastes;
-    private List<String> grapes;
-    private List<String> interestingFacts;
+    private Integer year;
+    private String wineryName;
+    private List<Region> regions;
+    private double acidityValue;
+    private double fizzinessValue;
+    private double intensityValue;
+    private double sweetnessValue;
+    private double tanninValue;
+    private List<Meal> meals;
+    private List<Grape> grapes;
+    private int quantityInStock;
 }

@@ -1,37 +1,64 @@
 package api.backwine.dto.request;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class WineRequestDto {
-    @NotNull
-    private List<String> images;
     @NotNull
     private String name;
     @NotNull
-    private String varietal;
+    private Long wineStyleId;
     @NotNull
-    private double price;
+    private Long wineTypeId;
     @NotNull
-    private double bottleVolume;
+    private String mainImage;
     @NotNull
-    private int year;
+    private List<String> images;
     @NotNull
-    private String country;
+    private BigDecimal price;
     @NotNull
-    private String region;
+    private Double bottleVolume;
     @NotNull
-    private String winery;
-    @NotNull
+    private Double alcohol;
     private String description;
-//    @NotNull
-//    private Map<Wine.TasteType, Double> tastes;
     @NotNull
-    private List<String> grapes;
+    private Integer year;
     @NotNull
-    private List<String> interestingFacts;
+    private String wineryName;
+    @NotNull
+    private List<Long> regionsIds;
+    @NotNull
+    @NotNull
+    @Min(0)
+    @Max(5)
+    private double acidityValue;
+    @NotNull
+    @Min(0)
+    @Max(5)
+    private double fizzinessValue;
+    @NotNull
+    @Min(0)
+    @Max(5)
+    private double intensityValue;
+    @NotNull
+    @Min(0)
+    @Max(5)
+    private double sweetnessValue;
+    @NotNull
+    @Min(0)
+    @Max(5)
+    private double tanninValue;
+    @NotNull
+    private List<Long> mealsIds;
+    @NotNull
+    private List<Long> grapesIds;
+    @NotNull
+    @Min(0)
+    @Max(Integer.MAX_VALUE)
+    private int quantityInStock;
 }

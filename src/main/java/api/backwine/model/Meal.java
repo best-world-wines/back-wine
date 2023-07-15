@@ -10,9 +10,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "meals")
+@Where(clause = "is_deleted = false")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -23,5 +25,7 @@ public class Meal {
     private Long id;
     @Column(nullable = false)
     private String name;
-    private byte[] image;
+    private String image;
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 }
