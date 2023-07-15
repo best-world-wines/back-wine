@@ -11,6 +11,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +39,7 @@ public class Wine {
     @ElementCollection
     @Column(name = "image")
     private List<String> images;
-    private Double price;
+    private BigDecimal price;
     @Column(name = "bottle_volume")
     private Double bottleVolume;
     private Double alcohol;

@@ -3,6 +3,7 @@ package api.backwine.dto.request;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class WineRequestDto {
     @NotNull
     private List<String> images;
     @NotNull
-    private Double price;
+    private BigDecimal price;
     @NotNull
     private Double bottleVolume;
     @NotNull
