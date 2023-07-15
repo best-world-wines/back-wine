@@ -4,7 +4,7 @@ import api.backwine.model.Grape;
 import api.backwine.repository.GrapeRepository;
 import api.backwine.service.AbstractService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class GrapeServiceImpl implements AbstractService<Grape> {
     @Override
     public Grape getById(Long id) {
         return grapeRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get grape by id " + id));
+                new EntityNotFoundException("Can't get grape by id " + id));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class GrapeServiceImpl implements AbstractService<Grape> {
     @Override
     public boolean deleteById(Long id) {
         Grape grape = grapeRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't delete grape by id" + id));
+                new EntityNotFoundException("Can't delete grape by id" + id));
         grape.setDeleted(true);
         grapeRepository.save(grape);
         return true;

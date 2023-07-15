@@ -4,7 +4,7 @@ import api.backwine.model.Region;
 import api.backwine.repository.RegionRepository;
 import api.backwine.service.AbstractService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class RegionServiceImpl implements AbstractService<Region> {
     @Override
     public Region getById(Long id) {
         return regionRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get region by id " + id));
+                new EntityNotFoundException("Can't get region by id " + id));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class RegionServiceImpl implements AbstractService<Region> {
     @Override
     public boolean deleteById(Long id) {
         Region region = regionRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't delete region by id" + id));
+                new EntityNotFoundException("Can't delete region by id" + id));
         region.setDeleted(true);
         regionRepository.save(region);
         return true;

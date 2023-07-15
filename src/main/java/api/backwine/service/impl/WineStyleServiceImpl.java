@@ -4,7 +4,7 @@ import api.backwine.model.WineStyle;
 import api.backwine.repository.WineStyleRepository;
 import api.backwine.service.AbstractService;
 import java.util.List;
-import java.util.NoSuchElementException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +23,7 @@ public class WineStyleServiceImpl implements AbstractService<WineStyle> {
     @Override
     public WineStyle getById(Long id) {
         return wineStyleRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't get wine style by id " + id));
+                new EntityNotFoundException("Can't get wine style by id " + id));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class WineStyleServiceImpl implements AbstractService<WineStyle> {
     @Override
     public boolean deleteById(Long id) {
         WineStyle wineStyle = wineStyleRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Can't delete wine style by id" + id));
+                new EntityNotFoundException("Can't delete wine style by id" + id));
         wineStyle.setDeleted(true);
         wineStyleRepository.save(wineStyle);
         return true;
