@@ -5,7 +5,6 @@ import api.backwine.lib.validation.Password;
 import api.backwine.lib.validation.Phone;
 import api.backwine.util.DateTimePatternUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

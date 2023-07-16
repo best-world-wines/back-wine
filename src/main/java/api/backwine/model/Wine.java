@@ -16,11 +16,9 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "wines")
-@Where(clause = "is_deleted = false")
 @Setter
 @Getter
 @NoArgsConstructor

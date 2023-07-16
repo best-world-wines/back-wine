@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 @Getter
 public class CartRequestDto {
-    List<ItemRequestDto> items;
+    private List<ItemRequestDto> items;
 }

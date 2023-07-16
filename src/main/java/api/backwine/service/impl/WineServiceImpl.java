@@ -2,13 +2,15 @@ package api.backwine.service.impl;
 
 import api.backwine.model.Wine;
 import api.backwine.repository.WineRepository;
-import api.backwine.service.AbstractService;
-import java.util.List;
+import api.backwine.service.WineService;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WineServiceImpl implements AbstractService<Wine> {
+public class WineServiceImpl implements WineService {
     private final WineRepository wineRepository;
 
     public WineServiceImpl(WineRepository wineRepository) {
@@ -17,12 +19,17 @@ public class WineServiceImpl implements AbstractService<Wine> {
 
     @Override
     public List<Wine> getAll() {
-        return wineRepository.findAll();
+        return wineRepository.findAllByIsDeletedFalse();
+    }
+
+    @Override
+    public Page<Wine> getAll(Pageable pageable) {
+        return wineRepository.findAllByIsDeletedFalse(pageable);
     }
 
     @Override
     public Wine getById(Long id) {
-        return wineRepository.findById(id).orElseThrow(() ->
+        return wineRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't get wine by id " + id));
     }
 
@@ -46,5 +53,3 @@ public class WineServiceImpl implements AbstractService<Wine> {
         return wineRepository.save(wine);
     }
 }
-
-

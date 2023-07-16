@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/regions")
+@RequestMapping("/api/v1/regions")
 public class RegionController {
     private final AbstractService<Region> service;
     private final RegionMapper regionMapper;

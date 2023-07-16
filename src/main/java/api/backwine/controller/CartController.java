@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/carts")
+@RequestMapping("/api/v1/carts")
 public class CartController {
     private final CartMapper cartMapper;
     private final OrderMapper orderMapper;
@@ -43,7 +43,7 @@ public class CartController {
         String email = auth.getName();
         User user = userService.getByEmail(email).orElseThrow(() ->
                 new EntityNotFoundException("Can't get user by email " + email));
-        return ResponseEntity.ok(cartMapper.mapToDto(cartService.getByUser(user)));
+        return ResponseEntity.ok(cartMapper.toDto(cartService.getByUser(user)));
     }
 
     @PostMapping("/complete")
@@ -52,7 +52,7 @@ public class CartController {
         User user = userService.getByEmail(email).orElseThrow(() ->
                 new EntityNotFoundException("Can't get user by email " + email));
         Cart cart = cartService.getByUser(user);
-        return ResponseEntity.ok(orderMapper.mapToDto(orderService.completeOrder(cart)));
+        return ResponseEntity.ok(orderMapper.toDto(orderService.completeOrder(cart)));
     }
 
     @PutMapping
@@ -61,10 +61,10 @@ public class CartController {
         String email = auth.getName();
         User user = userService.getByEmail(email).orElseThrow(() ->
                 new EntityNotFoundException("Can't get user by email " + email));
-        Cart cart = cartMapper.mapToModel(cartDto);
+        Cart cart = cartMapper.toModel(cartDto);
         cart.setTotalPrice(cartService.getTotalPrice(cart));
         cartService.update(user.getId(), cart);
-        return ResponseEntity.ok(cartMapper.mapToDto(cart));
+        return ResponseEntity.ok(cartMapper.toDto(cart));
     }
 
     @GetMapping("/clear")
@@ -74,6 +74,6 @@ public class CartController {
                 new EntityNotFoundException("Can't get user by email " + email));
         Cart cart = cartService.getByUser(user);
         cart.getItems().clear();
-        return ResponseEntity.ok(cartMapper.mapToDto(cartService.update(cart.getId(), cart)));
+        return ResponseEntity.ok(cartMapper.toDto(cartService.update(cart.getId(), cart)));
     }
 }

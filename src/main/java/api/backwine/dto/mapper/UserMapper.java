@@ -19,7 +19,7 @@ public class UserMapper {
         this.roleMapper = roleMapper;
     }
 
-    public User mapToModel(UserSignUpDto userDto) {
+    public User toModel(UserSignUpDto userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
@@ -30,7 +30,7 @@ public class UserMapper {
         return user;
     }
 
-    public User mapToModel(UserRequestDto userDto) {
+    public User toModel(UserRequestDto userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
@@ -47,7 +47,7 @@ public class UserMapper {
         return user;
     }
 
-    public UserResponseDto mapToDto(User user) {
+    public UserResponseDto toDto(User user) {
         UserResponseDto userDto = new UserResponseDto();
         userDto.setId(user.getId());
         userDto.setEmail(user.getEmail());

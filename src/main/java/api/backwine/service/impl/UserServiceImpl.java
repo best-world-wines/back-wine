@@ -33,17 +33,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmailAndIsDeletedFalse(email);
     }
 
     @Override
     public List<User> getAll() {
-        return userRepository.findAll();
+        return userRepository.findAllByIsDeletedFalse();
     }
 
     @Override
     public boolean deleteById(Long id) {
-        userRepository.deleteById(id);
+        User user = userRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() ->
+                new EntityNotFoundException("Can't get user by id " + id));
+        user.setIsDeleted(true);
+        userRepository.save(user);
         return true;
     }
 

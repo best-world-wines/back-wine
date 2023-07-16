@@ -12,13 +12,13 @@ public class OrderMapper {
         this.itemMapper = itemMapper;
     }
 
-    public OrderResponseDto mapToDto(Order order) {
+    public OrderResponseDto toDto(Order order) {
         OrderResponseDto orderDto = new OrderResponseDto();
         orderDto.setId(order.getId());
         orderDto.setUserId(order.getUser().getId());
         orderDto.setItemsDto(order.getItems()
                 .stream()
-                .map(itemMapper::mapToDto)
+                .map(itemMapper::toDto)
                 .toList());
         orderDto.setCheckoutTime(order.getCheckoutTime());
         return orderDto;

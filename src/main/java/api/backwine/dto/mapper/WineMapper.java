@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WineMapper {
+public class WineMapper implements MapperToDto<Wine, WineResponseDto>, MapperToModel<Wine,
+        WineRequestDto> {
     private final WineTypeRepository wineTypeRepository;
 
     public WineMapper(WineTypeRepository wineTypeRepository) {

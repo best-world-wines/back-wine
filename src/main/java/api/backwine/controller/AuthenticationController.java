@@ -33,7 +33,7 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     ResponseEntity<?> register(@RequestBody @Valid UserSignUpDto userDto) {
-        User user = authenticationService.register(userMapper.mapToModel(userDto));
+        User user = authenticationService.register(userMapper.toModel(userDto));
         String token = jwtTokenProvider.createToken(user.getEmail(), user.getRoles()
                 .stream()
                 .map(r -> r.getRoleName().name())

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/wine_styles")
+@RequestMapping("/api/v1/wine_styles")
 public class WineStyleController {
     private final AbstractService<WineStyle> service;
     private final WineStyleMapper wineStyleMapper;

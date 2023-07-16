@@ -13,21 +13,21 @@ public class CartMapper {
         this.itemMapper = itemMapper;
     }
 
-    public CartResponseDto mapToDto(Cart cart) {
+    public CartResponseDto toDto(Cart cart) {
         CartResponseDto cartDto = new CartResponseDto();
         cartDto.setId(cart.getId());
         cartDto.setItems(cart.getItems()
                 .stream()
-                .map(itemMapper::mapToDto)
+                .map(itemMapper::toDto)
                 .toList());
         return cartDto;
     }
 
-    public Cart mapToModel(CartRequestDto cartDto) {
+    public Cart toModel(CartRequestDto cartDto) {
         Cart cart = new Cart();
         cart.setItems(cartDto.getItems()
                 .stream()
-                .map(itemMapper::mapToModel)
+                .map(itemMapper::toModel)
                 .toList());
         return cart;
     }
