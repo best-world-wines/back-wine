@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/meals")
+@RequestMapping("/api/v1/meals")
 public class MealController {
     private final AbstractService<Meal> service;
     private final MealMapper mealMapper;

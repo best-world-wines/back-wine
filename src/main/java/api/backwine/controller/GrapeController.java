@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/grapes")
+@RequestMapping("/api/v1/grapes")
 public class GrapeController {
     private final AbstractService<Grape> service;
     private final GrapeMapper grapeMapper;
