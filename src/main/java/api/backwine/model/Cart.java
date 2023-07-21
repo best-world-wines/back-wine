@@ -32,7 +32,7 @@ public class Cart {
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id")
     private User user;
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinTable(name = "carts_items",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))

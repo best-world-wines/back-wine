@@ -12,7 +12,7 @@ public class CountryMapper {
 
     public Country toModel(CountryRequestDto countryRequestDto) {
         Country country = new Country();
-        country.setCode(countryRequestDto.getCode());
+        country.setId(countryRequestDto.getCode());
         country.setName(countryRequestDto.getName());
         country.setMostUsedGrapes(countryRequestDto.getMostUsedGrapesIds()
                 .stream()
@@ -27,7 +27,7 @@ public class CountryMapper {
 
     public CountryResponseDto toDto(Country country) {
         CountryResponseDto countryResponseDto = new CountryResponseDto();
-        countryResponseDto.setCode(country.getCode());
+        countryResponseDto.setCode(country.getId());
         countryResponseDto.setName(country.getName());
         countryResponseDto.setMostUsedGrapes(country.getMostUsedGrapes());
         return countryResponseDto;

@@ -22,7 +22,7 @@ import org.hibernate.annotations.Where;
 public class Country {
     @Id
     @Column(name = "code", nullable = false)
-    private String code;
+    private String id;
     private String name;
     @ManyToMany
     @JoinTable(
@@ -34,11 +34,11 @@ public class Country {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
-    public String getCode() {
-        return code;
+    public String getId() {
+        return id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(String code) {
+        this.id = code;
     }
 }

@@ -4,7 +4,7 @@ import api.backwine.dto.mapper.UserMapper;
 import api.backwine.dto.request.UserLoginDto;
 import api.backwine.dto.request.UserSignUpDto;
 import api.backwine.exception.AuthenticationException;
-import api.backwine.model.User;
+import api.backwine.model.UserDetailed;
 import api.backwine.security.jwt.JwtTokenProvider;
 import api.backwine.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -33,7 +33,7 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     ResponseEntity<?> register(@RequestBody @Valid UserSignUpDto userDto) {
-        User user = authenticationService.register(userMapper.toModel(userDto));
+        UserDetailed user = authenticationService.register(userMapper.toModel(userDto));
         String token = jwtTokenProvider.createToken(user.getEmail(), user.getRoles()
                 .stream()
                 .map(r -> r.getRoleName().name())
@@ -42,8 +42,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    ResponseEntity<?> login(@RequestBody UserLoginDto userDto) throws AuthenticationException {
-        User user = authenticationService.login(userDto.getEmail(), userDto.getPassword());
+    ResponseEntity<?> login(@RequestBody @Valid UserLoginDto userDto) throws AuthenticationException {
+        UserDetailed user = authenticationService.login(userDto.getEmail(), userDto.getPassword());
         String token = jwtTokenProvider.createToken(user.getEmail(), user.getRoles()
                 .stream()
                 .map(r -> r.getRoleName().name())

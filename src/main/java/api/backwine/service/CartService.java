@@ -5,10 +5,10 @@ import api.backwine.model.Item;
 import api.backwine.model.User;
 import java.math.BigDecimal;
 
-public interface CartService extends AbstractService<Cart> {
+public interface CartService extends GenericService<Cart, Long> {
     Cart getByUser(User user);
 
-    Cart addItemToCart(User user, Item item);
+//    Cart addItemToCart(User user, Item item);
 
     BigDecimal getTotalPrice(Cart cart);
 }

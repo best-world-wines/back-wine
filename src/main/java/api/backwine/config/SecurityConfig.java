@@ -40,12 +40,14 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**", "/api/v1/carts/**",
+                                "/api/v1/orders/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/wines/**").permitAll()
                         .requestMatchers("/api/v1/carts/**", "/api/v1/orders/**").authenticated()
                         .requestMatchers("/swagger-ui/**",
                                 "/swagger-resources/**",
-                                "/v2/api-docs/**").permitAll()
+                                "/*/api-docs/**").permitAll()
                         .anyRequest()
                         .authenticated())
                 .addFilterBefore(getJwtFilter(), UsernamePasswordAuthenticationFilter.class)

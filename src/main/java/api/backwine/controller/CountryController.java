@@ -57,13 +57,13 @@ public class CountryController {
 
     @GetMapping("/{code}")
     public ResponseEntity<CountryResponseDto> get(@PathVariable String code) {
-        return ResponseEntity.ok(countryMapper.toDto(service.getByCode(code)));
+        return ResponseEntity.ok(countryMapper.toDto(service.getById(code)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{code}")
     public ResponseEntity<String> delete(@PathVariable("code") String code) {
-        service.deleteByCode(code);
+        service.deleteById(code);
         return ResponseEntity.ok("Success, deleted entity by code " + code);
     }
 }

@@ -9,10 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WineRepository extends JpaRepository<Wine, Long> {
+public interface WineRepository extends SoftDeleteRepository<Wine, Long> {
     Page<Wine> findAllByIsDeletedFalse(Pageable pageable);
-
-    List<Wine> findAllByIsDeletedFalse();
-
-    Optional<Wine> findByIdAndIsDeletedFalse(Long id);
 }

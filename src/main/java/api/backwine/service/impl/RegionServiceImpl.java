@@ -2,47 +2,26 @@ package api.backwine.service.impl;
 
 import api.backwine.model.Region;
 import api.backwine.repository.RegionRepository;
-import api.backwine.service.AbstractService;
-import jakarta.persistence.EntityNotFoundException;
-import java.util.List;
+import api.backwine.service.RegionService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RegionServiceImpl implements AbstractService<Region> {
-    private final RegionRepository regionRepository;
+public class RegionServiceImpl extends SoftDeleteGenericServiceImpl<Region, Long>
+        implements RegionService {
 
     public RegionServiceImpl(RegionRepository regionRepository) {
-        this.regionRepository = regionRepository;
+        super(Region.class, regionRepository);
     }
 
     @Override
-    public Region create(Region region) {
-        return regionRepository.save(region);
-    }
-
-    @Override
-    public Region getById(Long id) {
-        return regionRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Can't get region by id " + id));
-    }
-
-    @Override
-    public List<Region> getAll() {
-        return regionRepository.findAll();
-    }
-
-    @Override
-    public boolean deleteById(Long id) {
-        Region region = regionRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Can't delete region by id" + id));
-        region.setDeleted(true);
-        regionRepository.save(region);
-        return true;
-    }
-
-    @Override
-    public Region update(Long id, Region region) {
+    protected Region putId(Long id, Region region) {
         region.setId(id);
-        return regionRepository.save(region);
+        return region;
+    }
+
+    @Override
+    protected Region setDeleted(Region region) {
+        region.setDeleted(true);
+        return region;
     }
 }

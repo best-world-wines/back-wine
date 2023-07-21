@@ -13,7 +13,7 @@ public class RegionMapper {
         Region region = new Region();
         region.setName(regionRequestDto.getName());
         Country country = new Country();
-        country.setCode(regionRequestDto.getCountryCode());
+        country.setId(regionRequestDto.getCountryCode());
         region.setCountry(country);
         region.setBackgroundImage(regionRequestDto.getBackgroundImage());
         return region;

@@ -2,47 +2,19 @@ package api.backwine.service.impl;
 
 import api.backwine.model.Meal;
 import api.backwine.repository.MealRepository;
-import api.backwine.service.AbstractService;
-import jakarta.persistence.EntityNotFoundException;
-import java.util.List;
+import api.backwine.service.MealService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MealServiceImpl implements AbstractService<Meal> {
-    private final MealRepository mealRepository;
+public class MealServiceImpl extends GenericServiceImpl<Meal, Long> implements MealService {
 
     public MealServiceImpl(MealRepository mealRepository) {
-        this.mealRepository = mealRepository;
+        super(Meal.class, mealRepository);
     }
 
     @Override
-    public Meal create(Meal meal) {
-        return mealRepository.save(meal);
-    }
-
-    @Override
-    public Meal getById(Long id) {
-        return mealRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Can't get meal by id " + id));
-    }
-
-    @Override
-    public List<Meal> getAll() {
-        return mealRepository.findAll();
-    }
-
-    @Override
-    public boolean deleteById(Long id) {
-        Meal meal = mealRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Can't delete meal by id" + id));
-        meal.setDeleted(true);
-        mealRepository.save(meal);
-        return true;
-    }
-
-    @Override
-    public Meal update(Long id, Meal meal) {
+    protected Meal putId(Long id, Meal meal) {
         meal.setId(id);
-        return mealRepository.save(meal);
+        return meal;
     }
 }

@@ -13,3 +13,4 @@ public interface AbstractService<T> {
 
     T update(Long id, T t);
 }
+

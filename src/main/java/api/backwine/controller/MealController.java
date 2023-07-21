@@ -3,8 +3,7 @@ package api.backwine.controller;
 import api.backwine.dto.mapper.MealMapper;
 import api.backwine.dto.request.MealRequestDto;
 import api.backwine.dto.response.MealResponseDto;
-import api.backwine.model.Meal;
-import api.backwine.service.AbstractService;
+import api.backwine.service.MealService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,11 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/meals")
 public class MealController {
-    private final AbstractService<Meal> service;
+    private final MealService mealService;
     private final MealMapper mealMapper;
 
-    public MealController(AbstractService<Meal> service, MealMapper mealMapper) {
-        this.service = service;
+    public MealController(MealService mealService, MealMapper mealMapper) {
+        this.mealService = mealService;
         this.mealMapper = mealMapper;
     }
 
@@ -36,12 +35,12 @@ public class MealController {
     public ResponseEntity<MealResponseDto> create(@Valid @RequestBody
                                                   MealRequestDto mealRequestDto) {
         return new ResponseEntity<>(mealMapper.toDto(
-                service.create(mealMapper.toModel(mealRequestDto))), HttpStatus.CREATED);
+                mealService.create(mealMapper.toModel(mealRequestDto))), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<MealResponseDto>> getAll() {
-        return ResponseEntity.ok(service.getAll()
+        return ResponseEntity.ok(mealService.getAll()
                 .stream()
                 .map(mealMapper::toDto)
                 .collect(Collectors.toList()));
@@ -53,18 +52,18 @@ public class MealController {
                                                   @Valid @RequestBody
                                                   MealRequestDto mealRequestDto) {
         return ResponseEntity.ok(mealMapper.toDto(
-                service.update(id, mealMapper.toModel(mealRequestDto))));
+                mealService.update(id, mealMapper.toModel(mealRequestDto))));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MealResponseDto> get(@PathVariable Long id) {
-        return ResponseEntity.ok(mealMapper.toDto(service.getById(id)));
+        return ResponseEntity.ok(mealMapper.toDto(mealService.getById(id)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
-        service.deleteById(id);
+        mealService.deleteById(id);
         return ResponseEntity.ok("Success, deleted entity by id " + id);
     }
 }

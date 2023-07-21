@@ -3,11 +3,11 @@ package api.backwine.service.impl;
 import api.backwine.exception.AuthenticationException;
 import api.backwine.model.Cart;
 import api.backwine.model.Role;
-import api.backwine.model.User;
+import api.backwine.model.UserDetailed;
 import api.backwine.service.AuthenticationService;
 import api.backwine.service.CartService;
 import api.backwine.service.RoleService;
-import api.backwine.service.UserService;
+import api.backwine.service.UserDetailedService;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
@@ -17,24 +17,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final RoleService roleService;
-    private final UserService userService;
+    private final UserDetailedService userDetailedService;
     private final CartService cartService;
     private final PasswordEncoder passwordEncoder;
 
     public AuthenticationServiceImpl(RoleService roleService,
-                                     UserService userService,
+                                     UserDetailedService userDetailedService,
                                      CartService cartService,
                                      PasswordEncoder passwordEncoder) {
         this.roleService = roleService;
-        this.userService = userService;
+        this.userDetailedService = userDetailedService;
         this.cartService = cartService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User register(User user) {
+    public UserDetailed register(UserDetailed user) {
         user.setRoles(Collections.singleton(roleService.getRoleByName(Role.RoleName.USER)));
         user.setRegistrationDate(LocalDateTime.now());
+        userDetailedService.create(user);
         Cart cart = new Cart();
         cart.setUser(user);
         cartService.create(cart);
@@ -42,8 +43,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public User login(String email, String password) throws AuthenticationException {
-        Optional<User> user = userService.getByEmail(email);
+    public UserDetailed login(String email, String password) throws AuthenticationException {
+        Optional<UserDetailed> user = userDetailedService.getByEmail(email);
         if (user.isEmpty() || !passwordEncoder.matches(password, user.get().getPassword())) {
             throw new AuthenticationException("Email or password is incorrect.");
         }

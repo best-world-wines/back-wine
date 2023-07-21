@@ -1,7 +1,8 @@
 package api.backwine.security;
 
-import api.backwine.model.User;
-import api.backwine.service.UserService;
+import api.backwine.model.UserDetailed;
+import api.backwine.service.UserDetailedService;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,18 +11,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserService userService;
+    private final UserDetailedService userDetailedService;
 
-    public CustomUserDetailsService(UserService userService) {
-        this.userService = userService;
+    public CustomUserDetailsService(UserDetailedService userDetailedService) {
+        this.userDetailedService = userDetailedService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userService.getByEmail(email).orElseThrow(() ->
+        UserDetailed user = userDetailedService.getByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException("User not found."));
-        UserBuilder builder =
-                org.springframework.security.core.userdetails.User.withUsername(email);
+        UserBuilder builder = User.withUsername(email);
         builder.password(user.getPassword());
         builder.roles(user.getRoles()
                 .stream()

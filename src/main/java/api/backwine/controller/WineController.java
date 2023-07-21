@@ -61,10 +61,10 @@ public class WineController {
 
     @GetMapping("/pages")
     public ResponseEntity<ProductPageResponse<WineResponseDto>> getWinePage(
-            @RequestParam(value = "size", defaultValue = DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(value = "size", defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize,
             @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER) Integer pageNumber,
             @RequestParam(value = "sort", defaultValue = DEFAULT_SORT_BY) String sortBy) {
-        Pageable pageable = pageService.getPageable(size, pageNumber, sortBy);
+        Pageable pageable = pageService.getPageable(pageSize, pageNumber, sortBy);
         return ResponseEntity.ok(winePageMapper.toDto(wineService.getAll(pageable), wineMapper));
     }
 

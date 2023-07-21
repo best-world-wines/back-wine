@@ -5,6 +5,7 @@ import api.backwine.dto.request.WineTypeRequestDto;
 import api.backwine.dto.response.WineTypeResponseDto;
 import api.backwine.model.WineType;
 import api.backwine.service.AbstractService;
+import api.backwine.service.WineTypeService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,11 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/wine_types")
 public class WineTypeController {
-    private final AbstractService<WineType> service;
+    private final WineTypeService wineTypeService;
     private final WineTypeMapper wineTypeMapper;
 
-    public WineTypeController(AbstractService<WineType> service, WineTypeMapper wineTypeMapper) {
-        this.service = service;
+    public WineTypeController(WineTypeService wineTypeService, WineTypeMapper wineTypeMapper) {
+        this.wineTypeService = wineTypeService;
         this.wineTypeMapper = wineTypeMapper;
     }
 
@@ -36,12 +37,12 @@ public class WineTypeController {
     public ResponseEntity<WineTypeResponseDto> create(@Valid @RequestBody
                                                       WineTypeRequestDto wineTypeRequestDto) {
         return new ResponseEntity<>(wineTypeMapper.toDto(
-                service.create(wineTypeMapper.toModel(wineTypeRequestDto))), HttpStatus.CREATED);
+                wineTypeService.create(wineTypeMapper.toModel(wineTypeRequestDto))), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<WineTypeResponseDto>> getAll() {
-        return ResponseEntity.ok(service.getAll()
+        return ResponseEntity.ok(wineTypeService.getAll()
                 .stream()
                 .map(wineTypeMapper::toDto)
                 .collect(Collectors.toList()));
@@ -53,18 +54,18 @@ public class WineTypeController {
                                                       @Valid @RequestBody
                                                       WineTypeRequestDto wineTypeRequestDto) {
         return ResponseEntity.ok(wineTypeMapper.toDto(
-                service.update(id, wineTypeMapper.toModel(wineTypeRequestDto))));
+                wineTypeService.update(id, wineTypeMapper.toModel(wineTypeRequestDto))));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<WineTypeResponseDto> get(@PathVariable Long id) {
-        return ResponseEntity.ok(wineTypeMapper.toDto(service.getById(id)));
+        return ResponseEntity.ok(wineTypeMapper.toDto(wineTypeService.getById(id)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
-        service.deleteById(id);
+        wineTypeService.deleteById(id);
         return ResponseEntity.ok("Success, deleted entity by id " + id);
     }
 }

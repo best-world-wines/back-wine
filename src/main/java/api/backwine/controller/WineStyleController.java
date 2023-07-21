@@ -5,6 +5,7 @@ import api.backwine.dto.request.WineStyleRequestDto;
 import api.backwine.dto.response.WineStyleResponseDto;
 import api.backwine.model.WineStyle;
 import api.backwine.service.AbstractService;
+import api.backwine.service.WineStyleService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,12 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/wine_styles")
 public class WineStyleController {
-    private final AbstractService<WineStyle> service;
+    private final WineStyleService wineStyleService;
     private final WineStyleMapper wineStyleMapper;
 
-    public WineStyleController(AbstractService<WineStyle> service,
+    public WineStyleController(WineStyleService wineStyleService,
                                WineStyleMapper wineStyleMapper) {
-        this.service = service;
+        this.wineStyleService = wineStyleService;
         this.wineStyleMapper = wineStyleMapper;
     }
 
@@ -37,12 +38,12 @@ public class WineStyleController {
     public ResponseEntity<WineStyleResponseDto> create(@Valid @RequestBody
                                                        WineStyleRequestDto wineStyleRequestDto) {
         return new ResponseEntity<>(wineStyleMapper.toDto(
-                service.create(wineStyleMapper.toModel(wineStyleRequestDto))), HttpStatus.CREATED);
+                wineStyleService.create(wineStyleMapper.toModel(wineStyleRequestDto))), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<WineStyleResponseDto>> getAll() {
-        return ResponseEntity.ok(service.getAll()
+        return ResponseEntity.ok(wineStyleService.getAll()
                 .stream()
                 .map(wineStyleMapper::toDto)
                 .collect(Collectors.toList()));
@@ -54,18 +55,18 @@ public class WineStyleController {
                                                        @Valid @RequestBody
                                                        WineStyleRequestDto wineStyleRequestDto) {
         return ResponseEntity.ok(wineStyleMapper.toDto(
-                service.update(id, wineStyleMapper.toModel(wineStyleRequestDto))));
+                wineStyleService.update(id, wineStyleMapper.toModel(wineStyleRequestDto))));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<WineStyleResponseDto> get(@PathVariable Long id) {
-        return ResponseEntity.ok(wineStyleMapper.toDto(service.getById(id)));
+        return ResponseEntity.ok(wineStyleMapper.toDto(wineStyleService.getById(id)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
-        service.deleteById(id);
+        wineStyleService.deleteById(id);
         return ResponseEntity.ok("Success, deleted entity by id " + id);
     }
 }

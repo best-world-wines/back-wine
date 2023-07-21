@@ -4,7 +4,7 @@ import api.backwine.dto.request.UserRequestDto;
 import api.backwine.dto.request.UserSignUpDto;
 import api.backwine.dto.response.UserResponseDto;
 import api.backwine.model.Role;
-import api.backwine.model.User;
+import api.backwine.model.UserDetailed;
 import api.backwine.service.RoleService;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -19,8 +19,8 @@ public class UserMapper {
         this.roleMapper = roleMapper;
     }
 
-    public User toModel(UserSignUpDto userDto) {
-        User user = new User();
+    public UserDetailed toModel(UserSignUpDto userDto) {
+        UserDetailed user = new UserDetailed();
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setFirstName(userDto.getFirstName());
@@ -30,8 +30,8 @@ public class UserMapper {
         return user;
     }
 
-    public User toModel(UserRequestDto userDto) {
-        User user = new User();
+    public UserDetailed toModel(UserRequestDto userDto) {
+        UserDetailed user = new UserDetailed();
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setFirstName(userDto.getFirstName());
@@ -47,7 +47,7 @@ public class UserMapper {
         return user;
     }
 
-    public UserResponseDto toDto(User user) {
+    public UserResponseDto toDto(UserDetailed user) {
         UserResponseDto userDto = new UserResponseDto();
         userDto.setId(user.getId());
         userDto.setEmail(user.getEmail());
