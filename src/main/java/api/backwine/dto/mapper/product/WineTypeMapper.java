@@ -1,13 +1,16 @@
-package api.backwine.dto.mapper;
+package api.backwine.dto.mapper.product;
 
-import api.backwine.dto.request.WineTypeRequestDto;
-import api.backwine.dto.response.WineTypeResponseDto;
-import api.backwine.model.WineType;
+import api.backwine.dto.mapper.GlobalMapper;
+import api.backwine.dto.request.product.WineTypeRequestDto;
+import api.backwine.dto.response.product.WineTypeResponseDto;
+import api.backwine.model.product.WineType;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WineTypeMapper {
+public class WineTypeMapper
+        implements GlobalMapper<WineType, WineTypeRequestDto, WineTypeResponseDto> {
 
+    @Override
     public WineType toModel(WineTypeRequestDto wineTypeRequestDto) {
         WineType wineType = new WineType();
         wineType.setName(wineTypeRequestDto.getName());
@@ -15,6 +18,7 @@ public class WineTypeMapper {
         return wineType;
     }
 
+    @Override
     public WineTypeResponseDto toDto(WineType wineType) {
         WineTypeResponseDto wineTypeResponseDto = new WineTypeResponseDto();
         wineTypeResponseDto.setId(wineType.getId());
