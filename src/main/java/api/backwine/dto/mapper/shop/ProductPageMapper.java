@@ -1,14 +1,16 @@
-package api.backwine.dto.mapper;
+package api.backwine.dto.mapper.shop;
 
-import api.backwine.dto.response.ProductPageResponse;
+import api.backwine.dto.mapper.GlobalToDtoMapper;
+import api.backwine.dto.response.shop.ProductPageResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductPageMapper<M, R> {
+public class ProductPageMapper<ENTITY, RESPONSE> {
 
-    public ProductPageResponse<R> toDto(Page<M> page, MapperToDto<M, R> mapper) {
-        ProductPageResponse<R> productPage = new ProductPageResponse<>();
+    public ProductPageResponse<RESPONSE> toDto(Page<ENTITY> page,
+                                               GlobalToDtoMapper<ENTITY, RESPONSE> mapper) {
+        ProductPageResponse<RESPONSE> productPage = new ProductPageResponse<>();
         productPage.setPageNumber(page.getNumber());
         productPage.setPageSize(page.getSize());
         productPage.setTotalPages(page.getTotalPages());

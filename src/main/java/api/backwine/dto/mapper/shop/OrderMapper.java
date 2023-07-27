@@ -1,17 +1,19 @@
-package api.backwine.dto.mapper;
+package api.backwine.dto.mapper.shop;
 
-import api.backwine.dto.response.OrderResponseDto;
-import api.backwine.model.Order;
+import api.backwine.dto.mapper.GlobalToDtoMapper;
+import api.backwine.dto.response.shop.OrderResponseDto;
+import api.backwine.model.shop.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderMapper {
+public class OrderMapper implements GlobalToDtoMapper<Order, OrderResponseDto> {
     private final ItemMapper itemMapper;
 
     public OrderMapper(ItemMapper itemMapper) {
         this.itemMapper = itemMapper;
     }
 
+    @Override
     public OrderResponseDto toDto(Order order) {
         OrderResponseDto orderDto = new OrderResponseDto();
         orderDto.setId(order.getId());

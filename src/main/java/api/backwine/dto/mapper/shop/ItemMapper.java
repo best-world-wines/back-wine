@@ -1,13 +1,15 @@
-package api.backwine.dto.mapper;
+package api.backwine.dto.mapper.shop;
 
-import api.backwine.dto.request.ItemRequestDto;
-import api.backwine.dto.response.ItemResponseDto;
-import api.backwine.model.Item;
-import api.backwine.service.impl.WineServiceImpl;
+import api.backwine.dto.mapper.GlobalMapper;
+import api.backwine.dto.mapper.product.WineMapper;
+import api.backwine.dto.request.shop.ItemRequestDto;
+import api.backwine.dto.response.shop.ItemResponseDto;
+import api.backwine.model.shop.Item;
+import api.backwine.service.product.impl.WineServiceImpl;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ItemMapper {
+public class ItemMapper implements GlobalMapper<Item, ItemRequestDto, ItemResponseDto> {
     private final WineServiceImpl wineService;
     private final WineMapper wineMapper;
 
@@ -16,6 +18,7 @@ public class ItemMapper {
         this.wineMapper = wineMapper;
     }
 
+    @Override
     public Item toModel(ItemRequestDto itemDto) {
         Item item = new Item();
         item.setWine(wineService.getById(itemDto.getWineId()));
@@ -23,6 +26,7 @@ public class ItemMapper {
         return item;
     }
 
+    @Override
     public ItemResponseDto toDto(Item item) {
         ItemResponseDto itemDto = new ItemResponseDto();
         itemDto.setId(item.getId());

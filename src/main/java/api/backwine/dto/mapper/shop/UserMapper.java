@@ -1,16 +1,17 @@
-package api.backwine.dto.mapper;
+package api.backwine.dto.mapper.shop;
 
-import api.backwine.dto.request.UserRequestDto;
-import api.backwine.dto.request.UserSignUpDto;
-import api.backwine.dto.response.UserResponseDto;
-import api.backwine.model.Role;
-import api.backwine.model.User;
-import api.backwine.service.RoleService;
+import api.backwine.dto.mapper.GlobalMapper;
+import api.backwine.dto.request.shop.UserRequestDto;
+import api.backwine.dto.request.shop.UserSignUpDto;
+import api.backwine.dto.response.shop.UserResponseDto;
+import api.backwine.model.shop.Role;
+import api.backwine.model.shop.User;
+import api.backwine.service.shop.RoleService;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserMapper {
+public class UserMapper implements GlobalMapper<User, UserRequestDto, UserResponseDto> {
     private final RoleService roleService;
     private final RoleMapper roleMapper;
 
@@ -30,6 +31,7 @@ public class UserMapper {
         return user;
     }
 
+    @Override
     public User toModel(UserRequestDto userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
@@ -38,15 +40,15 @@ public class UserMapper {
         user.setSecondName(userDto.getSecondName());
         user.setPhone(userDto.getPhone());
         user.setBirthDate(userDto.getBirthDate());
-        user.setRegistrationDate(userDto.getRegistrationDate());
+        user.setCreatingDate(userDto.getCreationDate());
         user.setRoles(userDto.getRoles()
                 .stream()
                 .map(n -> roleService.getRoleByName(Role.RoleName.valueOf(n)))
                 .collect(Collectors.toUnmodifiableSet()));
-        user.setIsDeleted(userDto.getIsDeleted());
         return user;
     }
 
+    @Override
     public UserResponseDto toDto(User user) {
         UserResponseDto userDto = new UserResponseDto();
         userDto.setId(user.getId());
@@ -56,12 +58,11 @@ public class UserMapper {
         userDto.setSecondName(user.getSecondName());
         userDto.setPhone(user.getPhone());
         userDto.setBirthDate(user.getBirthDate());
-        userDto.setRegistrationDate(user.getRegistrationDate());
+        userDto.setCreationDate(user.getCreatingDate());
         userDto.setRoles(user.getRoles()
                 .stream()
-                .map(roleMapper::mapToDto)
+                .map(roleMapper::toDto)
                 .collect(Collectors.toSet()));
-        userDto.setIsDeleted(user.getIsDeleted());
         return userDto;
     }
 }
