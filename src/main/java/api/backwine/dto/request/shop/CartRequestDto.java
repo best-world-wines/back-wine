@@ -1,4 +1,4 @@
-package api.backwine.dto.request;
+package api.backwine.dto.request.shop;
 
 import java.util.List;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package api.backwine.dto.request;
+package api.backwine.dto.request.shop;
 
 import api.backwine.lib.validation.Email;
 import api.backwine.lib.validation.Password;

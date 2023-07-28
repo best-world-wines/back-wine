@@ -1,4 +1,4 @@
-package api.backwine.dto.request;
+package api.backwine.dto.request.shop;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

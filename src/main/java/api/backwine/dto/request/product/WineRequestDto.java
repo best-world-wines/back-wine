@@ -1,4 +1,4 @@
-package api.backwine.dto.request;
+package api.backwine.dto.request.product;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
