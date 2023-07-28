@@ -1,4 +1,4 @@
-package api.backwine.dto.response;
+package api.backwine.dto.response.shop;
 
 import lombok.Getter;
 import lombok.Setter;

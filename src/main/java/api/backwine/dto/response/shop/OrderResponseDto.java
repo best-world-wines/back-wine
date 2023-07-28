@@ -1,4 +1,4 @@
-package api.backwine.dto.response;
+package api.backwine.dto.response.shop;
 
 import api.backwine.util.DateTimePatternUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;

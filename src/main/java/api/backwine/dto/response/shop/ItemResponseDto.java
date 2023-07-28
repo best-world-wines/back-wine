@@ -1,5 +1,6 @@
-package api.backwine.dto.response;
+package api.backwine.dto.response.shop;
 
+import api.backwine.dto.response.product.WineResponseDto;
 import lombok.Getter;
 import lombok.Setter;
 
