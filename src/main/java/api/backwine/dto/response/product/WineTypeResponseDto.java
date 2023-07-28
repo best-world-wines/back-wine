@@ -1,4 +1,4 @@
-package api.backwine.dto.response;
+package api.backwine.dto.response.product;
 
 import lombok.Data;
 

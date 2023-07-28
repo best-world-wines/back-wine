@@ -1,6 +1,6 @@
-package api.backwine.dto.response;
+package api.backwine.dto.response.product;
 
-import api.backwine.model.Country;
+import api.backwine.model.product.Country;
 import lombok.Data;
 
 @Data
