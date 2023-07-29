@@ -1,9 +1,12 @@
-package api.backwine.model;
+package api.backwine.model.product;
 
+import api.backwine.model.listener.GlobalTimestampedEntity;
+import api.backwine.model.listener.WineStyleListener;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,15 +17,14 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "wine_styles")
-@Where(clause = "is_deleted = false")
 @Setter
 @Getter
 @NoArgsConstructor
-public class WineStyle {
+@EntityListeners(WineStyleListener.class)
+public class WineStyle extends GlobalTimestampedEntity implements GlobalProductIdentifiable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,7 +36,7 @@ public class WineStyle {
     private String description;
     @ElementCollection
     @CollectionTable(
-            name = "style_interesting_fact",
+            name = "style_interesting_facts",
             joinColumns = @JoinColumn(name = "wine_style_id")
     )
     @Column(name = "interesting_facts", columnDefinition = "TEXT")
@@ -42,6 +44,4 @@ public class WineStyle {
     @ManyToOne
     @JoinColumn(name = "type_id")
     private WineType wineType;
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
 }

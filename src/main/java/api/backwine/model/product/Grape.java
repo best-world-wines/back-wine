@@ -1,7 +1,10 @@
-package api.backwine.model;
+package api.backwine.model.product;
 
+import api.backwine.model.listener.GlobalTimestampedEntity;
+import api.backwine.model.listener.GrapeListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,22 +13,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 @Entity
-@Table(name = "meals")
-@Where(clause = "is_deleted = false")
+@Table(name = "grapes")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Meal {
+@EntityListeners(GrapeListener.class)
+public class Grape extends GlobalTimestampedEntity implements GlobalProductIdentifiable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(unique = true)
     private String name;
-    private String image;
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
 }

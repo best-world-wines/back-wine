@@ -1,7 +1,10 @@
-package api.backwine.model;
+package api.backwine.model.product;
 
+import api.backwine.model.listener.GlobalTimestampedEntity;
+import api.backwine.model.listener.RegionListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,17 +15,17 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "regions")
-@Where(clause = "is_deleted = false")
 @Setter
 @Getter
 @NoArgsConstructor
-public class Region {
+@EntityListeners(RegionListener.class)
+public class Region extends GlobalTimestampedEntity implements GlobalProductIdentifiable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "SERIAL")
     private Long id;
     private String name;
     @ManyToOne
@@ -33,6 +36,4 @@ public class Region {
     )
     private Country country;
     private String backgroundImage;
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
 }
