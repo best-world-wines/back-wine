@@ -1,12 +1,12 @@
-package api.backwine.controller;
+package api.backwine.controller.product;
 
-import api.backwine.dto.mapper.ProductPageMapper;
-import api.backwine.dto.mapper.WineMapper;
-import api.backwine.dto.request.WineRequestDto;
-import api.backwine.dto.response.ProductPageResponse;
-import api.backwine.dto.response.WineResponseDto;
-import api.backwine.model.Wine;
-import api.backwine.service.WineService;
+import api.backwine.dto.mapper.product.WineMapper;
+import api.backwine.dto.mapper.shop.ProductPageMapper;
+import api.backwine.dto.request.product.WineRequestDto;
+import api.backwine.dto.response.product.WineResponseDto;
+import api.backwine.dto.response.shop.ProductPageResponse;
+import api.backwine.model.product.Wine;
+import api.backwine.service.product.WineService;
 import api.backwine.util.PageService;
 import jakarta.validation.Valid;
 import java.util.List;

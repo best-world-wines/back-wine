@@ -1,10 +1,9 @@
-package api.backwine.controller;
+package api.backwine.controller.product;
 
-import api.backwine.dto.mapper.RegionMapper;
-import api.backwine.dto.request.RegionRequestDto;
-import api.backwine.dto.response.RegionResponseDto;
-import api.backwine.model.Region;
-import api.backwine.service.AbstractService;
+import api.backwine.dto.mapper.product.RegionMapper;
+import api.backwine.dto.request.product.RegionRequestDto;
+import api.backwine.dto.response.product.RegionResponseDto;
+import api.backwine.service.product.RegionService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/regions")
 public class RegionController {
-    private final AbstractService<Region> service;
+    private final RegionService service;
     private final RegionMapper regionMapper;
 
-    public RegionController(AbstractService<Region> service, RegionMapper regionMapper) {
+    public RegionController(RegionService service, RegionMapper regionMapper) {
         this.service = service;
         this.regionMapper = regionMapper;
     }

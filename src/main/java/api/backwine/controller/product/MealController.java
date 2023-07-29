@@ -1,10 +1,9 @@
-package api.backwine.controller;
+package api.backwine.controller.product;
 
-import api.backwine.dto.mapper.MealMapper;
-import api.backwine.dto.request.MealRequestDto;
-import api.backwine.dto.response.MealResponseDto;
-import api.backwine.model.Meal;
-import api.backwine.service.AbstractService;
+import api.backwine.dto.mapper.product.MealMapper;
+import api.backwine.dto.request.product.MealRequestDto;
+import api.backwine.dto.response.product.MealResponseDto;
+import api.backwine.service.product.MealService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/meals")
 public class MealController {
-    private final AbstractService<Meal> service;
+    private final MealService service;
     private final MealMapper mealMapper;
 
-    public MealController(AbstractService<Meal> service, MealMapper mealMapper) {
+    public MealController(MealService service, MealMapper mealMapper) {
         this.service = service;
         this.mealMapper = mealMapper;
     }

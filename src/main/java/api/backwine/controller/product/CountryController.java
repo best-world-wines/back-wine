@@ -1,9 +1,10 @@
-package api.backwine.controller;
+package api.backwine.controller.product;
 
-import api.backwine.dto.mapper.CountryMapper;
-import api.backwine.dto.request.CountryRequestDto;
-import api.backwine.dto.response.CountryResponseDto;
-import api.backwine.service.CountryService;
+import api.backwine.dto.mapper.product.CountryMapper;
+import api.backwine.dto.request.product.CountryRequestDto;
+import api.backwine.dto.response.product.CountryResponseDto;
+import api.backwine.model.product.CountryCode;
+import api.backwine.service.product.CountryService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,7 +49,7 @@ public class CountryController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{code}")
-    public ResponseEntity<CountryResponseDto> update(@PathVariable("code") String code,
+    public ResponseEntity<CountryResponseDto> update(@PathVariable("code") CountryCode code,
                                                      @Valid @RequestBody
                                                      CountryRequestDto countryRequestDto) {
         return ResponseEntity.ok(countryMapper.toDto(
@@ -56,14 +57,14 @@ public class CountryController {
     }
 
     @GetMapping("/{code}")
-    public ResponseEntity<CountryResponseDto> get(@PathVariable String code) {
-        return ResponseEntity.ok(countryMapper.toDto(service.getByCode(code)));
+    public ResponseEntity<CountryResponseDto> get(@PathVariable CountryCode code) {
+        return ResponseEntity.ok(countryMapper.toDto(service.getById(code)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{code}")
-    public ResponseEntity<String> delete(@PathVariable("code") String code) {
-        service.deleteByCode(code);
+    public ResponseEntity<String> delete(@PathVariable("code") CountryCode code) {
+        service.deleteById(code);
         return ResponseEntity.ok("Success, deleted entity by code " + code);
     }
 }

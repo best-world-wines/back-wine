@@ -1,10 +1,9 @@
-package api.backwine.controller;
+package api.backwine.controller.product;
 
-import api.backwine.dto.mapper.WineStyleMapper;
-import api.backwine.dto.request.WineStyleRequestDto;
-import api.backwine.dto.response.WineStyleResponseDto;
-import api.backwine.model.WineStyle;
-import api.backwine.service.AbstractService;
+import api.backwine.dto.mapper.product.WineStyleMapper;
+import api.backwine.dto.request.product.WineStyleRequestDto;
+import api.backwine.dto.response.product.WineStyleResponseDto;
+import api.backwine.service.product.WineStyleService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/wine_styles")
 public class WineStyleController {
-    private final AbstractService<WineStyle> service;
+    private final WineStyleService service;
     private final WineStyleMapper wineStyleMapper;
 
-    public WineStyleController(AbstractService<WineStyle> service,
+    public WineStyleController(WineStyleService service,
                                WineStyleMapper wineStyleMapper) {
         this.service = service;
         this.wineStyleMapper = wineStyleMapper;
