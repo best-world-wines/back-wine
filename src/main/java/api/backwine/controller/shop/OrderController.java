@@ -1,9 +1,9 @@
-package api.backwine.controller;
+package api.backwine.controller.shop;
 
-import api.backwine.model.Order;
-import api.backwine.model.User;
-import api.backwine.service.OrderService;
-import api.backwine.service.UserService;
+import api.backwine.model.shop.Order;
+import api.backwine.model.shop.User;
+import api.backwine.service.shop.OrderService;
+import api.backwine.service.shop.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.http.ResponseEntity;

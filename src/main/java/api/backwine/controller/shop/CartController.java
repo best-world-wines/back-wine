@@ -1,15 +1,15 @@
-package api.backwine.controller;
+package api.backwine.controller.shop;
 
-import api.backwine.dto.mapper.CartMapper;
-import api.backwine.dto.mapper.OrderMapper;
-import api.backwine.dto.request.CartRequestDto;
-import api.backwine.dto.response.CartResponseDto;
-import api.backwine.dto.response.OrderResponseDto;
-import api.backwine.model.Cart;
-import api.backwine.model.User;
-import api.backwine.service.CartService;
-import api.backwine.service.OrderService;
-import api.backwine.service.UserService;
+import api.backwine.dto.mapper.shop.CartMapper;
+import api.backwine.dto.mapper.shop.OrderMapper;
+import api.backwine.dto.request.shop.CartRequestDto;
+import api.backwine.dto.response.shop.CartResponseDto;
+import api.backwine.dto.response.shop.OrderResponseDto;
+import api.backwine.model.shop.Cart;
+import api.backwine.model.shop.User;
+import api.backwine.service.shop.CartService;
+import api.backwine.service.shop.OrderService;
+import api.backwine.service.shop.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

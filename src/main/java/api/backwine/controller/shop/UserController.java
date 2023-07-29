@@ -1,4 +1,4 @@
-package api.backwine.controller;
+package api.backwine.controller.shop;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

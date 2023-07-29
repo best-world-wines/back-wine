@@ -1,12 +1,12 @@
-package api.backwine.controller;
+package api.backwine.controller.shop;
 
-import api.backwine.dto.mapper.UserMapper;
-import api.backwine.dto.request.UserLoginDto;
-import api.backwine.dto.request.UserSignUpDto;
+import api.backwine.dto.mapper.shop.UserMapper;
+import api.backwine.dto.request.shop.UserLoginDto;
+import api.backwine.dto.request.shop.UserSignUpDto;
 import api.backwine.exception.AuthenticationException;
-import api.backwine.model.User;
+import api.backwine.model.shop.User;
 import api.backwine.security.jwt.JwtTokenProvider;
-import api.backwine.service.AuthenticationService;
+import api.backwine.service.shop.AuthenticationService;
 import jakarta.validation.Valid;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
