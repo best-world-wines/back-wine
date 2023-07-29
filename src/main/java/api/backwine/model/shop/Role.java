@@ -1,4 +1,4 @@
-package api.backwine.model;
+package api.backwine.model.shop;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

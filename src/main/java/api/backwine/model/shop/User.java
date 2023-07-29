@@ -1,5 +1,7 @@
-package api.backwine.model;
+package api.backwine.model.shop;
 
+import api.backwine.model.listener.GlobalTimestampedEntity;
+import api.backwine.model.product.GlobalProductIdentifiable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +14,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 import lombok.Getter;
@@ -26,7 +27,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Getter
 @NoArgsConstructor
 @DynamicInsert
-public class User {
+public class User extends GlobalTimestampedEntity implements GlobalProductIdentifiable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,8 +43,6 @@ public class User {
     private String phone;
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
-    @Column(name = "registration_date", nullable = false)
-    private LocalDateTime registrationDate;
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -52,8 +51,6 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
-    @Column(name = "is_deleted", columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private Boolean isDeleted;
 
     @Override
     public boolean equals(Object o) {
@@ -71,15 +68,12 @@ public class User {
                 && Objects.equals(secondName, user.secondName)
                 && Objects.equals(phone, user.phone)
                 && Objects.equals(birthDate, user.birthDate)
-                && Objects.equals(registrationDate, user.registrationDate)
-                && Objects.equals(roles, user.roles)
-                && Objects.equals(isDeleted, user.isDeleted);
+                && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, firstName, secondName, phone, birthDate,
-                registrationDate, roles, isDeleted);
+        return Objects.hash(id, email, password, firstName, secondName, phone, birthDate, roles);
     }
 
     @Override
@@ -92,9 +86,7 @@ public class User {
                 + ", secondName='" + secondName + '\''
                 + ", phone='" + phone + '\''
                 + ", birthDate=" + birthDate + '\''
-                + ", registrationDate=" + registrationDate + '\''
                 + ", roles=" + roles + '\''
-                + ", isDeleted=" + isDeleted + '\''
                 + '}';
     }
 }

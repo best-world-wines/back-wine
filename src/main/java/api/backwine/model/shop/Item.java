@@ -1,5 +1,6 @@
-package api.backwine.model;
+package api.backwine.model.shop;
 
+import api.backwine.model.product.Wine;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
