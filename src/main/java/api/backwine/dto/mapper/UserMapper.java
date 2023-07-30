@@ -1,10 +1,12 @@
 package api.backwine.dto.mapper;
 
-import api.backwine.dto.request.UserRequestDto;
-import api.backwine.dto.request.UserSignUpDto;
+import api.backwine.dto.request.user.AnonymousUserRequestDto;
+import api.backwine.dto.request.user.UserRequestDto;
+import api.backwine.dto.request.user.UserSignUpDto;
 import api.backwine.dto.response.UserResponseDto;
+import api.backwine.model.RegisteredUser;
 import api.backwine.model.Role;
-import api.backwine.model.UserDetailed;
+import api.backwine.model.User;
 import api.backwine.service.RoleService;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -13,25 +15,28 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     private final RoleService roleService;
     private final RoleMapper roleMapper;
+    private final CartMapper cartMapper;
 
-    public UserMapper(RoleService roleService, RoleMapper roleMapper) {
+    public UserMapper(RoleService roleService, RoleMapper roleMapper, CartMapper cartMapper) {
         this.roleService = roleService;
         this.roleMapper = roleMapper;
+        this.cartMapper = cartMapper;
     }
 
-    public UserDetailed toModel(UserSignUpDto userDto) {
-        UserDetailed user = new UserDetailed();
+    public RegisteredUser toModel(UserSignUpDto userDto) {
+        RegisteredUser user = new RegisteredUser();
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setFirstName(userDto.getFirstName());
         user.setSecondName(userDto.getSecondName());
         user.setPhone(userDto.getPhone());
         user.setBirthDate(userDto.getBirthDate());
+        user.setCart(cartMapper.toModel(userDto.getCart()));
         return user;
     }
 
-    public UserDetailed toModel(UserRequestDto userDto) {
-        UserDetailed user = new UserDetailed();
+    public RegisteredUser toModel(UserRequestDto userDto) {
+        RegisteredUser user = new RegisteredUser();
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setFirstName(userDto.getFirstName());
@@ -47,15 +52,40 @@ public class UserMapper {
         return user;
     }
 
-    public UserResponseDto toDto(UserDetailed user) {
+    public User toModel(AnonymousUserRequestDto userDto) {
+        User user = new User();
+        user.setEmail(userDto.getEmail());
+        user.setPhone(userDto.getPhone());
+        user.setFirstName(userDto.getFirstName());
+        user.setSecondName(userDto.getSecondName());
+        return user;
+    }
+
+    public UserResponseDto toDto(RegisteredUser user) {
         UserResponseDto userDto = new UserResponseDto();
         userDto.setId(user.getId());
         userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
         userDto.setFirstName(user.getFirstName());
         userDto.setSecondName(user.getSecondName());
         userDto.setPhone(user.getPhone());
         userDto.setBirthDate(user.getBirthDate());
+        userDto.setRegistrationDate(user.getRegistrationDate());
+        userDto.setRoles(user.getRoles()
+                .stream()
+                .map(roleMapper::mapToDto)
+                .collect(Collectors.toSet()));
+        userDto.setCart(cartMapper.toDto(user.getCart()));
+        userDto.setIsDeleted(user.getIsDeleted());
+        return userDto;
+    }
+
+    public UserResponseDto toDto(User user) {
+        UserResponseDto userDto = new UserResponseDto();
+        userDto.setId(user.getId());
+        userDto.setEmail(user.getEmail());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setSecondName(user.getSecondName());
+        userDto.setPhone(user.getPhone());
         userDto.setRegistrationDate(user.getRegistrationDate());
         userDto.setRoles(user.getRoles()
                 .stream()

@@ -1,16 +1,18 @@
 package api.backwine.controller;
 
 import api.backwine.dto.mapper.UserMapper;
-import api.backwine.dto.request.UserLoginDto;
-import api.backwine.dto.request.UserSignUpDto;
+import api.backwine.dto.request.user.UserLoginDto;
+import api.backwine.dto.request.user.UserSignUpDto;
+import api.backwine.dto.response.AuthResponseDto;
 import api.backwine.exception.AuthenticationException;
-import api.backwine.model.UserDetailed;
+import api.backwine.model.RegisteredUser;
 import api.backwine.security.jwt.JwtTokenProvider;
 import api.backwine.service.AuthenticationService;
 import jakarta.validation.Valid;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,32 +24,40 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final UserMapper userMapper;
     private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordEncoder passwordEncoder;
 
     public AuthenticationController(AuthenticationService authenticationService,
                                     UserMapper userMapper,
-                                    JwtTokenProvider jwtTokenProvider) {
+                                    JwtTokenProvider jwtTokenProvider,
+                                    PasswordEncoder passwordEncoder) {
         this.authenticationService = authenticationService;
         this.userMapper = userMapper;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/signup")
-    ResponseEntity<?> register(@RequestBody @Valid UserSignUpDto userDto) {
-        UserDetailed user = authenticationService.register(userMapper.toModel(userDto));
+    ResponseEntity<AuthResponseDto> register(@RequestBody @Valid UserSignUpDto userDto) {
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        RegisteredUser user =
+                (RegisteredUser) authenticationService.register(userMapper.toModel(userDto));
         String token = jwtTokenProvider.createToken(user.getEmail(), user.getRoles()
                 .stream()
                 .map(r -> r.getRoleName().name())
                 .collect(Collectors.toList()));
-        return new ResponseEntity<>(token, HttpStatus.CREATED);
+        return new ResponseEntity<>(new AuthResponseDto(userMapper.toDto(user), token),
+                HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    ResponseEntity<?> login(@RequestBody @Valid UserLoginDto userDto) throws AuthenticationException {
-        UserDetailed user = authenticationService.login(userDto.getEmail(), userDto.getPassword());
+    ResponseEntity<AuthResponseDto> login(@RequestBody @Valid UserLoginDto userDto)
+            throws AuthenticationException {
+        RegisteredUser user = authenticationService.login(userDto.getEmail(),
+                userDto.getPassword());
         String token = jwtTokenProvider.createToken(user.getEmail(), user.getRoles()
                 .stream()
                 .map(r -> r.getRoleName().name())
                 .collect(Collectors.toList()));
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(new AuthResponseDto(userMapper.toDto(user), token));
     }
 }

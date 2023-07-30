@@ -1,5 +1,6 @@
 package api.backwine.dto.response;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,4 +10,5 @@ import lombok.Setter;
 public class CartResponseDto {
     private Long id;
     private List<ItemResponseDto> items;
+    private BigDecimal totalPrice;
 }

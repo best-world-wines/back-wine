@@ -9,10 +9,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CountryMapper {
+    private final GrapeMapper grapeMapper;
+
+    public CountryMapper(GrapeMapper grapeMapper) {
+        this.grapeMapper = grapeMapper;
+    }
 
     public Country toModel(CountryRequestDto countryRequestDto) {
         Country country = new Country();
-        country.setId(countryRequestDto.getCode());
         country.setName(countryRequestDto.getName());
         country.setMostUsedGrapes(countryRequestDto.getMostUsedGrapesIds()
                 .stream()
@@ -29,7 +33,10 @@ public class CountryMapper {
         CountryResponseDto countryResponseDto = new CountryResponseDto();
         countryResponseDto.setCode(country.getId());
         countryResponseDto.setName(country.getName());
-        countryResponseDto.setMostUsedGrapes(country.getMostUsedGrapes());
+        countryResponseDto.setMostUsedGrapes(country.getMostUsedGrapes()
+                .stream()
+                .map(grapeMapper::toDto)
+                .toList());
         return countryResponseDto;
     }
 }

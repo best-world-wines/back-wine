@@ -3,8 +3,6 @@ package api.backwine.controller;
 import api.backwine.dto.mapper.WineStyleMapper;
 import api.backwine.dto.request.WineStyleRequestDto;
 import api.backwine.dto.response.WineStyleResponseDto;
-import api.backwine.model.WineStyle;
-import api.backwine.service.AbstractService;
 import api.backwine.service.WineStyleService;
 import jakarta.validation.Valid;
 import java.util.List;

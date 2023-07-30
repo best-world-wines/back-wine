@@ -1,9 +1,11 @@
 package api.backwine.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class RegionRequestDto {
     @NotNull
     private String name;

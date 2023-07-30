@@ -4,10 +4,16 @@ import api.backwine.dto.request.WineStyleRequestDto;
 import api.backwine.dto.response.WineStyleResponseDto;
 import api.backwine.model.WineStyle;
 import api.backwine.model.WineType;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class WineStyleMapper {
+    private final WineTypeMapper wineTypeMapper;
+
+    public WineStyleMapper(WineTypeMapper wineTypeMapper) {
+        this.wineTypeMapper = wineTypeMapper;
+    }
 
     public WineStyle toModel(WineStyleRequestDto wineStyleRequestDto) {
         WineStyle wineStyle = new WineStyle();
@@ -27,7 +33,12 @@ public class WineStyleMapper {
         wineStyleResponseDto.setRegionalName(wineStyle.getRegionalName());
         wineStyleResponseDto.setVarietalName(wineStyle.getVarietalName());
         wineStyleResponseDto.setDescription(wineStyle.getDescription());
-        wineStyleResponseDto.setWineType(wineStyle.getWineType());
+        if (Hibernate.isInitialized(wineStyle.getInterestingFacts())) {
+            wineStyleResponseDto.setInterestingFacts(wineStyle.getInterestingFacts());
+        }
+        if (Hibernate.isInitialized(wineStyle.getWineType())) {
+            wineStyleResponseDto.setWineType(wineTypeMapper.toDto(wineStyle.getWineType()));
+        }
         return wineStyleResponseDto;
     }
 }

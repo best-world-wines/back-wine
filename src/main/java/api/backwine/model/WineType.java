@@ -13,7 +13,6 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "wine_types")
-@Where(clause = "is_deleted = false")
 @Setter
 @Getter
 @NoArgsConstructor

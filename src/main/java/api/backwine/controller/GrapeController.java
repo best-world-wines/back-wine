@@ -3,8 +3,7 @@ package api.backwine.controller;
 import api.backwine.dto.mapper.GrapeMapper;
 import api.backwine.dto.request.GrapeRequestDto;
 import api.backwine.dto.response.GrapeResponseDto;
-import api.backwine.model.Grape;
-import api.backwine.service.AbstractService;
+import api.backwine.service.GrapeService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,25 +22,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/grapes")
 public class GrapeController {
-    private final AbstractService<Grape> service;
+    private final GrapeService grapeService;
     private final GrapeMapper grapeMapper;
 
-    public GrapeController(AbstractService<Grape> service, GrapeMapper grapeMapper) {
-        this.service = service;
+    public GrapeController(GrapeService grapeService, GrapeMapper grapeMapper) {
+        this.grapeService = grapeService;
         this.grapeMapper = grapeMapper;
     }
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
     public ResponseEntity<GrapeResponseDto> create(@Valid @RequestBody
-                                                       GrapeRequestDto grapeRequestDto) {
+                                                   GrapeRequestDto grapeRequestDto) {
         return new ResponseEntity<>(grapeMapper.toDto(
-                service.create(grapeMapper.toModel(grapeRequestDto))), HttpStatus.CREATED);
+                grapeService.create(grapeMapper.toModel(grapeRequestDto))), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<GrapeResponseDto>> getAll() {
-        return ResponseEntity.ok(service.getAll()
+        return ResponseEntity.ok(grapeService.getAll()
                 .stream()
                 .map(grapeMapper::toDto)
                 .collect(Collectors.toList()));
@@ -53,18 +53,18 @@ public class GrapeController {
                                                    @Valid @RequestBody
                                                    GrapeRequestDto grapeRequestDto) {
         return ResponseEntity.ok(grapeMapper.toDto(
-                service.update(id, grapeMapper.toModel(grapeRequestDto))));
+                grapeService.update(id, grapeMapper.toModel(grapeRequestDto))));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<GrapeResponseDto> get(@PathVariable Long id) {
-        return ResponseEntity.ok(grapeMapper.toDto(service.getById(id)));
+        return ResponseEntity.ok(grapeMapper.toDto(grapeService.getById(id)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
-        service.deleteById(id);
+        grapeService.deleteById(id);
         return ResponseEntity.ok("Success, deleted entity by id " + id);
     }
 }

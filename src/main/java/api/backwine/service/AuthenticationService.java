@@ -1,10 +1,11 @@
 package api.backwine.service;
 
 import api.backwine.exception.AuthenticationException;
-import api.backwine.model.UserDetailed;
+import api.backwine.model.RegisteredUser;
+import api.backwine.model.User;
 
 public interface AuthenticationService {
-    UserDetailed register(UserDetailed user);
+    User register(User user);
 
-    UserDetailed login(String email, String password) throws AuthenticationException;
+    RegisteredUser login(String email, String password) throws AuthenticationException;
 }

@@ -2,9 +2,11 @@ package api.backwine.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class WineStyleRequestDto {
     @NotNull
     private String regionalName;

@@ -29,10 +29,10 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @MapsId
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     @JoinColumn(name = "id")
     private User user;
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "carts_items",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))

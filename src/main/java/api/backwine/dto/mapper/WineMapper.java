@@ -8,20 +8,34 @@ import api.backwine.model.Region;
 import api.backwine.model.Wine;
 import api.backwine.model.WineStyle;
 import api.backwine.model.WineType;
-import api.backwine.repository.WineTypeRepository;
+import api.backwine.service.WineTypeService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WineMapper implements MapperToDto<Wine, WineResponseDto>, MapperToModel<Wine,
-        WineRequestDto> {
-    private final WineTypeRepository wineTypeRepository;
+public class WineMapper implements MapperToDto<Wine, WineResponseDto>,
+        MapperToModel<Wine, WineRequestDto> {
+    private final WineTypeService wineTypeService;
+    private final WineStyleMapper wineStyleMapper;
+    private final WineTypeMapper wineTypeMapper;
+    private final GrapeMapper grapeMapper;
+    private final MealMapper mealMapper;
+    private final RegionMapper regionMapper;
 
-    public WineMapper(WineTypeRepository wineTypeRepository) {
-        this.wineTypeRepository = wineTypeRepository;
+    public WineMapper(WineTypeService wineTypeService, WineStyleMapper wineStyleMapper,
+                      WineTypeMapper wineTypeMapper, GrapeMapper grapeMapper, MealMapper mealMapper,
+                      RegionMapper regionMapper) {
+        this.wineTypeService = wineTypeService;
+        this.wineStyleMapper = wineStyleMapper;
+        this.wineTypeMapper = wineTypeMapper;
+        this.grapeMapper = grapeMapper;
+        this.mealMapper = mealMapper;
+        this.regionMapper = regionMapper;
     }
 
+    @Override
     public Wine toModel(WineRequestDto wineRequestDto) {
         Wine wine = new Wine();
         wine.setName(wineRequestDto.getName());
@@ -69,40 +83,62 @@ public class WineMapper implements MapperToDto<Wine, WineResponseDto>, MapperToM
                 .collect(Collectors.toList());
         wine.setGrapes(grapes);
         wine.setQuantityInStock(wineRequestDto.getQuantityInStock());
+        wine.setEmpty(wineRequestDto.isEmpty());
         return wine;
     }
 
+    @Override
     public WineResponseDto toDto(Wine wine) {
         WineResponseDto wineResponseDto = new WineResponseDto();
         wineResponseDto.setId(wine.getId());
         wineResponseDto.setName(wine.getName());
-        wineResponseDto.setWineStyle(wine.getWineStyle());
-        wineResponseDto.setWineType(wine.getWineType());
-
+        if (Hibernate.isInitialized(wine.getWineStyle())) {
+            wineResponseDto.setWineStyle(wineStyleMapper.toDto(wine.getWineStyle()));
+        }
+        if (Hibernate.isInitialized(wine.getWineType())) {
+            wineResponseDto.setWineType(wineTypeMapper.toDto(wine.getWineType()));
+        }
         if (wine.getMainImage().isEmpty()) {
-            String defaultBottleImage = wineTypeRepository.findById(wine.getWineType().getId())
-                    .get()
+            String defaultBottleImage = wineTypeService.getById(wine.getWineType().getId())
                     .getDefaultBottleImage();
             wineResponseDto.setMainImage(defaultBottleImage);
         } else {
             wineResponseDto.setMainImage(wine.getMainImage());
         }
-        wineResponseDto.setImages(wine.getImages());
+        if (Hibernate.isInitialized(wine.getImages())) {
+            wineResponseDto.setImages(wine.getImages());
+        }
         wineResponseDto.setPrice(wine.getPrice());
         wineResponseDto.setBottleVolume(wine.getBottleVolume());
         wineResponseDto.setAlcohol(wine.getAlcohol());
         wineResponseDto.setDescription(wine.getDescription());
         wineResponseDto.setYear(wine.getYear());
         wineResponseDto.setWineryName(wine.getWineryName());
-        wineResponseDto.setRegions(wine.getRegions());
+        if (Hibernate.isInitialized(wine.getRegions())) {
+            wineResponseDto.setRegions(wine.getRegions()
+                    .stream()
+                    .map(regionMapper::toDto)
+                    .toList());
+        }
         wineResponseDto.setAcidityValue(wine.getAcidityValue());
         wineResponseDto.setFizzinessValue(wine.getFizzinessValue());
         wineResponseDto.setIntensityValue(wine.getIntensityValue());
         wineResponseDto.setSweetnessValue(wine.getSweetnessValue());
         wineResponseDto.setTanninValue(wine.getTanninValue());
-        wineResponseDto.setMeals(wine.getMeals());
-        wineResponseDto.setGrapes(wine.getGrapes());
+        if (Hibernate.isInitialized(wine.getMeals())) {
+            wineResponseDto.setMeals(wine.getMeals()
+                    .stream()
+                    .map(mealMapper::toDto)
+                    .toList());
+        }
+        if (Hibernate.isInitialized(wine.getGrapes())) {
+            wineResponseDto.setGrapes(wine.getGrapes()
+                    .stream()
+                    .map(grapeMapper::toDto)
+                    .toList());
+        }
         wineResponseDto.setQuantityInStock(wine.getQuantityInStock());
+        wineResponseDto.setEmpty(wine.isEmpty());
         return wineResponseDto;
     }
 }

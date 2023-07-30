@@ -8,5 +8,5 @@ import lombok.Data;
 public class CountryResponseDto {
     private String code;
     private String name;
-    private List<Grape> mostUsedGrapes;
+    private List<GrapeResponseDto> mostUsedGrapes;
 }

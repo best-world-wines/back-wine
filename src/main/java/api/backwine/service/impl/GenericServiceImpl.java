@@ -2,6 +2,7 @@ package api.backwine.service.impl;
 
 import api.backwine.service.GenericService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import org.springframework.data.repository.ListCrudRepository;
 
@@ -20,8 +21,8 @@ public abstract class GenericServiceImpl<M, I> implements GenericService<M, I> {
     public M create(M m) {
         return repository.save(m);
     }
-
     @Override
+    @Transactional
     public M getById(I id) {
         return repository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't get " + clazz.getSimpleName() + " by id " + id));

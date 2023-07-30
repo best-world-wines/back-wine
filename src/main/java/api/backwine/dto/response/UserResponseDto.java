@@ -1,6 +1,6 @@
 package api.backwine.dto.response;
 
-import api.backwine.util.DateTimePatternUtil;
+import api.backwine.util.StringPatternUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,14 +13,13 @@ import lombok.Setter;
 public class UserResponseDto {
     private Long id;
     private String email;
-    private String password;
     private String firstName;
     private String secondName;
     private String phone;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimePatternUtil.DATE_PATTERN,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StringPatternUtil.DATE_PATTERN,
             timezone = "UTC")
     private LocalDate birthDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimePatternUtil.DATE_TIME_PATTERN,
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StringPatternUtil.DATE_TIME_PATTERN,
             timezone = "UTC")
     private LocalDateTime registrationDate;
     private Set<RoleResponseDto> roles;

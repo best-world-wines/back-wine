@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
+@EntityScan("api.backwine.model")
 @OpenAPIDefinition(
         info = @Info(
                 title = "The Best Wine Shop",
@@ -20,6 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 license = @License(name = "License @2023", url = "")
         )
 )
+
 public class BackWineApplication {
 
     public static void main(String[] args) {

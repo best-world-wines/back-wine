@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/countries")
 public class CountryController {
-    private final CountryService service;
+    private final CountryService countryService;
     private final CountryMapper countryMapper;
 
-    public CountryController(CountryService service, CountryMapper countryMapper) {
-        this.service = service;
+    public CountryController(CountryService countryService, CountryMapper countryMapper) {
+        this.countryService = countryService;
         this.countryMapper = countryMapper;
     }
 
@@ -35,12 +35,12 @@ public class CountryController {
     public ResponseEntity<CountryResponseDto> create(@Valid @RequestBody
                                                      CountryRequestDto countryRequestDto) {
         return new ResponseEntity<>(countryMapper.toDto(
-                service.create(countryMapper.toModel(countryRequestDto))), HttpStatus.CREATED);
+                countryService.create(countryMapper.toModel(countryRequestDto))), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<CountryResponseDto>> getAll() {
-        return ResponseEntity.ok(service.getAll()
+        return ResponseEntity.ok(countryService.getAll()
                 .stream()
                 .map(countryMapper::toDto)
                 .collect(Collectors.toList()));
@@ -52,18 +52,18 @@ public class CountryController {
                                                      @Valid @RequestBody
                                                      CountryRequestDto countryRequestDto) {
         return ResponseEntity.ok(countryMapper.toDto(
-                service.update(code, countryMapper.toModel(countryRequestDto))));
+                countryService.update(code, countryMapper.toModel(countryRequestDto))));
     }
 
     @GetMapping("/{code}")
     public ResponseEntity<CountryResponseDto> get(@PathVariable String code) {
-        return ResponseEntity.ok(countryMapper.toDto(service.getById(code)));
+        return ResponseEntity.ok(countryMapper.toDto(countryService.getById(code)));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{code}")
     public ResponseEntity<String> delete(@PathVariable("code") String code) {
-        service.deleteById(code);
+        countryService.deleteById(code);
         return ResponseEntity.ok("Success, deleted entity by code " + code);
     }
 }

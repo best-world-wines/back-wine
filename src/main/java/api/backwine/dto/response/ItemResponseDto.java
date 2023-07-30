@@ -7,6 +7,8 @@ import lombok.Setter;
 @Getter
 public class ItemResponseDto {
     private Long id;
-    private WineResponseDto wineResponseDto;
+    private String productType;
+    private ProductResponseDto productDto;
     private Integer quantity;
+    private String productLink;
 }

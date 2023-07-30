@@ -40,11 +40,9 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/api/v1/auth/**", "/api/v1/carts/**",
-                                "/api/v1/orders/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**", "/api/v1/orders/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/wines/**").permitAll()
-                        .requestMatchers("/api/v1/carts/**", "/api/v1/orders/**").authenticated()
+                        .requestMatchers("/api/v1/carts/**").permitAll()
                         .requestMatchers("/swagger-ui/**",
                                 "/swagger-resources/**",
                                 "/*/api-docs/**").permitAll()

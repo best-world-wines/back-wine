@@ -2,6 +2,7 @@ package api.backwine.service.impl;
 
 import api.backwine.repository.SoftDeleteRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import java.util.List;
 
 public abstract class SoftDeleteGenericServiceImpl<M, I> extends GenericServiceImpl<M, I> {
@@ -22,6 +23,7 @@ public abstract class SoftDeleteGenericServiceImpl<M, I> extends GenericServiceI
     }
 
     @Override
+    @Transactional
     public M getById(I id) {
         return repository.findByIdAndIsDeletedFalse(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't get " + clazz.getSimpleName() + " by id " + id));

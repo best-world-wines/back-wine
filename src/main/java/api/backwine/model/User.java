@@ -46,9 +46,23 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
-    @Column(name = "is_deleted", columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "id=" + id + '\''
+                + ", email='" + email + '\''
+                + ", firstName='" + firstName + '\''
+                + ", secondName='" + secondName + '\''
+                + ", phone='" + phone + '\''
+                + ", registrationDate=" + registrationDate + '\''
+                + ", roles=" + roles + '\''
+                + ", cart=" + cart + '\''
+                + ", isDeleted=" + isDeleted + '\''
+                + '}';
+    }
 }

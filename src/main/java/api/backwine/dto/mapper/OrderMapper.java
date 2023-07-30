@@ -21,6 +21,8 @@ public class OrderMapper {
                 .map(itemMapper::toDto)
                 .toList());
         orderDto.setCheckoutTime(order.getCheckoutTime());
+        orderDto.setTotalPrice(order.getTotalPrice());
+        orderDto.setCanceled(order.isCanceled());
         return orderDto;
     }
 }

@@ -14,7 +14,6 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "grapes")
-@Where(clause = "is_deleted = false")
 @Setter
 @Getter
 @NoArgsConstructor

@@ -2,15 +2,14 @@ package api.backwine.service.impl;
 
 import api.backwine.model.WineType;
 import api.backwine.repository.WineTypeRepository;
-import api.backwine.service.WineTypeService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class WineTypeServiceImpl extends SoftDeleteGenericServiceImpl<WineType, Long>
-        implements WineTypeService {
+        implements api.backwine.service.WineTypeService {
 
-    public WineTypeServiceImpl(WineTypeRepository wineTypeRepository) {
-        super(WineType.class, wineTypeRepository);
+    public WineTypeServiceImpl(WineTypeRepository wineTypeService) {
+        super(WineType.class, wineTypeService);
     }
 
     @Override

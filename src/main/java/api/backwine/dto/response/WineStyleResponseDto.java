@@ -11,5 +11,5 @@ public class WineStyleResponseDto {
     private String varietalName;
     private String description;
     private List<String> interestingFacts;
-    private WineType wineType;
+    private WineTypeResponseDto wineType;
 }

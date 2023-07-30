@@ -1,7 +1,9 @@
 package api.backwine.security;
 
-import api.backwine.model.UserDetailed;
-import api.backwine.service.UserDetailedService;
+import api.backwine.model.RegisteredUser;
+import api.backwine.service.RegisteredUserService;
+import api.backwine.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,16 +13,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserDetailedService userDetailedService;
+    private final RegisteredUserService userService;
 
-    public CustomUserDetailsService(UserDetailedService userDetailedService) {
-        this.userDetailedService = userDetailedService;
+    public CustomUserDetailsService(RegisteredUserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserDetailed user = userDetailedService.getByEmail(email).orElseThrow(() ->
-                new UsernameNotFoundException("User not found."));
+        RegisteredUser user;
+        try {
+            user = userService.getByEmail(email);
+        } catch (EntityNotFoundException e) {
+            throw new UsernameNotFoundException("User not found.", e);
+        }
         UserBuilder builder = User.withUsername(email);
         builder.password(user.getPassword());
         builder.roles(user.getRoles()

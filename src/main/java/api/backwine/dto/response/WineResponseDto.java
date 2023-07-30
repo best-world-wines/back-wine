@@ -1,10 +1,5 @@
 package api.backwine.dto.response;
 
-import api.backwine.model.Grape;
-import api.backwine.model.Meal;
-import api.backwine.model.Region;
-import api.backwine.model.WineStyle;
-import api.backwine.model.WineType;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.Data;
@@ -13,8 +8,8 @@ import lombok.Data;
 public class WineResponseDto {
     private Long id;
     private String name;
-    private WineStyle wineStyle;
-    private WineType wineType;
+    private WineStyleResponseDto wineStyle;
+    private WineTypeResponseDto wineType;
     private String mainImage;
     private List<String> images;
     private BigDecimal price;
@@ -23,13 +18,14 @@ public class WineResponseDto {
     private String description;
     private Integer year;
     private String wineryName;
-    private List<Region> regions;
+    private List<RegionResponseDto> regions;
     private double acidityValue;
     private double fizzinessValue;
     private double intensityValue;
     private double sweetnessValue;
     private double tanninValue;
-    private List<Meal> meals;
-    private List<Grape> grapes;
+    private List<MealResponseDto> meals;
+    private List<GrapeResponseDto> grapes;
     private int quantityInStock;
+    private boolean isEmpty;
 }

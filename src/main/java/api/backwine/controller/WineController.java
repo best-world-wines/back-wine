@@ -7,7 +7,7 @@ import api.backwine.dto.response.ProductPageResponse;
 import api.backwine.dto.response.WineResponseDto;
 import api.backwine.model.Wine;
 import api.backwine.service.WineService;
-import api.backwine.util.PageService;
+import api.backwine.repository.Pageable.PageManager;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -31,15 +31,15 @@ public class WineController {
     private static final String DEFAULT_PAGE_NUMBER = "0";
     private static final String DEFAULT_SORT_BY = "id";
     private final WineService wineService;
-    private final PageService pageService;
+    private final PageManager pageManager;
     private final WineMapper wineMapper;
     private final ProductPageMapper<Wine, WineResponseDto> winePageMapper;
 
-    public WineController(WineService wineService, WineMapper wineMapper, PageService pageService,
+    public WineController(WineService wineService, WineMapper wineMapper, PageManager pageManager,
                           ProductPageMapper<Wine, WineResponseDto> winePageMapper) {
         this.wineService = wineService;
         this.wineMapper = wineMapper;
-        this.pageService = pageService;
+        this.pageManager = pageManager;
         this.winePageMapper = winePageMapper;
     }
 
@@ -64,7 +64,7 @@ public class WineController {
             @RequestParam(value = "size", defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize,
             @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER) Integer pageNumber,
             @RequestParam(value = "sort", defaultValue = DEFAULT_SORT_BY) String sortBy) {
-        Pageable pageable = pageService.getPageable(pageSize, pageNumber, sortBy);
+        Pageable pageable = pageManager.getPageable(pageSize, pageNumber, sortBy);
         return ResponseEntity.ok(winePageMapper.toDto(wineService.getAll(pageable), wineMapper));
     }
 

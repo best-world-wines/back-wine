@@ -8,6 +8,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RegionMapper {
+    private final CountryMapper countryMapper;
+
+    public RegionMapper(CountryMapper countryMapper) {
+        this.countryMapper = countryMapper;
+    }
 
     public Region toModel(RegionRequestDto regionRequestDto) {
         Region region = new Region();
@@ -23,7 +28,7 @@ public class RegionMapper {
         RegionResponseDto regionResponseDto = new RegionResponseDto();
         regionResponseDto.setId(region.getId());
         regionResponseDto.setName(region.getName());
-        regionResponseDto.setCountry(region.getCountry());
+        regionResponseDto.setCountry(countryMapper.toDto(region.getCountry()));
         regionResponseDto.setBackgroundImage(region.getBackgroundImage());
         return regionResponseDto;
     }
