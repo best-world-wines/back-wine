@@ -1,7 +1,7 @@
 package api.backwine.security;
 
-import api.backwine.model.User;
-import api.backwine.service.UserService;
+import api.backwine.model.shop.User;
+import api.backwine.service.shop.UserService;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
