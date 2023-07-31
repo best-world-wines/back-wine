@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderRepository extends GlobalRepository<Order, Long> {
+
     List<Order> findByUser(User user);
 }

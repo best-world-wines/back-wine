@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoleRepository extends GlobalRepository<Role, Long> {
+
     Role findByRoleName(Role.RoleName roleName);
 }
