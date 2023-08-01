@@ -1,7 +1,7 @@
 package api.backwine.service.product;
 
 import api.backwine.model.product.WineType;
-import api.backwine.service.GenericService;
+import api.backwine.service.GlobalGenericService;
 
-public interface WineTypeService extends GenericService<WineType, Long> {
+public interface WineTypeService extends GlobalGenericService<WineType, Long> {
 }

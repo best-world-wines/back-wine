@@ -2,7 +2,7 @@ package api.backwine.service.product;
 
 import api.backwine.model.product.Country;
 import api.backwine.model.product.CountryCode;
-import api.backwine.service.GenericService;
+import api.backwine.service.GlobalGenericService;
 
-public interface CountryService extends GenericService<Country, CountryCode> {
+public interface CountryService extends GlobalGenericService<Country, CountryCode> {
 }

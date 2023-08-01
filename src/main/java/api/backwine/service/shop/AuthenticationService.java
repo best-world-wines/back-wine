@@ -1,7 +1,7 @@
-package api.backwine.service;
+package api.backwine.service.shop;
 
 import api.backwine.exception.AuthenticationException;
-import api.backwine.model.User;
+import api.backwine.model.shop.User;
 
 public interface AuthenticationService {
     User register(User user);
