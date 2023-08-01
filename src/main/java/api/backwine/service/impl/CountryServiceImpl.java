@@ -12,16 +12,4 @@ public class CountryServiceImpl extends SoftDeleteGenericServiceImpl<Country, St
     public CountryServiceImpl(CountryRepository countryRepository) {
         super(Country.class, countryRepository);
     }
-
-    @Override
-    protected Country putId(String id, Country country) {
-        country.setId(id);
-        return country;
-    }
-
-    @Override
-    protected Country setDeleted(Country country) {
-        country.setDeleted(true);
-        return country;
-    }
 }

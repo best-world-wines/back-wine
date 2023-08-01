@@ -1,5 +1,6 @@
 package api.backwine.model;
 
+import api.backwine.model.abstraction.SoftDeleteModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements SoftDeleteModel<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,4 +45,6 @@ public class Order {
     private BigDecimal totalPrice;
     @Column(name = "is_canceled")
     private boolean isCanceled = false;
+    @Column(name = "is_deleted")
+    private boolean isDeleted = false;
 }

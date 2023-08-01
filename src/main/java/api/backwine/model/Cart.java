@@ -1,5 +1,6 @@
 package api.backwine.model;
 
+import api.backwine.model.abstraction.GenericModel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +25,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Cart {
+public class Cart implements GenericModel<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

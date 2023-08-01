@@ -1,10 +1,10 @@
-package api.backwine.model;
+package api.backwine.model.wine;
 
+import api.backwine.model.abstraction.SoftDeleteModel;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class WineStyle {
+public class WineStyle implements SoftDeleteModel<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,5 +42,5 @@ public class WineStyle {
     @JoinColumn(name = "type_id")
     private WineType wineType;
     @Column(name = "is_deleted")
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 }

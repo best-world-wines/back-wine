@@ -11,6 +11,7 @@ import api.backwine.service.OrderService;
 import api.backwine.service.WineService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,22 +31,17 @@ public class OrderServiceImpl extends GenericServiceImpl<Order, Long> implements
     }
 
     @Override
-    protected Order putId(Long id, Order order) {
-        order.setId(id);
-        return order;
-    }
-
-    @Override
     @Transactional
     public Order completeOrder(Cart cart, Address address) {
         Order order = new Order();
+        order.setTotalPrice(cart.getTotalPrice());
         order.setUser(cart.getUser());
         order.setItems(List.copyOf(cart.getItems()));
         order.setCheckoutTime(LocalDateTime.now());
         order.setAddress(address);
         updateProductQuantity(order.getItems());
         orderRepository.save(order);
-        cart.getItems().clear();
+        cart.setItems(Collections.emptyList());
         cartService.update(cart.getId(), cart);
         return order;
     }
@@ -70,9 +66,9 @@ public class OrderServiceImpl extends GenericServiceImpl<Order, Long> implements
         Boolean isAvailable = null;
         for (Item item : items) {
             Long wineId = item.getProduct().getId();
-            int currentQuantity = wineService.getActualQuantity(wineId);
+            Integer currentQuantity = wineService.getActualQuantity(wineId);
             isAvailable = checkAvailability(currentQuantity, item.getQuantity(), item);
-            if (currentQuantity == item.getQuantity() && item.getQuantity() > 0
+            if (currentQuantity.equals(item.getQuantity()) && item.getQuantity() > 0
                     || currentQuantity == 0 && item.getQuantity() < 0) {
                 wineIdsForUpdateAvailability.add(wineId);
             }

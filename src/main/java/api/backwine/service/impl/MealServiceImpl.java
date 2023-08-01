@@ -11,10 +11,4 @@ public class MealServiceImpl extends GenericServiceImpl<Meal, Long> implements M
     public MealServiceImpl(MealRepository mealRepository) {
         super(Meal.class, mealRepository);
     }
-
-    @Override
-    protected Meal putId(Long id, Meal meal) {
-        meal.setId(id);
-        return meal;
-    }
 }

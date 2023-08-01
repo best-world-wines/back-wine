@@ -15,12 +15,6 @@ public class RoleServiceImpl extends GenericServiceImpl<Role, Long> implements R
     }
 
     @Override
-    protected Role putId(Long id, Role role) {
-        role.setId(id);
-        return role;
-    }
-
-    @Override
     public Role getRoleByName(Role.RoleName roleName) {
         return roleRepository.findByRoleName(roleName);
     }

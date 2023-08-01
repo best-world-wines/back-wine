@@ -1,6 +1,7 @@
 package api.backwine.repository;
 
 import api.backwine.model.User;
+import api.backwine.repository.abstraction.SoftDeleteRepository;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;

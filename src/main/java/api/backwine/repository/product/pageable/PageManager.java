@@ -1,4 +1,4 @@
-package api.backwine.repository.Pageable;
+package api.backwine.repository.product.pageable;
 
 import java.util.ArrayList;
 import java.util.List;

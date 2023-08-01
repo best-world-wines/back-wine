@@ -2,7 +2,7 @@ package api.backwine.dto.mapper;
 
 import api.backwine.dto.request.GrapeRequestDto;
 import api.backwine.dto.response.GrapeResponseDto;
-import api.backwine.model.Grape;
+import api.backwine.model.wine.Grape;
 import org.springframework.stereotype.Component;
 
 @Component

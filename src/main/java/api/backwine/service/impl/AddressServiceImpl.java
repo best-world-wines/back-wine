@@ -8,20 +8,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddressServiceImpl
-        extends GenericServiceImpl<Address, Long>
+public class AddressServiceImpl extends GenericServiceImpl<Address, Long>
         implements AddressService {
     private final AddressRepository addressRepository;
 
     public AddressServiceImpl(AddressRepository addressRepository) {
         super(Address.class, addressRepository);
         this.addressRepository = addressRepository;
-    }
-
-    @Override
-    protected Address putId(Long id, Address address) {
-        address.setId(id);
-        return address;
     }
 
     @Override

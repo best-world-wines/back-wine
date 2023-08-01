@@ -1,7 +1,7 @@
 package api.backwine.repository;
 
-import api.backwine.model.Region;
-import org.springframework.data.jpa.repository.JpaRepository;
+import api.backwine.model.wine.Region;
+import api.backwine.repository.abstraction.SoftDeleteRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

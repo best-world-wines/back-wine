@@ -3,8 +3,9 @@ package api.backwine.dto.mapper;
 import api.backwine.dto.request.CountryRequestDto;
 import api.backwine.dto.response.CountryResponseDto;
 import api.backwine.model.Country;
-import api.backwine.model.Grape;
+import api.backwine.model.wine.Grape;
 import java.util.stream.Collectors;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,10 +34,12 @@ public class CountryMapper {
         CountryResponseDto countryResponseDto = new CountryResponseDto();
         countryResponseDto.setCode(country.getId());
         countryResponseDto.setName(country.getName());
-        countryResponseDto.setMostUsedGrapes(country.getMostUsedGrapes()
-                .stream()
-                .map(grapeMapper::toDto)
-                .toList());
+        if (Hibernate.isInitialized(country.getMostUsedGrapes())) {
+            countryResponseDto.setMostUsedGrapes(country.getMostUsedGrapes()
+                    .stream()
+                    .map(grapeMapper::toDto)
+                    .toList());
+        }
         return countryResponseDto;
     }
 }

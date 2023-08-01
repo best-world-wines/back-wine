@@ -6,32 +6,22 @@ import api.backwine.model.Item;
 import api.backwine.model.Product;
 import api.backwine.service.ProductService;
 import api.backwine.util.PathConverter;
-import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ItemMapper {
-    private final Map<Class<? extends Product>, ProductService<Product, Long>> productServicesMap;
     private final ProductMapper productMapper;
+    private final ProductService<Product> productService;
 
-    public ItemMapper(
-            Map<Class<? extends Product>, ProductService<Product, Long>> productServicesMap,
-            ProductMapper productMapper) {
+    public ItemMapper(ProductMapper productMapper, ProductService<Product> productService) {
         this.productMapper = productMapper;
-        this.productServicesMap = productServicesMap;
+        this.productService = productService;
     }
 
     public Item toModel(ItemRequestDto itemDto) {
         Item item = new Item();
         item.setId(itemDto.getId());
-        try {
-            item.setProduct(productServicesMap.get(
-                    Class.forName(PathConverter.convertToModelPath(itemDto.getProductType())))
-                    .getProductById((itemDto.getProductId())));
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Not found product of required type "
-                    + itemDto.getProductType());
-        }
+        item.setProduct(productService.getById(itemDto.getProductId()));
         item.setQuantity(itemDto.getQuantity());
         return item;
     }
@@ -41,9 +31,8 @@ public class ItemMapper {
         itemDto.setId(item.getId());
         itemDto.setProductDto(productMapper.toDto(item.getProduct()));
         itemDto.setQuantity(item.getQuantity());
-        itemDto.setProductType(item.getProduct().getClass().getSimpleName());
-        itemDto.setProductLink(
-                PathConverter.convertToApiPath(item.getProductType()) + item.getProductId());
+        itemDto.setProductLink(PathConverter.convertToApiPath(item.getProduct().getType())
+                + item.getProduct().getId());
         return itemDto;
     }
 }

@@ -36,7 +36,8 @@ public class WineStyleController {
     public ResponseEntity<WineStyleResponseDto> create(@Valid @RequestBody
                                                        WineStyleRequestDto wineStyleRequestDto) {
         return new ResponseEntity<>(wineStyleMapper.toDto(
-                wineStyleService.create(wineStyleMapper.toModel(wineStyleRequestDto))), HttpStatus.CREATED);
+                wineStyleService
+                        .create(wineStyleMapper.toModel(wineStyleRequestDto))), HttpStatus.CREATED);
     }
 
     @GetMapping

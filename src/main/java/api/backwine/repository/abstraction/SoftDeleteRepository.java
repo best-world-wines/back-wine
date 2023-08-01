@@ -1,4 +1,4 @@
-package api.backwine.repository;
+package api.backwine.repository.abstraction;
 
 import java.util.List;
 import java.util.Optional;

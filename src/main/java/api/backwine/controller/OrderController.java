@@ -15,6 +15,7 @@ import api.backwine.service.AddressService;
 import api.backwine.service.AuthenticationService;
 import api.backwine.service.OrderService;
 import api.backwine.service.UserService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,10 +54,9 @@ public class OrderController {
         this.userMapper = userMapper;
     }
 
-
     @PostMapping("/complete")
-    public ResponseEntity<OrderResponseDto> completeOrder(@RequestBody OrderRequestDto orderDto,
-                                                          Authentication auth) {
+    public ResponseEntity<OrderResponseDto> completeOrder(
+            @RequestBody @Valid OrderRequestDto orderDto, Authentication auth) {
         if (orderDto.getCartDto().getItems().isEmpty()) {
             throw new RuntimeException(
                     "Unable to create an order because the shopping cart is empty.");

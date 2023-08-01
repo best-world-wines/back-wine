@@ -1,12 +1,14 @@
 package api.backwine.service.impl;
 
+import api.backwine.model.abstraction.GenericModel;
 import api.backwine.service.GenericService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import org.springframework.data.repository.ListCrudRepository;
 
-public abstract class GenericServiceImpl<M, I> implements GenericService<M, I> {
+public abstract class GenericServiceImpl<M extends GenericModel<I>, I> implements GenericService<M,
+        I> {
     private final Class<M> clazz;
     private final ListCrudRepository<M, I> repository;
 
@@ -15,12 +17,11 @@ public abstract class GenericServiceImpl<M, I> implements GenericService<M, I> {
         this.repository = repository;
     }
 
-    protected abstract M putId(I id, M m);
-
     @Override
     public M create(M m) {
         return repository.save(m);
     }
+
     @Override
     @Transactional
     public M getById(I id) {
@@ -41,6 +42,7 @@ public abstract class GenericServiceImpl<M, I> implements GenericService<M, I> {
 
     @Override
     public M update(I id, M m) {
-        return repository.save(putId(id, m));
+        m.setId(id);
+        return repository.save(m);
     }
 }

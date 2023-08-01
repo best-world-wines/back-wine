@@ -14,6 +14,7 @@ public class ProductMapper implements MapperToDto<Product, ProductResponseDto> {
         productDto.setName(product.getName());
         productDto.setPrice(product.getPrice());
         productDto.setMainImage(product.getMainImage());
+        productDto.setType(product.getType());
         return productDto;
     }
 }

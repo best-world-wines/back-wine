@@ -2,9 +2,11 @@ package api.backwine.dto.response;
 
 import java.math.BigDecimal;
 import java.util.List;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class WineResponseDto {
     private Long id;
     private String name;
@@ -27,5 +29,6 @@ public class WineResponseDto {
     private List<MealResponseDto> meals;
     private List<GrapeResponseDto> grapes;
     private int quantityInStock;
+    private String type;
     private boolean isEmpty;
 }

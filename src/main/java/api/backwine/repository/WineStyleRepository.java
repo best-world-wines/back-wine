@@ -1,10 +1,7 @@
 package api.backwine.repository;
 
-import api.backwine.model.Grape;
-import api.backwine.model.WineStyle;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
+import api.backwine.model.wine.WineStyle;
+import api.backwine.repository.abstraction.SoftDeleteRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

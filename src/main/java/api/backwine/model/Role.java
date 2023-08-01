@@ -1,5 +1,6 @@
 package api.backwine.model;
 
+import api.backwine.model.abstraction.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Role {
+public class Role implements GenericModel<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

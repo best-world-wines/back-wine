@@ -7,12 +7,12 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AddressRequestDto {
-    Long id;
+    private Long id;
     @NotBlank(message = "The city is mandatory.")
-    String city;
+    private String city;
     @NotBlank(message = "The street is mandatory.")
-    String street;
+    private String street;
     @NotBlank(message = "The house is mandatory.")
-    String house;
-    String apartment;
+    private String house;
+    private String apartment;
 }

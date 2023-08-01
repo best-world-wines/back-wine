@@ -7,14 +7,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderMapper {
     private final ItemMapper itemMapper;
+    private final AddressMapper addressMapper;
 
-    public OrderMapper(ItemMapper itemMapper) {
+    public OrderMapper(ItemMapper itemMapper, AddressMapper addressMapper) {
         this.itemMapper = itemMapper;
+        this.addressMapper = addressMapper;
     }
 
     public OrderResponseDto toDto(Order order) {
         OrderResponseDto orderDto = new OrderResponseDto();
         orderDto.setId(order.getId());
+        orderDto.setAddressDto(addressMapper.toDto(order.getAddress()));
         orderDto.setUserId(order.getUser().getId());
         orderDto.setItemsDto(order.getItems()
                 .stream()

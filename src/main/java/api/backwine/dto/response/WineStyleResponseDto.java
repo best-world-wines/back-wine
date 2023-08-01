@@ -1,6 +1,5 @@
 package api.backwine.dto.response;
 
-import api.backwine.model.WineType;
 import java.util.List;
 import lombok.Data;
 

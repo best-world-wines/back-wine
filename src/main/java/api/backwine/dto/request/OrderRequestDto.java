@@ -1,7 +1,7 @@
 package api.backwine.dto.request;
 
 import api.backwine.dto.request.user.AnonymousUserRequestDto;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 public class OrderRequestDto {
     private AnonymousUserRequestDto userDto;
-    @NotBlank(message = "The address is mandatory.")
+    @NotNull(message = "The address is mandatory.")
     private AddressRequestDto addressDto;
-    @NotBlank(message = "The cart is mandatory.")
+    @NotNull(message = "The cart is mandatory.")
     private CartRequestDto cartDto;
 }

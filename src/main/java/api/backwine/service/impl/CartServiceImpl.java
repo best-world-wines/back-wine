@@ -6,15 +6,12 @@ import api.backwine.model.User;
 import api.backwine.repository.CartRepository;
 import api.backwine.service.CartService;
 import api.backwine.service.ItemService;
-import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,12 +23,6 @@ public class CartServiceImpl extends GenericServiceImpl<Cart, Long> implements C
         super(Cart.class, cartRepository);
         this.cartRepository = cartRepository;
         this.itemService = itemService;
-    }
-
-    @Override
-    protected Cart putId(Long id, Cart cart) {
-        cart.setId(id);
-        return cart;
     }
 
     @Override
@@ -47,6 +38,11 @@ public class CartServiceImpl extends GenericServiceImpl<Cart, Long> implements C
 
     @Override
     public BigDecimal getTotalPrice(Cart cart) {
+        List<Long> productIds = cart.getItems()
+                .stream()
+                .map(i -> i.getProduct().getId())
+                .toList();
+
         BigDecimal totalPrice = BigDecimal.ZERO;
         for (Item item : cart.getItems()) {
             totalPrice =
@@ -61,9 +57,6 @@ public class CartServiceImpl extends GenericServiceImpl<Cart, Long> implements C
     public Cart update(Cart savedCart, Cart updatedCart) {
         List<Item> removedItems = mergeCarts(savedCart, updatedCart);
         Cart cart = cartRepository.save(savedCart);
-        for (int i = 0; i < cart.getItems().size(); i++) {
-            cart.getItems().get(i).setProduct(savedCart.getItems().get(i).getProduct());
-        }
         if (!removedItems.isEmpty()) {
             itemService.deleteItems(removedItems);
         }

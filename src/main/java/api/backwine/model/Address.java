@@ -1,5 +1,6 @@
 package api.backwine.model;
 
+import api.backwine.model.abstraction.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import org.hibernate.annotations.DynamicInsert;
 @NoArgsConstructor
 @DynamicInsert
 @Table(name = "addresses")
-public class Address {
+public class Address implements GenericModel<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

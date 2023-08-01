@@ -1,5 +1,7 @@
 package api.backwine.model;
 
+import api.backwine.model.abstraction.SoftDeleteModel;
+import api.backwine.model.wine.Grape;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,14 +13,13 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "countries")
 @Setter
 @Getter
 @NoArgsConstructor
-public class Country {
+public class Country implements SoftDeleteModel<String> {
     @Id
     @Column(name = "code", nullable = false)
     private String id;
@@ -31,13 +32,5 @@ public class Country {
     )
     private List<Grape> mostUsedGrapes;
     @Column(name = "is_deleted")
-    private boolean isDeleted;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String code) {
-        this.id = code;
-    }
+    private boolean isDeleted = false;
 }

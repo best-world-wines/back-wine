@@ -3,7 +3,7 @@ package api.backwine.dto.mapper;
 import api.backwine.dto.request.RegionRequestDto;
 import api.backwine.dto.response.RegionResponseDto;
 import api.backwine.model.Country;
-import api.backwine.model.Region;
+import api.backwine.model.wine.Region;
 import org.springframework.stereotype.Component;
 
 @Component

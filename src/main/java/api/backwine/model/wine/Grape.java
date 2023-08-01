@@ -1,5 +1,6 @@
-package api.backwine.model;
+package api.backwine.model.wine;
 
+import api.backwine.model.abstraction.SoftDeleteModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "grapes")
@@ -18,12 +18,12 @@ import org.hibernate.annotations.Where;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Grape {
+public class Grape implements SoftDeleteModel<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String name;
     @Column(name = "is_deleted")
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 }

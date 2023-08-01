@@ -30,7 +30,6 @@ public class GrapeController {
         this.grapeMapper = grapeMapper;
     }
 
-
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
     public ResponseEntity<GrapeResponseDto> create(@Valid @RequestBody

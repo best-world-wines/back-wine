@@ -11,7 +11,5 @@ public class ItemRequestDto {
     @NotNull
     private Long productId;
     @NotNull
-    private String productType;
-    @NotNull
     private Integer quantity;
 }

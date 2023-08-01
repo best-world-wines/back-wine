@@ -3,7 +3,6 @@ package api.backwine.dto.mapper;
 import api.backwine.dto.request.CartRequestDto;
 import api.backwine.dto.response.CartResponseDto;
 import api.backwine.model.Cart;
-import api.backwine.model.Product;
 import org.springframework.stereotype.Component;
 
 @Component

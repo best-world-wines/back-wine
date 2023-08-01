@@ -1,6 +1,5 @@
 package api.backwine.dto.response;
 
-import api.backwine.dto.request.AddressRequestDto;
 import api.backwine.util.StringPatternUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
@@ -18,7 +17,7 @@ public class OrderResponseDto {
             timezone = "UTC")
     private LocalDateTime checkoutTime;
     private List<ItemResponseDto> itemsDto;
-    private AddressRequestDto addressDto;
+    private AddressResponseDto addressDto;
     private BigDecimal totalPrice;
     private boolean isCanceled;
 }

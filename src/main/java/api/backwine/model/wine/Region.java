@@ -1,5 +1,7 @@
-package api.backwine.model;
+package api.backwine.model.wine;
 
+import api.backwine.model.Country;
+import api.backwine.model.abstraction.SoftDeleteModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,14 +14,13 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "regions")
 @Setter
 @Getter
 @NoArgsConstructor
-public class Region {
+public class Region implements SoftDeleteModel<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,5 +34,5 @@ public class Region {
     private Country country;
     private String backgroundImage;
     @Column(name = "is_deleted")
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 }

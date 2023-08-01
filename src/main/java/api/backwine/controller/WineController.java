@@ -5,9 +5,9 @@ import api.backwine.dto.mapper.WineMapper;
 import api.backwine.dto.request.WineRequestDto;
 import api.backwine.dto.response.ProductPageResponse;
 import api.backwine.dto.response.WineResponseDto;
-import api.backwine.model.Wine;
+import api.backwine.model.wine.Wine;
+import api.backwine.repository.product.pageable.PageManager;
 import api.backwine.service.WineService;
-import api.backwine.repository.Pageable.PageManager;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -79,7 +79,9 @@ public class WineController {
 
     @GetMapping("/{id}")
     public ResponseEntity<WineResponseDto> get(@PathVariable Long id) {
-        return ResponseEntity.ok(wineMapper.toDto(wineService.getById(id)));
+        Wine byId = wineService.getById(id);
+        WineResponseDto dto = wineMapper.toDto(byId);
+        return ResponseEntity.ok(dto);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

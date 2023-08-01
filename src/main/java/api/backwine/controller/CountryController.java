@@ -35,7 +35,8 @@ public class CountryController {
     public ResponseEntity<CountryResponseDto> create(@Valid @RequestBody
                                                      CountryRequestDto countryRequestDto) {
         return new ResponseEntity<>(countryMapper.toDto(
-                countryService.create(countryMapper.toModel(countryRequestDto))), HttpStatus.CREATED);
+                countryService
+                        .create(countryMapper.toModel(countryRequestDto))), HttpStatus.CREATED);
     }
 
     @GetMapping

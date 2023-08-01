@@ -1,6 +1,6 @@
 package api.backwine.service;
 
-import api.backwine.model.Grape;
+import api.backwine.model.wine.Grape;
 import org.springframework.stereotype.Service;
 
 @Service

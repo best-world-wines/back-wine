@@ -2,12 +2,12 @@ package api.backwine.dto.mapper;
 
 import api.backwine.dto.request.WineRequestDto;
 import api.backwine.dto.response.WineResponseDto;
-import api.backwine.model.Grape;
 import api.backwine.model.Meal;
-import api.backwine.model.Region;
-import api.backwine.model.Wine;
-import api.backwine.model.WineStyle;
-import api.backwine.model.WineType;
+import api.backwine.model.wine.Grape;
+import api.backwine.model.wine.Region;
+import api.backwine.model.wine.Wine;
+import api.backwine.model.wine.WineStyle;
+import api.backwine.model.wine.WineType;
 import api.backwine.service.WineTypeService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -139,6 +139,7 @@ public class WineMapper implements MapperToDto<Wine, WineResponseDto>,
         }
         wineResponseDto.setQuantityInStock(wine.getQuantityInStock());
         wineResponseDto.setEmpty(wine.isEmpty());
+        wineResponseDto.setType(wine.getType());
         return wineResponseDto;
     }
 }

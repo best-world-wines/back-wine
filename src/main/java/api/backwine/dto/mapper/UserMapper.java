@@ -48,7 +48,7 @@ public class UserMapper {
                 .stream()
                 .map(n -> roleService.getRoleByName(Role.RoleName.valueOf(n)))
                 .collect(Collectors.toUnmodifiableSet()));
-        user.setIsDeleted(userDto.getIsDeleted());
+        user.setDeleted(userDto.isDeleted());
         return user;
     }
 
@@ -75,7 +75,7 @@ public class UserMapper {
                 .map(roleMapper::mapToDto)
                 .collect(Collectors.toSet()));
         userDto.setCart(cartMapper.toDto(user.getCart()));
-        userDto.setIsDeleted(user.getIsDeleted());
+        userDto.setIsDeleted(user.isDeleted());
         return userDto;
     }
 
@@ -91,7 +91,7 @@ public class UserMapper {
                 .stream()
                 .map(roleMapper::mapToDto)
                 .collect(Collectors.toSet()));
-        userDto.setIsDeleted(user.getIsDeleted());
+        userDto.setIsDeleted(user.isDeleted());
         return userDto;
     }
 }

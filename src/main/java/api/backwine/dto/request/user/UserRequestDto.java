@@ -42,5 +42,5 @@ public class UserRequestDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StringPatternUtil.DATE_TIME_PATTERN,
             timezone = "UTC")
     private LocalDateTime registrationDate;
-    private Boolean isDeleted;
+    private boolean isDeleted;
 }

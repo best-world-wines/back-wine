@@ -1,5 +1,6 @@
 package api.backwine.model;
 
+import api.backwine.model.abstraction.SoftDeleteModel;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +28,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode
-public class User {
+public class User implements SoftDeleteModel<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -49,7 +50,7 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
-    private Boolean isDeleted = false;
+    private boolean isDeleted = false;
 
     @Override
     public String toString() {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AddressMapper implements MapperToModel<Address, AddressRequestDto>,
-        MapperToDto<Address, AddressResponseDto>{
+        MapperToDto<Address, AddressResponseDto> {
     @Override
     public Address toModel(AddressRequestDto addressDto) {
         Address address = new Address();
@@ -15,7 +15,7 @@ public class AddressMapper implements MapperToModel<Address, AddressRequestDto>,
         address.setCity(addressDto.getCity());
         address.setStreet(addressDto.getStreet());
         address.setHouse(addressDto.getHouse());
-        address.setApartment(addressDto.getApartment());
+        address.setApartment(addressDto.getApartment() == null ? "" : addressDto.getApartment());
         return address;
     }
 
@@ -23,9 +23,9 @@ public class AddressMapper implements MapperToModel<Address, AddressRequestDto>,
     public AddressResponseDto toDto(Address address) {
         AddressResponseDto addressDto = new AddressResponseDto();
         addressDto.setId(address.getId());
-        addressDto.setCity(addressDto.getCity());
-        addressDto.setStreet(addressDto.getStreet());
-        addressDto.setHouse(addressDto.getHouse());
+        addressDto.setCity(address.getCity());
+        addressDto.setStreet(address.getStreet());
+        addressDto.setHouse(address.getHouse());
         addressDto.setApartment(addressDto.getApartment());
         return addressDto;
     }

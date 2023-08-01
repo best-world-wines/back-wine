@@ -2,8 +2,8 @@ package api.backwine.dto.mapper;
 
 import api.backwine.dto.request.WineStyleRequestDto;
 import api.backwine.dto.response.WineStyleResponseDto;
-import api.backwine.model.WineStyle;
-import api.backwine.model.WineType;
+import api.backwine.model.wine.WineStyle;
+import api.backwine.model.wine.WineType;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 

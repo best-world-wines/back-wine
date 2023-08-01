@@ -1,14 +1,8 @@
 package api.backwine.util;
 
 public class PathConverter {
-    public static String convertToModelPath(String type) {
-        return StringPatternUtil.MODEL_PATH + type;
-    }
-
     public static String convertToApiPath(String input) {
-        String entityName = input.substring(input.lastIndexOf('.') + 1);
-        String kebabCaseName = entityName.replaceAll("([a-z])([A-Z])", "$1-$2").toLowerCase();
-
+        String kebabCaseName = input.replaceAll("([a-z])([A-Z])", "$1-$2").toLowerCase();
         return StringPatternUtil.API_PATH + pluralize(kebabCaseName);
     }
 

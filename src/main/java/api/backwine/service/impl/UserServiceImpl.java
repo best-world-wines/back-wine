@@ -17,18 +17,6 @@ public class UserServiceImpl extends SoftDeleteGenericServiceImpl<User,
     }
 
     @Override
-    protected User putId(Long id, User user) {
-        user.setId(id);
-        return user;
-    }
-
-    @Override
-    protected User setDeleted(User user) {
-        user.setIsDeleted(true);
-        return user;
-    }
-
-    @Override
     public User getByEmail(String email) {
         return userRepository.findByEmailAndIsDeletedFalse(email).orElseThrow(() ->
                 new EntityNotFoundException("Can't get user by email " + email));

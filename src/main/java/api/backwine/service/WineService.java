@@ -1,6 +1,6 @@
 package api.backwine.service;
 
-import api.backwine.model.Wine;
+import api.backwine.model.wine.Wine;
 
-public interface WineService extends ProductService<Wine, Long> {
+public interface WineService extends ProductService<Wine> {
 }
