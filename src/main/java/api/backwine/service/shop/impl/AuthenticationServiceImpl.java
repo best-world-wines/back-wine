@@ -1,14 +1,14 @@
-package api.backwine.service.impl;
+package api.backwine.service.shop.impl;
 
 import api.backwine.exception.AuthenticationException;
-import api.backwine.model.Cart;
-import api.backwine.model.Role;
-import api.backwine.model.User;
-import api.backwine.service.AuthenticationService;
-import api.backwine.service.CartService;
-import api.backwine.service.RoleService;
-import api.backwine.service.UserService;
-import java.time.LocalDateTime;
+import api.backwine.model.shop.Cart;
+import api.backwine.model.shop.Role;
+import api.backwine.model.shop.User;
+import api.backwine.service.shop.AuthenticationService;
+import api.backwine.service.shop.CartService;
+import api.backwine.service.shop.RoleService;
+import api.backwine.service.shop.UserService;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public User register(User user) {
         user.setRoles(Collections.singleton(roleService.getRoleByName(Role.RoleName.USER)));
-        user.setRegistrationDate(LocalDateTime.now());
+        user.setCreatingDate(Instant.now());
         Cart cart = new Cart();
         cart.setUser(user);
         cartService.create(cart);
