@@ -1,10 +1,10 @@
-package api.backwine.service.impl;
+package api.backwine.service.shop.impl;
 
-import api.backwine.model.Cart;
-import api.backwine.model.Item;
-import api.backwine.model.User;
-import api.backwine.repository.CartRepository;
-import api.backwine.service.CartService;
+import api.backwine.model.shop.Cart;
+import api.backwine.model.shop.Item;
+import api.backwine.model.shop.User;
+import api.backwine.repository.shop.CartRepository;
+import api.backwine.service.shop.CartService;
 import jakarta.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;

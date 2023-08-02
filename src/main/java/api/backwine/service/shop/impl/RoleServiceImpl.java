@@ -1,8 +1,8 @@
-package api.backwine.service.impl;
+package api.backwine.service.shop.impl;
 
-import api.backwine.model.Role;
-import api.backwine.repository.RoleRepository;
-import api.backwine.service.RoleService;
+import api.backwine.model.shop.Role;
+import api.backwine.repository.shop.RoleRepository;
+import api.backwine.service.shop.RoleService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.stereotype.Service;

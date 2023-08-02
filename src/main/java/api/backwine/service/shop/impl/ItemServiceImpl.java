@@ -1,8 +1,8 @@
-package api.backwine.service.impl;
+package api.backwine.service.shop.impl;
 
-import api.backwine.model.Item;
-import api.backwine.repository.ItemRepository;
-import api.backwine.service.ItemService;
+import api.backwine.model.shop.Item;
+import api.backwine.repository.shop.ItemRepository;
+import api.backwine.service.shop.ItemService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,11 @@
-package api.backwine.service.impl;
+package api.backwine.service.shop.impl;
 
-import api.backwine.model.Cart;
-import api.backwine.model.Order;
-import api.backwine.model.User;
-import api.backwine.repository.OrderRepository;
-import api.backwine.service.CartService;
-import api.backwine.service.OrderService;
+import api.backwine.model.shop.Cart;
+import api.backwine.model.shop.Order;
+import api.backwine.model.shop.User;
+import api.backwine.repository.shop.OrderRepository;
+import api.backwine.service.shop.CartService;
+import api.backwine.service.shop.OrderService;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
