@@ -1,9 +1,10 @@
-package api.backwine.service.impl;
+package api.backwine.service.shop.impl;
 
-import api.backwine.model.User;
-import api.backwine.repository.UserRepository;
-import api.backwine.service.UserService;
+import api.backwine.model.shop.User;
+import api.backwine.repository.shop.UserRepository;
+import api.backwine.service.shop.UserService;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,19 +34,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getByEmail(String email) {
-        return userRepository.findByEmailAndIsDeletedFalse(email);
+        return userRepository.findByEmailAndDeletingDateIsNull(email);
     }
 
     @Override
     public List<User> getAll() {
-        return userRepository.findAllByIsDeletedFalse();
+        return userRepository.findAllByDeletingDateIsNull();
     }
 
     @Override
     public boolean deleteById(Long id) {
-        User user = userRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() ->
+        User user = userRepository.findByIdAndDeletingDateIsNull(id).orElseThrow(() ->
                 new EntityNotFoundException("Can't get user by id " + id));
-        user.setIsDeleted(true);
+        user.setDeletingDate(Instant.now());
         userRepository.save(user);
         return true;
     }
