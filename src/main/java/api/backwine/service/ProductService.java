@@ -4,7 +4,6 @@ import api.backwine.model.Product;
 import java.util.List;
 import java.util.Map;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface ProductService<T extends Product> extends GenericService<T, Long> {
     Map<Long, T> getAllByIdAndIsDeletedFalse(List<Long> ids);
@@ -15,5 +14,5 @@ public interface ProductService<T extends Product> extends GenericService<T, Lon
 
     Integer getActualQuantity(Long id);
 
-    Page<T> getAll(Pageable pageable);
+    Page<T> getAll(Map<String, String> params);
 }

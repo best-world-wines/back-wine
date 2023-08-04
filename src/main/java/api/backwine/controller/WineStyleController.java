@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/wine_styles")
+@RequestMapping(path = "/api/v1/wine-styles", produces = "application/json")
 public class WineStyleController {
     private final WineStyleService wineStyleService;
     private final WineStyleMapper wineStyleMapper;

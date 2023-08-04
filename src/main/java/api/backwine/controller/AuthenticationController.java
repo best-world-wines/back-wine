@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping(path = "/api/v1/auth", produces = "application/json")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final UserMapper userMapper;

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/carts")
+@RequestMapping(path = "/api/v1/carts", produces = "application/json")
 @Tag(name = "The Cart API", description = "Operations related to shopping carts")
 public class CartController {
     private final CartMapper cartMapper;
@@ -38,19 +38,17 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    // TODO: figure out required annotations and how to specify passing parameters in entry points
-    //  (for pages)
     @GetMapping
-    @Operation(summary = "Gets cart", tags = "cart")
+    @PreAuthorize("hasRole('USER')")
+    @Operation(summary = "Get cart", tags = "cart")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
                     description = "Found the cart",
                     content = {
-                            @Content(
-                                    mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation =
-                                            CartResponseDto.class)))
+                            @Content(array =
+                                    @ArraySchema(schema =
+                                    @Schema(implementation = CartResponseDto.class)))
                     })
     })
     public ResponseEntity<CartResponseDto> getCart(Authentication auth) {

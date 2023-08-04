@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/meals")
+@RequestMapping(path = "/api/v1/meals", produces = "application/json")
 public class MealController {
     private final MealService mealService;
     private final MealMapper mealMapper;

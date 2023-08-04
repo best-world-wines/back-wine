@@ -7,14 +7,12 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WineRepository extends GenericProductRepository<Wine>,
-        JpaSpecificationExecutor<Wine> {
+public interface WineRepository extends GenericProductRepository<Wine> {
     @Query("SELECT w.quantityInStock FROM Wine w WHERE w.id = :id")
     Integer getActualQuantity(Long id);
 

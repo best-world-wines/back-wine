@@ -13,6 +13,7 @@ import api.backwine.model.Order;
 import api.backwine.model.User;
 import api.backwine.service.AddressService;
 import api.backwine.service.AuthenticationService;
+import api.backwine.service.CartService;
 import api.backwine.service.OrderService;
 import api.backwine.service.UserService;
 import jakarta.validation.Valid;
@@ -29,24 +30,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/orders")
+@RequestMapping(path = "/api/v1/orders", produces = "application/json")
 public class OrderController {
     private final OrderService orderService;
     private final UserService userService;
     private final AddressService addressService;
     private final AuthenticationService authService;
+    private final CartService cartService;
     private final CartMapper cartMapper;
     private final OrderMapper orderMapper;
     private final AddressMapper addressMapper;
     private final UserMapper userMapper;
 
     public OrderController(UserService userService, OrderService orderService,
-                           AddressService addressService, CartMapper cartMapper,
-                           OrderMapper orderMapper, AuthenticationService authService,
-                           AddressMapper addressMapper, UserMapper userMapper) {
+                           AddressService addressService, CartService cartService,
+                           CartMapper cartMapper, OrderMapper orderMapper,
+                           AuthenticationService authService, AddressMapper addressMapper,
+                           UserMapper userMapper) {
         this.userService = userService;
         this.orderService = orderService;
         this.addressService = addressService;
+        this.cartService = cartService;
         this.cartMapper = cartMapper;
         this.orderMapper = orderMapper;
         this.authService = authService;
@@ -67,13 +71,14 @@ public class OrderController {
         if (auth != null) {
             String email = auth.getName();
             user = userService.getByEmail(email);
+            user.setCart(cartService.update(user.getCart(), cart));
             proceedAuthorizedOrder(user, address);
         } else {
             user = userMapper.toModel(orderDto.getUserDto());
             proceedAnonymousOrder(user, cart, address);
         }
-        return new ResponseEntity<>(orderMapper.toDto(orderService.completeOrder(cart, address)),
-                HttpStatus.CREATED);
+        return new ResponseEntity<>(orderMapper.toDto(
+                orderService.completeOrder(user.getCart(), address)), HttpStatus.CREATED);
     }
 
     @GetMapping

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/countries")
+@RequestMapping(path = "/api/v1/countries", produces = "application/json")
 public class CountryController {
     private final CountryService countryService;
     private final CountryMapper countryMapper;

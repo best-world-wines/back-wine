@@ -4,11 +4,12 @@ import api.backwine.model.Product;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface GenericProductRepository<T extends Product>
-        extends SoftDeleteRepository<T, Long> {
+        extends SoftDeleteRepository<T, Long>, JpaSpecificationExecutor<T> {
     List<T> findAllByIdAndIsDeletedFalse(List<Long> ids);
 
     Integer getActualQuantity(Long id);

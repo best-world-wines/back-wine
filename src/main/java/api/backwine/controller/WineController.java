@@ -6,11 +6,19 @@ import api.backwine.dto.request.WineRequestDto;
 import api.backwine.dto.response.ProductPageResponse;
 import api.backwine.dto.response.WineResponseDto;
 import api.backwine.model.wine.Wine;
-import api.backwine.repository.product.pageable.PageManager;
 import api.backwine.service.WineService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
-import org.springframework.data.domain.Pageable;
+import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,21 +33,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/wines")
+@RequestMapping(path = "/api/v1/wines", produces = "application/json")
+@Tag(name = "The Wine API", description = "Operations related to wines")
 public class WineController {
-    private static final String DEFAULT_PAGE_SIZE = "20";
-    private static final String DEFAULT_PAGE_NUMBER = "0";
-    private static final String DEFAULT_SORT_BY = "id";
     private final WineService wineService;
-    private final PageManager pageManager;
     private final WineMapper wineMapper;
     private final ProductPageMapper<Wine, WineResponseDto> winePageMapper;
 
-    public WineController(WineService wineService, WineMapper wineMapper, PageManager pageManager,
+    public WineController(WineService wineService, WineMapper wineMapper,
                           ProductPageMapper<Wine, WineResponseDto> winePageMapper) {
         this.wineService = wineService;
         this.wineMapper = wineMapper;
-        this.pageManager = pageManager;
         this.winePageMapper = winePageMapper;
     }
 
@@ -59,13 +63,52 @@ public class WineController {
                 .toList());
     }
 
+    @Operation(summary = "Get a page of wines",
+            description = "This operation gets a page of wines.",
+            parameters = {
+                    @Parameter(in = ParameterIn.QUERY, name = "page",
+                            description = "The page number, default is 0"),
+                    @Parameter(in = ParameterIn.QUERY, name = "size",
+                            description = "The size of the page, default value is 20"),
+                    @Parameter(in = ParameterIn.QUERY, name = "sort",
+                            description = "The sort criteria, "
+                                    + "default sort by id, may be specified by order DESC or ASC. "
+                                    + "Example: name:DESC,price:ASC,year"),
+                    @Parameter(in = ParameterIn.QUERY, name = "mealIn",
+                            description = "Filter by meals. Example: Meal name,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "regionIn",
+                            description = "Filter by regions. Example: Region name,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "styleIn",
+                            description = "Filter by wine styles. Example: Regional name,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "priceIn",
+                            description = "Filter by price range. Example: 10,100"),
+                    @Parameter(in = ParameterIn.QUERY, name = "typeIn",
+                            description = "Filter by wine type. Example: Type name,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "wineryIn",
+                            description = "Filter by winery name. Example: Winery name,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "grapeIn",
+                            description = "Filter by grape. Example: Grape name,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "countryIn",
+                            description = "Filter by country name. Example: Country name,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "volumeIn",
+                            description = "Filter by bottle volume. Example: 1.0,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "yearIn",
+                            description = "Filter by wine year. Example: 1992,...")
+            })
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Found the wines",
+                    content = {
+                            @Content(
+                                    array = @ArraySchema(schema = @Schema(implementation =
+                                            WineResponseDto.class)))
+                    })
+    })
     @GetMapping("/pages")
     public ResponseEntity<ProductPageResponse<WineResponseDto>> getWinePage(
-            @RequestParam(value = "size", defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize,
-            @RequestParam(value = "page", defaultValue = DEFAULT_PAGE_NUMBER) Integer pageNumber,
-            @RequestParam(value = "sort", defaultValue = DEFAULT_SORT_BY) String sortBy) {
-        Pageable pageable = pageManager.getPageable(pageSize, pageNumber, sortBy);
-        return ResponseEntity.ok(winePageMapper.toDto(wineService.getAll(pageable), wineMapper));
+            @Parameter(hidden = true) @RequestParam Map<String, String> params) {
+        return ResponseEntity.ok(winePageMapper.toDto(wineService.getAll(params), wineMapper));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
