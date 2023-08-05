@@ -1,12 +1,13 @@
-package api.backwine.service.product;
+package api.backwine.service.product.impl;
 
 import api.backwine.model.product.Wine;
 import api.backwine.repository.product.WineRepository;
 import api.backwine.repository.product.cpecification.SpecificationManager;
 import api.backwine.repository.product.pageable.PageManager;
-import jakarta.transaction.Transactional;
+import api.backwine.service.product.WineService;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class WineServiceImpl extends GenericProductServiceImpl<Wine> implements WineService {

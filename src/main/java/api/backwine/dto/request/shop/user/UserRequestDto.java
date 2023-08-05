@@ -1,15 +1,15 @@
 package api.backwine.dto.request.shop.user;
 
+import api.backwine.lib.StringPatternUtil;
 import api.backwine.lib.validation.Email;
 import api.backwine.lib.validation.Password;
 import api.backwine.lib.validation.Phone;
-import api.backwine.lib.StringPatternUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +41,5 @@ public class UserRequestDto {
     private Set<String> roles;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StringPatternUtil.DATE_TIME_PATTERN,
             timezone = "UTC")
-    private LocalDateTime registrationDate;
-    private boolean isDeleted;
+    private Instant creationDate;
 }

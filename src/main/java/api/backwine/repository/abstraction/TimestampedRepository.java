@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface SoftDeleteRepository<M, I> extends JpaRepository<M, I> {
-    List<M> findAllByIsDeletedFalse();
+public interface TimestampedRepository<ENTITY, ID> extends JpaRepository<ENTITY, ID> {
 
-    Optional<M> findByIdAndIsDeletedFalse(I id);
+    List<ENTITY> findAllByDeletingDateIsNull();
+
+    Optional<ENTITY> findByIdAndDeletingDateIsNull(ID id);
 }

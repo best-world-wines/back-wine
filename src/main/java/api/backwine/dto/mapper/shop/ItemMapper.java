@@ -1,16 +1,17 @@
 package api.backwine.dto.mapper.shop;
 
+import api.backwine.dto.mapper.GlobalMapper;
 import api.backwine.dto.mapper.product.ProductMapper;
 import api.backwine.dto.request.shop.ItemRequestDto;
 import api.backwine.dto.response.shop.ItemResponseDto;
-import api.backwine.model.shop.Item;
-import api.backwine.model.product.Product;
-import api.backwine.service.product.ProductService;
 import api.backwine.lib.PathConverter;
+import api.backwine.model.product.Product;
+import api.backwine.model.shop.Item;
+import api.backwine.service.product.ProductService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ItemMapper {
+public class ItemMapper implements GlobalMapper<Item, ItemRequestDto, ItemResponseDto> {
     private final ProductMapper productMapper;
     private final ProductService<Product> productService;
 
@@ -19,6 +20,7 @@ public class ItemMapper {
         this.productService = productService;
     }
 
+    @Override
     public Item toModel(ItemRequestDto itemDto) {
         Item item = new Item();
         item.setId(itemDto.getId());
@@ -27,6 +29,7 @@ public class ItemMapper {
         return item;
     }
 
+    @Override
     public ItemResponseDto toDto(Item item) {
         ItemResponseDto itemDto = new ItemResponseDto();
         itemDto.setId(item.getId());

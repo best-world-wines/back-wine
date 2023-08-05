@@ -1,10 +1,10 @@
-package api.backwine.service.product;
+package api.backwine.service.product.impl;
 
 import api.backwine.model.product.Product;
 import api.backwine.repository.abstraction.GenericProductRepository;
 import api.backwine.repository.product.cpecification.SpecificationManager;
 import api.backwine.repository.product.pageable.PageManager;
-import api.backwine.service.impl.SoftDeleteGenericServiceImpl;
+import api.backwine.service.GenericTimestampedServiceImpl;
 import api.backwine.service.product.ProductService;
 import java.util.List;
 import java.util.Map;
@@ -13,15 +13,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-public abstract class GenericProductServiceImpl<T extends Product>
-        extends SoftDeleteGenericServiceImpl<T, Long> implements ProductService<T> {
+public abstract class GenericProductServiceImpl<ENTITY extends Product>
+        extends GenericTimestampedServiceImpl<ENTITY, Long> implements ProductService<ENTITY> {
     private final PageManager pageManager;
-    private final GenericProductRepository<T> productRepository;
-    private final SpecificationManager<T> specificationManager;
+    private final GenericProductRepository<ENTITY> productRepository;
+    private final SpecificationManager<ENTITY> specificationManager;
 
-    protected GenericProductServiceImpl(Class<T> clazz, PageManager pageManager,
-                                        GenericProductRepository<T> productRepository,
-                                        SpecificationManager<T> specificationManager) {
+    protected GenericProductServiceImpl(Class<ENTITY> clazz, PageManager pageManager,
+                                        GenericProductRepository<ENTITY> productRepository,
+                                        SpecificationManager<ENTITY> specificationManager) {
         super(clazz, productRepository);
         this.pageManager = pageManager;
         this.productRepository = productRepository;
@@ -29,8 +29,8 @@ public abstract class GenericProductServiceImpl<T extends Product>
     }
 
     @Override
-    public Map<Long, T> getAllByIdAndIsDeletedFalse(List<Long> ids) {
-        return productRepository.findAllByIdAndIsDeletedFalse(ids).stream()
+    public Map<Long, ENTITY> getAllByIds(List<Long> ids) {
+        return productRepository.findAllByIdAndDeletingDateIsNull(ids).stream()
                 .collect(Collectors.toMap(Product::getId, product -> product));
     }
 
@@ -50,12 +50,12 @@ public abstract class GenericProductServiceImpl<T extends Product>
     }
 
     @Override
-    public Page<T> getAll(Map<String, String> params) {
+    public Page<ENTITY> getAll(Map<String, String> params) {
         Pageable pageable = pageManager.getPageable(params.remove("size"),
                 params.remove("page"), params.remove("sort"));
-        Specification<T> specification = null;
+        Specification<ENTITY> specification = null;
         for (Map.Entry<String, String> param : params.entrySet()) {
-            Specification<T> spec = specificationManager.get(param.getKey(),
+            Specification<ENTITY> spec = specificationManager.get(param.getKey(),
                     param.getValue().split(","));
             specification = specification == null ? Specification.where(spec) :
                     specification.and(spec);

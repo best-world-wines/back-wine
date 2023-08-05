@@ -1,10 +1,10 @@
 package api.backwine.dto.request.shop.user;
 
 import api.backwine.dto.request.shop.CartRequestDto;
+import api.backwine.lib.StringPatternUtil;
 import api.backwine.lib.validation.Email;
 import api.backwine.lib.validation.Password;
 import api.backwine.lib.validation.Phone;
-import api.backwine.lib.StringPatternUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

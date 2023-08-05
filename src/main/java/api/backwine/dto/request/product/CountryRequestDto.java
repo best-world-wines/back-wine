@@ -9,7 +9,8 @@ import lombok.Setter;
 @Getter
 public class CountryRequestDto {
     @NotNull
-    private String name;
+    private String id;
     @NotNull
+    private String name;
     private List<Long> mostUsedGrapesIds;
 }

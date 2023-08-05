@@ -3,7 +3,7 @@ package api.backwine.service.shop.impl;
 import api.backwine.model.shop.Address;
 import api.backwine.model.shop.User;
 import api.backwine.repository.shop.AddressRepository;
-import api.backwine.service.impl.GenericServiceImpl;
+import api.backwine.service.GenericServiceImpl;
 import api.backwine.service.shop.AddressService;
 import java.util.List;
 import org.springframework.stereotype.Service;

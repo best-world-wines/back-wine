@@ -1,8 +1,10 @@
 package api.backwine.model.product;
 
-import api.backwine.model.abstraction.SoftDeleteModel;
+import api.backwine.model.abstraction.GlobalTimestampedEntity;
+import api.backwine.model.listener.WineTypeListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,13 +18,12 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class WineType implements SoftDeleteModel<Long> {
+@EntityListeners(WineTypeListener.class)
+public class WineType extends GlobalTimestampedEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Column(name = "default_bottle_image")
     private String defaultBottleImage;
-    @Column(name = "is_deleted")
-    private boolean isDeleted = false;
 }

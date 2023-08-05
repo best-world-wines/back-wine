@@ -1,8 +1,12 @@
 package api.backwine.model.product;
 
-import api.backwine.model.abstraction.SoftDeleteModel;
+import api.backwine.model.abstraction.GlobalTimestampedEntity;
+import api.backwine.model.listener.CountryListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -18,18 +22,17 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Country implements SoftDeleteModel<String> {
+@EntityListeners(CountryListener.class)
+public class Country extends GlobalTimestampedEntity<CountryCode> {
     @Id
     @Column(name = "code", nullable = false)
-    private String id;
+    @Enumerated(EnumType.STRING)
+    private CountryCode id;
     private String name;
     @ManyToMany
     @JoinTable(
-            name = "country_grapes",
+            name = "countries_grapes",
             joinColumns = @JoinColumn(name = "country_code"),
-            inverseJoinColumns = @JoinColumn(name = "grape_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "grape_id"))
     private List<Grape> mostUsedGrapes;
-    @Column(name = "is_deleted")
-    private boolean isDeleted = false;
 }

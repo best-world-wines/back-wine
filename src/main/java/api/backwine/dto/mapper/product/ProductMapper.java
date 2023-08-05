@@ -1,12 +1,12 @@
 package api.backwine.dto.mapper.product;
 
-import api.backwine.dto.mapper.MapperToDto;
+import api.backwine.dto.mapper.GlobalToDtoMapper;
 import api.backwine.dto.response.product.ProductResponseDto;
 import api.backwine.model.product.Product;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductMapper implements MapperToDto<Product, ProductResponseDto> {
+public class ProductMapper implements GlobalToDtoMapper<Product, ProductResponseDto> {
 
     @Override
     public ProductResponseDto toDto(Product product) {

@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface GenericProductRepository<T extends Product>
-        extends SoftDeleteRepository<T, Long>, JpaSpecificationExecutor<T> {
-    List<T> findAllByIdAndIsDeletedFalse(List<Long> ids);
+public interface GenericProductRepository<ENTITY extends Product>
+        extends TimestampedRepository<ENTITY, Long>, JpaSpecificationExecutor<ENTITY> {
+    List<ENTITY> findAllByIdAndDeletingDateIsNull(List<Long> ids);
 
     Integer getActualQuantity(Long id);
 
@@ -18,5 +18,5 @@ public interface GenericProductRepository<T extends Product>
 
     int updateAvailability(List<Long> ids, Boolean isAvailable);
 
-    Page<T> findAllByIsDeletedFalse(Pageable pageable);
+    Page<ENTITY> findAllByDeletingDateIsNull(Pageable pageable);
 }

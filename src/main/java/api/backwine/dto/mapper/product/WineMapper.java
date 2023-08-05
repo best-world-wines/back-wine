@@ -1,11 +1,10 @@
 package api.backwine.dto.mapper.product;
 
-import api.backwine.dto.mapper.MapperToDto;
-import api.backwine.dto.mapper.MapperToModel;
+import api.backwine.dto.mapper.GlobalMapper;
 import api.backwine.dto.request.product.WineRequestDto;
 import api.backwine.dto.response.product.WineResponseDto;
-import api.backwine.model.product.Meal;
 import api.backwine.model.product.Grape;
+import api.backwine.model.product.Meal;
 import api.backwine.model.product.Region;
 import api.backwine.model.product.Wine;
 import api.backwine.model.product.WineStyle;
@@ -17,8 +16,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WineMapper implements MapperToDto<Wine, WineResponseDto>,
-        MapperToModel<Wine, WineRequestDto> {
+public class WineMapper implements GlobalMapper<Wine, WineRequestDto, WineResponseDto> {
     private final WineTypeService wineTypeService;
     private final WineStyleMapper wineStyleMapper;
     private final WineTypeMapper wineTypeMapper;

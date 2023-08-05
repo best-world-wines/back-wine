@@ -2,7 +2,7 @@ package api.backwine.service.shop.impl;
 
 import api.backwine.model.shop.Item;
 import api.backwine.repository.shop.ItemRepository;
-import api.backwine.service.impl.GenericServiceImpl;
+import api.backwine.service.GenericServiceImpl;
 import api.backwine.service.shop.ItemService;
 import java.util.List;
 import org.springframework.stereotype.Service;

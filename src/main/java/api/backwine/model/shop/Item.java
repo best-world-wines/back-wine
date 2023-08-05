@@ -1,7 +1,7 @@
 package api.backwine.model.shop;
 
-import api.backwine.model.product.Product;
 import api.backwine.model.abstraction.GenericModel;
+import api.backwine.model.product.Product;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,8 +1,10 @@
 package api.backwine.dto.response.product;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class RegionResponseDto {
     private Long id;
     private String name;

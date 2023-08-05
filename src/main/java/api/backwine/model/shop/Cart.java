@@ -1,6 +1,6 @@
 package api.backwine.model.shop;
 
-import api.backwine.model.abstraction.GenericModel;
+import api.backwine.model.abstraction.GlobalTimestampedEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,13 +25,13 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Cart implements GenericModel<Long> {
+public class Cart extends GlobalTimestampedEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @MapsId
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id", nullable = false)
     private User user;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "carts_items",

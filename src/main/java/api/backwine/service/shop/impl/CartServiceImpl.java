@@ -4,7 +4,8 @@ import api.backwine.model.shop.Cart;
 import api.backwine.model.shop.Item;
 import api.backwine.model.shop.User;
 import api.backwine.repository.shop.CartRepository;
-import api.backwine.service.impl.GenericServiceImpl;
+import api.backwine.service.GenericServiceImpl;
+import api.backwine.service.GenericTimestampedServiceImpl;
 import api.backwine.service.shop.CartService;
 import api.backwine.service.shop.ItemService;
 import java.math.BigDecimal;
@@ -14,9 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CartServiceImpl extends GenericServiceImpl<Cart, Long> implements CartService {
+public class CartServiceImpl extends GenericTimestampedServiceImpl<Cart, Long> implements CartService {
     private final CartRepository cartRepository;
     private final ItemService itemService;
 
@@ -32,6 +34,7 @@ public class CartServiceImpl extends GenericServiceImpl<Cart, Long> implements C
     }
 
     @Override
+    @Transactional
     public Cart create(Cart cart) {
         cart.setTotalPrice(getTotalPrice(cart));
         return super.create(cart);
@@ -39,11 +42,6 @@ public class CartServiceImpl extends GenericServiceImpl<Cart, Long> implements C
 
     @Override
     public BigDecimal getTotalPrice(Cart cart) {
-        List<Long> productIds = cart.getItems()
-                .stream()
-                .map(i -> i.getProduct().getId())
-                .toList();
-
         BigDecimal totalPrice = BigDecimal.ZERO;
         for (Item item : cart.getItems()) {
             totalPrice =

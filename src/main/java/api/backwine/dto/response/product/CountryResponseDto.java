@@ -1,11 +1,13 @@
 package api.backwine.dto.response.product;
 
 import java.util.List;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class CountryResponseDto {
-    private String code;
+    private String id;
     private String name;
     private List<GrapeResponseDto> mostUsedGrapes;
 }

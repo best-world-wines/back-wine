@@ -1,23 +1,23 @@
 package api.backwine.service.shop.impl;
 
 import api.backwine.exception.AuthenticationException;
+import api.backwine.model.product.Product;
 import api.backwine.model.shop.Cart;
 import api.backwine.model.shop.Item;
-import api.backwine.model.product.Product;
 import api.backwine.model.shop.RegisteredUser;
 import api.backwine.model.shop.Role;
 import api.backwine.model.shop.User;
+import api.backwine.service.product.ProductService;
 import api.backwine.service.shop.AuthenticationService;
 import api.backwine.service.shop.CartService;
-import api.backwine.service.product.ProductService;
 import api.backwine.service.shop.RegisteredUserService;
 import api.backwine.service.shop.RoleService;
 import jakarta.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Map;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -40,12 +40,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
+    @Transactional
     public User register(User user) {
         user.setRoles(Collections.singleton(roleService.getRoleByName(Role.RoleName.USER)));
-        user.setRegistrationDate(LocalDateTime.now());
         Cart cart = user.getCart();
         cart.setUser(user);
-        Map<Long, Product> productMap = productService.getAllByIdAndIsDeletedFalse(cart.getItems()
+        Map<Long, Product> productMap = productService.getAllByIds(cart.getItems()
                 .stream()
                 .map(i -> i.getProduct().getId())
                 .toList());

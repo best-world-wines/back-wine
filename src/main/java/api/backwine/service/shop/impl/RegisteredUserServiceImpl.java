@@ -3,16 +3,16 @@ package api.backwine.service.shop.impl;
 import api.backwine.model.shop.Item;
 import api.backwine.model.shop.RegisteredUser;
 import api.backwine.repository.shop.RegisteredUserRepository;
-import api.backwine.service.impl.SoftDeleteGenericServiceImpl;
+import api.backwine.service.GenericTimestampedServiceImpl;
 import api.backwine.service.shop.RegisteredUserService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.hibernate.Hibernate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class RegisteredUserServiceImpl extends SoftDeleteGenericServiceImpl<RegisteredUser,
+public class RegisteredUserServiceImpl extends GenericTimestampedServiceImpl<RegisteredUser,
         Long> implements RegisteredUserService {
     private final RegisteredUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -27,8 +27,8 @@ public class RegisteredUserServiceImpl extends SoftDeleteGenericServiceImpl<Regi
     @Override
     @Transactional
     public RegisteredUser getByEmail(String email) {
-        RegisteredUser user = userRepository.findByEmailAndIsDeletedFalse(email).orElseThrow(() ->
-                new EntityNotFoundException("Can't get user by email " + email));
+        RegisteredUser user = userRepository.findByEmailAndDeletingDateIsNull(email)
+                .orElseThrow(() -> new EntityNotFoundException("Can't get user by email " + email));
         user.getCart().getItems()
                 .stream()
                 .map(Item::getProduct)
@@ -37,13 +37,13 @@ public class RegisteredUserServiceImpl extends SoftDeleteGenericServiceImpl<Regi
     }
 
     @Override
-    public RegisteredUser update(Long id, RegisteredUser user) {
-        RegisteredUser currentUser = userRepository.findByIdAndIsDeletedFalse(id)
+    public RegisteredUser update(Long id, RegisteredUser entity) {
+        RegisteredUser currentUser = userRepository.findByIdAndDeletingDateIsNull(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't get user by id " + id));
-        if (user.getPassword() != null
-                && !passwordEncoder.matches(user.getPassword(), currentUser.getPassword())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (entity.getPassword() != null
+                && !passwordEncoder.matches(entity.getPassword(), currentUser.getPassword())) {
+            entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         }
-        return userRepository.save(user);
+        return userRepository.save(entity);
     }
 }

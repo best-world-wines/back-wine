@@ -1,15 +1,13 @@
 package api.backwine.dto.mapper.shop;
 
-import api.backwine.dto.mapper.MapperToDto;
-import api.backwine.dto.mapper.MapperToModel;
+import api.backwine.dto.mapper.GlobalMapper;
 import api.backwine.dto.request.shop.AddressRequestDto;
 import api.backwine.dto.response.shop.AddressResponseDto;
 import api.backwine.model.shop.Address;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AddressMapper implements MapperToModel<Address, AddressRequestDto>,
-        MapperToDto<Address, AddressResponseDto> {
+public class AddressMapper implements GlobalMapper<Address, AddressRequestDto, AddressResponseDto> {
     @Override
     public Address toModel(AddressRequestDto addressDto) {
         Address address = new Address();

@@ -3,6 +3,7 @@ package api.backwine.controller.product;
 import api.backwine.dto.mapper.product.CountryMapper;
 import api.backwine.dto.request.product.CountryRequestDto;
 import api.backwine.dto.response.product.CountryResponseDto;
+import api.backwine.model.product.CountryCode;
 import api.backwine.service.product.CountryService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -49,22 +50,24 @@ public class CountryController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{code}")
-    public ResponseEntity<CountryResponseDto> update(@PathVariable("code") String code,
+    public ResponseEntity<CountryResponseDto> update(@PathVariable("code") String id,
                                                      @Valid @RequestBody
                                                      CountryRequestDto countryRequestDto) {
         return ResponseEntity.ok(countryMapper.toDto(
-                countryService.update(code, countryMapper.toModel(countryRequestDto))));
+                countryService.update(CountryCode.valueOf(id),
+                        countryMapper.toModel(countryRequestDto))));
     }
 
-    @GetMapping("/{code}")
-    public ResponseEntity<CountryResponseDto> get(@PathVariable String code) {
-        return ResponseEntity.ok(countryMapper.toDto(countryService.getById(code)));
+    @GetMapping("/{id}")
+    public ResponseEntity<CountryResponseDto> get(@PathVariable String id) {
+        return ResponseEntity.ok(countryMapper
+                .toDto(countryService.getById(CountryCode.valueOf(id))));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/{code}")
-    public ResponseEntity<String> delete(@PathVariable("code") String code) {
-        countryService.deleteById(code);
-        return ResponseEntity.ok("Success, deleted entity by code " + code);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") String id) {
+        countryService.deleteById(CountryCode.valueOf(id));
+        return ResponseEntity.ok("Success, deleted entity by code " + id);
     }
 }

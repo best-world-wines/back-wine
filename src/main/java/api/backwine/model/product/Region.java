@@ -1,9 +1,10 @@
 package api.backwine.model.product;
 
-import api.backwine.model.product.Country;
-import api.backwine.model.abstraction.SoftDeleteModel;
+import api.backwine.model.abstraction.GlobalTimestampedEntity;
+import api.backwine.model.listener.RegionListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,19 +21,19 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class Region implements SoftDeleteModel<Long> {
+@EntityListeners(RegionListener.class)
+public class Region extends GlobalTimestampedEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "SERIAL")
     private Long id;
     private String name;
     @ManyToOne
     @JoinTable(
-            name = "country_regions",
+            name = "countries_regions",
             joinColumns = @JoinColumn(name = "region_id"),
             inverseJoinColumns = @JoinColumn(name = "country_id")
     )
     private Country country;
     private String backgroundImage;
-    @Column(name = "is_deleted")
-    private boolean isDeleted = false;
 }

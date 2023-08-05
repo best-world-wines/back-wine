@@ -1,6 +1,6 @@
 package api.backwine.model.product;
 
-import api.backwine.model.abstraction.SoftDeleteModel;
+import api.backwine.model.abstraction.GlobalTimestampedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "Products")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Product implements SoftDeleteModel<Long> {
+public class Product extends GlobalTimestampedEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,8 +37,6 @@ public class Product implements SoftDeleteModel<Long> {
     private int quantityInStock;
     @Column(name = "is_empty")
     private boolean isEmpty;
-    @Column(name = "is_deleted")
-    private boolean isDeleted;
 
     public String getType() {
         return this.getClass().getSimpleName();

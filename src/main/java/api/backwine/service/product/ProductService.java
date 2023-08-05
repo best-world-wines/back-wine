@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 
 public interface ProductService<T extends Product> extends GenericService<T, Long> {
-    Map<Long, T> getAllByIdAndIsDeletedFalse(List<Long> ids);
+    Map<Long, T> getAllByIds(List<Long> ids);
 
     boolean updateQuantity(Long id, Integer quantity);
 

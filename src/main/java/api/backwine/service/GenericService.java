@@ -2,14 +2,14 @@ package api.backwine.service;
 
 import java.util.List;
 
-public interface GenericService<M, I> {
-    M create(M m);
+public interface GenericService<ENTITY, ID> {
+    ENTITY create(ENTITY entity);
 
-    M getById(I id);
+    ENTITY getById(ID id);
 
-    List<M> getAll();
+    List<ENTITY> getAll();
 
-    boolean deleteById(I id);
+    boolean deleteById(ID id);
 
-    M update(I id, M m);
+    ENTITY update(ID id, ENTITY entity);
 }

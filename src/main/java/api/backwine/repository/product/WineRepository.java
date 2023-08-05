@@ -25,10 +25,10 @@ public interface WineRepository extends GenericProductRepository<Wine> {
     int updateAvailability(List<Long> ids, Boolean isAvailable);
 
     @EntityGraph(attributePaths = {"images"})
-    Optional<Wine> findByIdAndIsDeletedFalse(Long id);
+    Optional<Wine> findByIdAndDeletingDateIsNull(Long id);
 
-    Page<Wine> findAllByIsDeletedFalse(Pageable pageable);
+    Page<Wine> findAllByDeletingDateIsNull(Pageable pageable);
 
-    @Query("SELECT w FROM Wine w WHERE w.id IN :ids AND w.isDeleted = false")
-    List<Wine> findAllByIdAndIsDeletedFalse(List<Long> ids);
+    @Query("SELECT w FROM Wine w WHERE w.id IN :ids AND w.deletingDate = null")
+    List<Wine> findAllByIdAndDeletingDateIsNull(List<Long> ids);
 }

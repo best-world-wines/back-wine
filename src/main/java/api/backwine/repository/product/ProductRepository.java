@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends GenericProductRepository<Product> {
-    @Query("SELECT p FROM Product p WHERE p.id IN :ids AND p.isDeleted = false")
-    List<Product> findAllByIdAndIsDeletedFalse(List<Long> ids);
+    @Query("SELECT p FROM Product p WHERE p.id IN :ids AND p.deletingDate = null")
+    List<Product> findAllByIdAndDeletingDateIsNull(List<Long> ids);
 
     @Query("SELECT p.quantityInStock FROM Product p WHERE p.id = :id")
     Integer getActualQuantity(Long id);
@@ -28,7 +28,7 @@ public interface ProductRepository extends GenericProductRepository<Product> {
     int updateAvailability(List<Long> ids, Boolean isAvailable);
 
     @EntityGraph(attributePaths = {"images"})
-    Optional<Product> findByIdAndIsDeletedFalse(Long id);
+    Optional<Product> findByIdAndDeletingDateIsNull(Long id);
 
-    Page<Product> findAllByIsDeletedFalse(Pageable pageable);
+    Page<Product> findAllByDeletingDateIsNull(Pageable pageable);
 }

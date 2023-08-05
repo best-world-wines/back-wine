@@ -6,11 +6,11 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ProductPageResponse<T> {
+public class ProductPageResponse<ENTITY> {
     private int pageNumber;
     private int pageSize;
     private int totalPages;
     private long productsAmount;
     private boolean isLastPage;
-    private List<T> productsDto;
+    private List<ENTITY> productsDto;
 }

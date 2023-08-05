@@ -2,7 +2,7 @@ package api.backwine.service.shop.impl;
 
 import api.backwine.model.shop.Role;
 import api.backwine.repository.shop.RoleRepository;
-import api.backwine.service.impl.GenericServiceImpl;
+import api.backwine.service.GenericServiceImpl;
 import api.backwine.service.shop.RoleService;
 import org.springframework.stereotype.Service;
 
