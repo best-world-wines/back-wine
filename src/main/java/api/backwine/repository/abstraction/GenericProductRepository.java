@@ -1,6 +1,6 @@
 package api.backwine.repository.abstraction;
 
-import api.backwine.model.Product;
+import api.backwine.model.product.Product;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

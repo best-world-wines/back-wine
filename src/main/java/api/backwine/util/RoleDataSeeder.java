@@ -1,7 +1,7 @@
 package api.backwine.util;
 
-import api.backwine.model.Role;
-import api.backwine.repository.RoleRepository;
+import api.backwine.model.shop.Role;
+import api.backwine.repository.shop.RoleRepository;
 import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

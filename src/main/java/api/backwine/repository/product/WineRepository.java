@@ -1,6 +1,6 @@
 package api.backwine.repository.product;
 
-import api.backwine.model.wine.Wine;
+import api.backwine.model.product.Wine;
 import api.backwine.repository.abstraction.GenericProductRepository;
 import java.util.List;
 import java.util.Optional;

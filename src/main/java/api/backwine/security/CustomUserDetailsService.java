@@ -1,7 +1,7 @@
 package api.backwine.security;
 
-import api.backwine.model.RegisteredUser;
-import api.backwine.service.RegisteredUserService;
+import api.backwine.model.shop.RegisteredUser;
+import api.backwine.service.shop.RegisteredUserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;

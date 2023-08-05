@@ -1,6 +1,6 @@
 package api.backwine.repository.product.cpecification;
 
-import api.backwine.model.Product;
+import api.backwine.model.product.Product;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 

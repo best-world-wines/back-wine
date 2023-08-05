@@ -1,6 +1,6 @@
 package api.backwine.repository.product.cpecification;
 
-import api.backwine.model.Product;
+import api.backwine.model.product.Product;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;

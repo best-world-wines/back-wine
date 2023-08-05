@@ -1,6 +1,6 @@
 package api.backwine.repository.product.cpecification.wine;
 
-import api.backwine.model.wine.Wine;
+import api.backwine.model.product.Wine;
 import api.backwine.repository.product.cpecification.GenericProductSpecificationManager;
 import api.backwine.repository.product.cpecification.SpecificationProvider;
 import java.util.List;
