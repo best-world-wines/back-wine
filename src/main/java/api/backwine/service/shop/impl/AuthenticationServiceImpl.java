@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.Map;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -40,7 +39,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    @Transactional
     public User register(User user) {
         user.setRoles(Collections.singleton(roleService.getRoleByName(Role.RoleName.USER)));
         Cart cart = user.getCart();

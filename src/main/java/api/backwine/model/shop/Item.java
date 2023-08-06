@@ -28,4 +28,13 @@ public class Item implements GenericModel<Long> {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @Override
+    public String toString() {
+        return "Item{"
+                + "id=" + id + '\''
+                + ", quantity=" + quantity + '\''
+                + ", product=" + product + '\''
+                + '}';
+    }
 }

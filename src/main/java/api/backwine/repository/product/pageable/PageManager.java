@@ -33,7 +33,7 @@ public class PageManager {
                 order = new Sort.Order(Sort.Direction.valueOf(fieldAndDirection[DIRECTION]
                         .toUpperCase()), fieldAndDirection[FIELD]);
             } else {
-                order = new Sort.Order(Sort.Direction.DESC, field);
+                order = new Sort.Order(Sort.Direction.ASC, field);
             }
             orders.add(order);
         }

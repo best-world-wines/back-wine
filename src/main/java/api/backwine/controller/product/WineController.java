@@ -72,28 +72,30 @@ public class WineController {
                             description = "The size of the page, default value is 20"),
                     @Parameter(in = ParameterIn.QUERY, name = "sort",
                             description = "The sort criteria, "
-                                    + "default sort by id, may be specified by order DESC or ASC. "
-                                    + "Example: name:DESC,price:ASC,year"),
-                    @Parameter(in = ParameterIn.QUERY, name = "mealIn",
-                            description = "Filter by meals. Example: Meal name,..."),
-                    @Parameter(in = ParameterIn.QUERY, name = "regionIn",
-                            description = "Filter by regions. Example: Region name,..."),
-                    @Parameter(in = ParameterIn.QUERY, name = "styleIn",
-                            description = "Filter by wine styles. Example: Regional name,..."),
+                                    + "default sort by id and default order is ASC, "
+                                    + "may be specified by order DESC or ASC. "
+                                    + "Example: name:desc,price:asc,year"),
                     @Parameter(in = ParameterIn.QUERY, name = "priceIn",
                             description = "Filter by price range. Example: 10,100"),
+                    @Parameter(in = ParameterIn.QUERY, name = "mealIn",
+                            description = "Filter by meal ids. Example: Meal id1,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "regionIn",
+                            description = "Filter by region ids. Example: Region id1,id2,..."),
+                    @Parameter(in = ParameterIn.QUERY, name = "styleIn",
+                            description = "Filter by wine style ids. "
+                                    + "Example: Regional id1,id2,..."),
                     @Parameter(in = ParameterIn.QUERY, name = "typeIn",
-                            description = "Filter by wine type. Example: Type name,..."),
+                            description = "Filter by wine type ids. Example: Type id1,id2,..."),
                     @Parameter(in = ParameterIn.QUERY, name = "wineryIn",
-                            description = "Filter by winery name. Example: Winery name,..."),
+                            description = "Filter by winery ids. Example: Winery id1,id2,..."),
                     @Parameter(in = ParameterIn.QUERY, name = "grapeIn",
-                            description = "Filter by grape. Example: Grape name,..."),
+                            description = "Filter by grape ids. Example: Grape id1,id2,..."),
                     @Parameter(in = ParameterIn.QUERY, name = "countryIn",
-                            description = "Filter by country name. Example: Country name,..."),
+                            description = "Filter by country ids. Example: Country id1,id2,..."),
                     @Parameter(in = ParameterIn.QUERY, name = "volumeIn",
-                            description = "Filter by bottle volume. Example: 1.0,..."),
+                            description = "Filter by bottle volumes. Example: 1.0,..."),
                     @Parameter(in = ParameterIn.QUERY, name = "yearIn",
-                            description = "Filter by wine year. Example: 1992,...")
+                            description = "Filter by wine years. Example: 1992,...")
             })
     @ApiResponses(value = {
             @ApiResponse(

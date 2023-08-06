@@ -40,4 +40,14 @@ public class Cart extends GlobalTimestampedEntity<Long> {
     private List<Item> items;
     @Column(name = "total_price")
     private BigDecimal totalPrice;
+
+    @Override
+    public String toString() {
+        return "Cart{"
+                + "id=" + id + '\''
+                + ", user=" + user + '\''
+                + ", items=" + items + '\''
+                + ", totalPrice=" + totalPrice + '\''
+                + '}';
+    }
 }

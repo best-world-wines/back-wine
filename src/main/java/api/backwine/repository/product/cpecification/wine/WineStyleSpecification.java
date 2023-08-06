@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class WineStyleSpecification implements SpecificationProvider<Wine> {
     private static final String FILTER_KEY = "styleIn";
-    private static final String FIELD_NAME = "regionalName";
+    private static final String FIELD_NAME = "id";
 
     @Override
     public Specification<Wine> getSpecification(String[] styles) {

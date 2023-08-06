@@ -14,9 +14,9 @@ public class BottleVolumeSpecification implements SpecificationProvider<Wine> {
     @Override
     public Specification<Wine> getSpecification(String[] volumes) {
         return (root, query, cb) -> {
-            CriteriaBuilder.In<Double> predicate = cb.in(root.get(FIELD_NAME));
+            CriteriaBuilder.In<String> predicate = cb.in(root.get(FIELD_NAME));
             for (String volume : volumes) {
-                predicate.value(Double.valueOf(volume));
+                predicate.value(volume);
             }
             return cb.and(predicate);
         };

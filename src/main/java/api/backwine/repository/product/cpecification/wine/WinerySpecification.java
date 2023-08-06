@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class WinerySpecification implements SpecificationProvider<Wine> {
     private static final String FILTER_KEY = "wineryIn";
-    private static final String FIELD_NAME = "wineryName";
+    private static final String FIELD_NAME = "id";
 
     @Override
     public Specification<Wine> getSpecification(String[] wineries) {

@@ -34,8 +34,8 @@ public class WineStyleMapper
     public WineStyleResponseDto toDto(WineStyle wineStyle) {
         WineStyleResponseDto wineStyleResponseDto = new WineStyleResponseDto();
         wineStyleResponseDto.setId(wineStyle.getId());
-        wineStyleResponseDto.setRegionalName(wineStyle.getRegionalName());
-        wineStyleResponseDto.setVarietalName(wineStyle.getVarietalName());
+        wineStyleResponseDto.setName(wineStyle.getRegionalName() + " "
+                + wineStyle.getVarietalName());
         wineStyleResponseDto.setDescription(wineStyle.getDescription());
         if (Hibernate.isInitialized(wineStyle.getInterestingFacts())) {
             wineStyleResponseDto.setInterestingFacts(wineStyle.getInterestingFacts());

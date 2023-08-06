@@ -41,4 +41,18 @@ public class Product extends GlobalTimestampedEntity<Long> {
     public String getType() {
         return this.getClass().getSimpleName();
     }
+
+    @Override
+    public String toString() {
+        return "Product{"
+                + "id=" + id + '\''
+                + ", name='" + name + '\''
+                + ", description='" + description + '\''
+                + ", mainImage='" + mainImage + '\''
+                + ", images=" + images + '\''
+                + ", price=" + price + '\''
+                + ", quantityInStock=" + quantityInStock + '\''
+                + ", isEmpty=" + isEmpty + '\''
+                + '}';
+    }
 }

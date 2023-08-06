@@ -44,10 +44,10 @@ public class Inject {
 
     @PostConstruct
     public void init() {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 1; i < 21; i++) {
 
             WineType wineType = new WineType();
-            wineType.setName("wine_type_" + i);
+            wineType.setName("wine_type_name_" + i);
             wineType.setDefaultBottleImage("default_image_" + i);
             wineTypeService.create(wineType);
 
@@ -71,7 +71,7 @@ public class Inject {
             countryService.create(country);
 
             Region region = new Region();
-            region.setName("region_" + i);
+            region.setName("region_name_" + i);
             region.setBackgroundImage("back_image_" + i);
             region.setCountry(country);
             regionService.create(region);
@@ -82,20 +82,21 @@ public class Inject {
             mealService.create(meal);
 
             Wine wine = new Wine();
-            wine.setName("wine_" + i);
+            wine.setName("wine_name_" + i);
             wine.setDescription("description_" + i);
             wine.setMainImage("main_image_" + i);
             wine.setImages(List.of("wine_image_" + i));
             wine.setPrice(new BigDecimal(25 * i));
             wine.setQuantityInStock(i * 5);
-            wine.setEmpty(false);
+            wine.setEmpty(wine.getQuantityInStock() <= 0);
             wine.setWineType(wineType);
             wine.setWineStyle(wineStyle);
             wine.setBottleVolume(0.25 * i);
+            wine.setYear(1995 + i);
             wine.setAlcohol(0.1 * i);
             wine.setWineryName("winery_name_" + i);
             wine.setRegions(List.of(region));
-            wine.setAcidityValue(1 * i);
+            wine.setAcidityValue(i);
             wine.setFizzinessValue(2 * i);
             wine.setIntensityValue(3 * i);
             wine.setSweetnessValue(4 * i);

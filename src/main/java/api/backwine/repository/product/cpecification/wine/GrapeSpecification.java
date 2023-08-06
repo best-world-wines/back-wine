@@ -12,15 +12,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class GrapeSpecification implements SpecificationProvider<Wine> {
     private static final String FILTER_KEY = "grapeIn";
-    private static final String FIELD_NAME = "name";
+    private static final String FIELD_NAME = "id";
 
     @Override
-    public Specification<Wine> getSpecification(String[] grapes) {
+    public Specification<Wine> getSpecification(String[] grapeIds) {
         return (root, query, cb) -> {
             Join<Wine, Grape> wines = root.join("grapes", JoinType.LEFT);
             CriteriaBuilder.In<String> predicate = cb.in(wines.get(FIELD_NAME));
-            for (String grape : grapes) {
-                predicate.value(grape);
+            for (String id : grapeIds) {
+                predicate.value(id);
             }
             return cb.and(predicate);
         };

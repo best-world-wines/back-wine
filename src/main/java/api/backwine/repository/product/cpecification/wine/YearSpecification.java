@@ -14,9 +14,9 @@ public class YearSpecification implements SpecificationProvider<Wine> {
     @Override
     public Specification<Wine> getSpecification(String[] years) {
         return (root, query, cb) -> {
-            CriteriaBuilder.In<Integer> predicate = cb.in(root.get(FIELD_NAME));
+            CriteriaBuilder.In<String> predicate = cb.in(root.get(FIELD_NAME));
             for (String year : years) {
-                predicate.value(Integer.valueOf(year));
+                predicate.value(year);
             }
             return cb.and(predicate);
         };
