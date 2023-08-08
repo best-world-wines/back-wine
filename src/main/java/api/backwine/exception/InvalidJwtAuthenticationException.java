@@ -1,6 +1,8 @@
 package api.backwine.exception;
 
-public class InvalidJwtAuthenticationException extends Exception {
+import io.jsonwebtoken.JwtException;
+
+public class InvalidJwtAuthenticationException extends JwtException {
     public InvalidJwtAuthenticationException(String message, Throwable cause) {
         super(message, cause);
     }
