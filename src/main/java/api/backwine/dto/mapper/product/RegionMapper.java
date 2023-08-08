@@ -21,7 +21,7 @@ public class RegionMapper implements GlobalMapper<Region, RegionRequestDto, Regi
         Region region = new Region();
         region.setName(regionRequestDto.getName());
         Country country = new Country();
-        country.setId(CountryCode.valueOf(regionRequestDto.getCountryCode()));
+        country.setId(CountryCode.valueOf(regionRequestDto.getCountryCode().toUpperCase()));
         region.setCountry(country);
         region.setBackgroundImage(regionRequestDto.getBackgroundImage());
         return region;

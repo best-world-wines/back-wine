@@ -54,20 +54,20 @@ public class CountryController {
                                                      @Valid @RequestBody
                                                      CountryRequestDto countryRequestDto) {
         return ResponseEntity.ok(countryMapper.toDto(
-                countryService.update(CountryCode.valueOf(id),
+                countryService.update(CountryCode.valueOf(id.toUpperCase()),
                         countryMapper.toModel(countryRequestDto))));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CountryResponseDto> get(@PathVariable String id) {
         return ResponseEntity.ok(countryMapper
-                .toDto(countryService.getById(CountryCode.valueOf(id))));
+                .toDto(countryService.getById(CountryCode.valueOf(id.toUpperCase()))));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") String id) {
-        countryService.deleteById(CountryCode.valueOf(id));
+        countryService.deleteById(CountryCode.valueOf(id.toUpperCase()));
         return ResponseEntity.ok("Success, deleted entity by code " + id);
     }
 }

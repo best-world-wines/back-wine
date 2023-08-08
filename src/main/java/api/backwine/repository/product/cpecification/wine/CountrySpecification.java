@@ -23,7 +23,7 @@ public class CountrySpecification implements SpecificationProvider<Wine> {
             Join<Region, Country> countryJoin = regionSetJoin.join("country", JoinType.INNER);
             CriteriaBuilder.In<CountryCode> predicate = cb.in(countryJoin.get(FIELD_NAME));
             for (String id : countryIds) {
-                predicate.value(CountryCode.valueOf(id));
+                predicate.value(CountryCode.valueOf(id.toUpperCase()));
             }
             return cb.and(predicate);
         };

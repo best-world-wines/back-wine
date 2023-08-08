@@ -23,7 +23,7 @@ public class CountryMapper
     public Country toModel(CountryRequestDto countryRequestDto) {
         Country country = new Country();
         try {
-            country.setId(CountryCode.valueOf(countryRequestDto.getId()));
+            country.setId(CountryCode.valueOf(countryRequestDto.getId().toUpperCase()));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Can't find country code for: "
                     + countryRequestDto.getId(), e);
