@@ -40,7 +40,7 @@ public class WineMapper implements GlobalMapper<Wine, WineRequestDto, WineRespon
         Wine wine = new Wine();
         wine.setName(wineRequestDto.getName());
         WineStyle wineStyle = new WineStyle();
-        wineStyle.setId(wineRequestDto.getWineTypeId());
+        wineStyle.setId(wineRequestDto.getWineStyleId());
         wine.setWineStyle(wineStyle);
         WineType wineType = new WineType();
         wineType.setId(wineRequestDto.getWineTypeId());
