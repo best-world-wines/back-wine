@@ -1,4 +1,4 @@
-package api.backwine.repository.product.cpecification;
+package api.backwine.repository.product.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 

@@ -2,7 +2,7 @@ package api.backwine.service.product.impl;
 
 import api.backwine.model.product.Product;
 import api.backwine.repository.abstraction.GenericProductRepository;
-import api.backwine.repository.product.cpecification.SpecificationManager;
+import api.backwine.repository.product.specification.SpecificationManager;
 import api.backwine.repository.product.pageable.PageManager;
 import api.backwine.service.GenericTimestampedServiceImpl;
 import api.backwine.service.product.ProductService;

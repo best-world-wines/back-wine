@@ -1,7 +1,7 @@
-package api.backwine.repository.product.cpecification.wine;
+package api.backwine.repository.product.specification.wine;
 
 import api.backwine.model.product.Wine;
-import api.backwine.repository.product.cpecification.ProductPriceSpecification;
+import api.backwine.repository.product.specification.ProductPriceSpecification;
 import org.springframework.stereotype.Component;
 
 @Component

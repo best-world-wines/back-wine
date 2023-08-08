@@ -1,4 +1,4 @@
-package api.backwine.repository.product.cpecification;
+package api.backwine.repository.product.specification;
 
 import api.backwine.model.product.Product;
 import jakarta.persistence.criteria.Predicate;

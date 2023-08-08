@@ -1,8 +1,8 @@
-package api.backwine.repository.product.cpecification.wine;
+package api.backwine.repository.product.specification.wine;
 
+import api.backwine.model.product.Meal;
 import api.backwine.model.product.Wine;
-import api.backwine.model.product.WineStyle;
-import api.backwine.repository.product.cpecification.SpecificationProvider;
+import api.backwine.repository.product.specification.SpecificationProvider;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
@@ -10,17 +10,17 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WineStyleSpecification implements SpecificationProvider<Wine> {
-    private static final String FILTER_KEY = "styleIn";
+public class MealSpecification implements SpecificationProvider<Wine> {
+    private static final String FIELD_KEY = "mealIn";
     private static final String FIELD_NAME = "id";
 
     @Override
-    public Specification<Wine> getSpecification(String[] styles) {
+    public Specification<Wine> getSpecification(String[] mealIds) {
         return (root, query, cb) -> {
-            Join<Wine, WineStyle> join = root.join("wineStyle", JoinType.INNER);
+            Join<Wine, Meal> join = root.join("meals", JoinType.LEFT);
             CriteriaBuilder.In<String> predicate = cb.in(join.get(FIELD_NAME));
-            for (String style : styles) {
-                predicate.value(style);
+            for (String id : mealIds) {
+                predicate.value(id);
             }
             return cb.and(predicate);
         };
@@ -28,6 +28,6 @@ public class WineStyleSpecification implements SpecificationProvider<Wine> {
 
     @Override
     public String getFilterKey() {
-        return FILTER_KEY;
+        return FIELD_KEY;
     }
 }

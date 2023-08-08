@@ -1,7 +1,7 @@
-package api.backwine.repository.product.cpecification.wine;
+package api.backwine.repository.product.specification.wine;
 
 import api.backwine.model.product.Wine;
-import api.backwine.repository.product.cpecification.SpecificationProvider;
+import api.backwine.repository.product.specification.SpecificationProvider;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;

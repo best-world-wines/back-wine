@@ -1,8 +1,8 @@
-package api.backwine.repository.product.cpecification.wine;
+package api.backwine.repository.product.specification.wine;
 
 import api.backwine.model.product.Grape;
 import api.backwine.model.product.Wine;
-import api.backwine.repository.product.cpecification.SpecificationProvider;
+import api.backwine.repository.product.specification.SpecificationProvider;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
